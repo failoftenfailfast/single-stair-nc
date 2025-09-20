@@ -2,8 +2,7 @@
 
 import { motion } from 'framer-motion';
 import { useState } from 'react';
-import NCCountiesMap from '@/components/maps/NCCountiesMap';
-import USStatesMap from '@/components/maps/USStatesMap';
+import SimpleProgressMaps from '@/components/maps/SimpleProgressMaps';
 
 export default function ActPage() {
   const [selectedTab, setSelectedTab] = useState('progress');
@@ -145,15 +144,8 @@ export default function ActPage() {
               </h2>
               
               <div className="space-y-12">
-                {/* US States Map */}
-                <div>
-                  <USStatesMap />
-                </div>
-
-                {/* NC Counties Map */}
-                <div>
-                  <NCCountiesMap />
-                </div>
+                {/* Progress Maps */}
+                <SimpleProgressMaps />
 
                 {/* Recent Updates */}
                 <div className="border-2 border-black p-8 bg-white">
