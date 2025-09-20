@@ -2,9 +2,11 @@
 
 import { motion } from 'framer-motion';
 import { useState } from 'react';
+import NCCountiesMap from '@/components/maps/NCCountiesMap';
+import USStatesMap from '@/components/maps/USStatesMap';
 
 export default function ActPage() {
-  const [selectedTab, setSelectedTab] = useState('contact');
+  const [selectedTab, setSelectedTab] = useState('progress');
 
   const tabs = [
     { id: 'contact', label: 'CONTACT REPS' },
@@ -136,45 +138,73 @@ export default function ActPage() {
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              className="max-w-6xl mx-auto"
+              className="max-w-7xl mx-auto"
             >
               <h2 className="text-3xl md:text-4xl font-black mb-8 text-center">
                 POLICY PROGRESS TRACKER
               </h2>
               
-              <div className="grid md:grid-cols-2 gap-8">
-                <div className="border-2 border-black p-8">
-                  <h3 className="text-xl font-bold mb-4">NORTH CAROLINA</h3>
-                  <div className="space-y-4">
-                    <div className="flex justify-between items-center py-3 border-b border-gray-200">
-                      <span className="font-medium">HB 123 - Single Stair Housing Act</span>
-                      <span className="bg-black text-white px-3 py-1 text-sm font-bold">
-                        COMMITTEE
-                      </span>
-                    </div>
-                    <div className="flex justify-between items-center py-3 border-b border-gray-200">
-                      <span className="font-medium">SB 456 - Building Code Reform</span>
-                      <span className="bg-gray-400 text-white px-3 py-1 text-sm font-bold">
-                        INTRODUCED
-                      </span>
-                    </div>
-                  </div>
+              <div className="space-y-12">
+                {/* US States Map */}
+                <div>
+                  <USStatesMap />
                 </div>
 
-                <div className="border-2 border-black p-8">
-                  <h3 className="text-xl font-bold mb-4">RECENT UPDATES</h3>
-                  <div className="space-y-4">
-                    <div className="pb-4 border-b border-gray-200">
-                      <div className="text-sm font-bold mb-1">MARCH 15, 2024</div>
-                      <p className="text-sm">
-                        HB 123 passed committee vote 8-3, moves to full House floor.
-                      </p>
+                {/* NC Counties Map */}
+                <div>
+                  <NCCountiesMap />
+                </div>
+
+                {/* Recent Updates */}
+                <div className="border-2 border-black p-8 bg-white">
+                  <h3 className="text-xl font-black mb-6">RECENT UPDATES</h3>
+                  <div className="grid md:grid-cols-2 gap-6">
+                    <div className="space-y-4">
+                      <h4 className="font-bold text-lg">NORTH CAROLINA</h4>
+                      <div className="space-y-3">
+                        <div className="pb-3 border-b border-gray-200">
+                          <div className="text-sm font-bold mb-1 text-amber-600">MARCH 15, 2024</div>
+                          <p className="text-sm">
+                            <span className="font-medium">HB 123</span> - Single Stair Housing Act passed committee vote 8-3, moves to full House floor.
+                          </p>
+                        </div>
+                        <div className="pb-3 border-b border-gray-200">
+                          <div className="text-sm font-bold mb-1 text-amber-600">MARCH 10, 2024</div>
+                          <p className="text-sm">
+                            <span className="font-medium">Wake County</span> - Local Bill 2024-15 scheduled for county commission vote.
+                          </p>
+                        </div>
+                        <div className="pb-3 border-b border-gray-200">
+                          <div className="text-sm font-bold mb-1 text-purple-600">MARCH 5, 2024</div>
+                          <p className="text-sm">
+                            <span className="font-medium">Guilford County</span> - Greensboro planning department begins feasibility study.
+                          </p>
+                        </div>
+                      </div>
                     </div>
-                    <div className="pb-4 border-b border-gray-200">
-                      <div className="text-sm font-bold mb-1">MARCH 8, 2024</div>
-                      <p className="text-sm">
-                        Public hearing scheduled for SB 456 on March 22.
-                      </p>
+
+                    <div className="space-y-4">
+                      <h4 className="font-bold text-lg">NATIONAL</h4>
+                      <div className="space-y-3">
+                        <div className="pb-3 border-b border-gray-200">
+                          <div className="text-sm font-bold mb-1 text-blue-600">FEBRUARY 28, 2024</div>
+                          <p className="text-sm">
+                            <span className="font-medium">Washington State</span> - HB 1110 passed both chambers, awaiting governor signature.
+                          </p>
+                        </div>
+                        <div className="pb-3 border-b border-gray-200">
+                          <div className="text-sm font-bold mb-1 text-yellow-600">FEBRUARY 20, 2024</div>
+                          <p className="text-sm">
+                            <span className="font-medium">Texas</span> - HB 892 introduced for single-stair buildings in urban areas.
+                          </p>
+                        </div>
+                        <div className="pb-3 border-b border-gray-200">
+                          <div className="text-sm font-bold mb-1 text-green-600">JANUARY 15, 2024</div>
+                          <p className="text-sm">
+                            <span className="font-medium">California</span> - AB 2097 signed into law, implementation guidelines in development.
+                          </p>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
