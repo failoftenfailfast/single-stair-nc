@@ -8,16 +8,10 @@ export default function Hero() {
       <div className="container-custom text-center">
         <div className="max-w-5xl mx-auto">
           <div className="mb-8">
-            <h1 className="text-6xl md:text-8xl lg:text-9xl font-black text-black mb-4 leading-none">
-              SINGLE
-            </h1>
-            <h1 className="text-6xl md:text-8xl lg:text-9xl font-black text-black mb-4 leading-none">
-              STAIR
+            <h1 className="text-3xl md:text-5xl lg:text-6xl font-black text-black mb-6 leading-tight">
+              HOW CAN A STAIRCASE MAKE HOUSING MORE AFFORDABLE IN NORTH CAROLINA?
             </h1>
             <div className="w-full h-1 bg-black mb-4"></div>
-            <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-black">
-              NORTH CAROLINA
-            </h2>
           </div>
           
           <p className="text-lg md:text-xl text-black mb-12 max-w-3xl mx-auto leading-relaxed font-medium">
