@@ -2,7 +2,7 @@
 
 import { motion } from 'framer-motion';
 import { useState } from 'react';
-import SimpleProgressMaps from '@/components/maps/SimpleProgressMaps';
+import GeographicProgressMaps from '@/components/maps/GeographicProgressMaps';
 
 export default function ActPage() {
   const [selectedTab, setSelectedTab] = useState('progress');
@@ -145,7 +145,7 @@ export default function ActPage() {
               
               <div className="space-y-12">
                 {/* Progress Maps */}
-                <SimpleProgressMaps />
+                <GeographicProgressMaps />
 
                 {/* Recent Updates */}
                 <div className="border-2 border-black p-8 bg-white">
