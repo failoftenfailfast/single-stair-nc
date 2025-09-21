@@ -88,6 +88,24 @@
     @apply backdrop-blur-md bg-white/80 border border-white/20;
   }
   
+  .line-clamp-3 {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  
+  .line-clamp-4 {
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  
+  .shadow-brutal-hover {
+    box-shadow: 12px 12px 0px 0px #000000;
+  }
+  
   .shadow-soft {
     box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.1);
   }

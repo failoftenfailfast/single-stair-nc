@@ -180,3 +180,4 @@ export default function Scene3D({ currentSection, progress, scrollYProgress }: S
   );
 }
 
+

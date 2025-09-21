@@ -131,3 +131,4 @@ Once connected to GitHub:
 - ✅ No sensitive data in client-side code
 
 Your site will be live at: `https://your-project-name.vercel.app`
+

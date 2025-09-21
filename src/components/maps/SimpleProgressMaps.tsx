@@ -434,3 +434,4 @@ export default function SimpleProgressMaps({ className = '' }: SimpleProgressMap
     </div>
   );
 }
+

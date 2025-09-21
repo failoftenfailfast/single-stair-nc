@@ -340,3 +340,4 @@ export interface UseScrollytellingReturn {
   setRef: (index: number) => (el: HTMLDivElement | null) => void;
 }
 
+
