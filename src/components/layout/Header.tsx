@@ -18,19 +18,19 @@ export default function Header() {
   ];
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-white border-b-2 border-black">
+    <header className="fixed top-0 left-0 right-0 z-50 surface-primary border-b-2 border-border-primary">
       <div className="container-custom">
         <div className="flex items-center justify-between h-16 lg:h-20">
           {/* Logo */}
-          <Link href="/" className="flex items-center space-x-2 group">
-            <div className="w-8 h-8 lg:w-10 lg:h-10 bg-black flex items-center justify-center group-hover:bg-gray-800 transition-colors">
-              <span className="text-white font-bold text-sm lg:text-base">SS</span>
+          <Link href="/" className="flex items-center space-x-tight group">
+            <div className="w-8 h-8 lg:w-10 lg:h-10 bg-surface-inverse flex items-center justify-center group-hover:bg-brutal-gray-800 transition-colors">
+              <span className="text-content-inverse font-bold text-body-sm lg:text-body">SS</span>
             </div>
             <div className="hidden sm:block">
-              <div className="text-black font-bold text-sm lg:text-base leading-tight">
+              <div className="text-content-primary font-bold text-body-sm lg:text-body leading-tight">
                 SINGLE STAIR
               </div>
-              <div className="text-black font-bold text-xs lg:text-sm leading-tight">
+              <div className="text-content-primary font-bold text-caption lg:text-body-sm leading-tight">
                 NORTH CAROLINA
               </div>
             </div>
@@ -130,5 +130,6 @@ export default function Header() {
     </header>
   );
 }
+
 
 

@@ -30,8 +30,8 @@ export default function ScrollytellingContent({
           className="min-h-screen flex items-center justify-end pr-8 lg:pr-16"
           style={{
             background: index % 2 === 0 
-              ? 'linear-gradient(135deg, rgba(59, 130, 246, 0.05), rgba(147, 197, 253, 0.1))' 
-              : 'linear-gradient(135deg, rgba(16, 185, 129, 0.05), rgba(110, 231, 183, 0.1))'
+              ? 'linear-gradient(135deg, rgba(75, 156, 211, 0.08), rgba(62, 131, 178, 0.1))' // brand blues
+              : 'linear-gradient(135deg, rgba(120, 157, 129, 0.08), rgba(95, 139, 101, 0.1))' // sage greens
           }}
         >
           <motion.div
@@ -41,14 +41,14 @@ export default function ScrollytellingContent({
             viewport={{ once: true, margin: "-20%" }}
             className={`max-w-md lg:max-w-lg p-8 rounded-2xl shadow-soft ${
               currentSection === index 
-                ? 'glass border-primary-200' 
+                ? 'glass border-brand-200' 
                 : 'bg-white/70 backdrop-blur-sm'
             }`}
           >
             <motion.div
               animate={{
                 scale: currentSection === index ? 1.05 : 1,
-                borderColor: currentSection === index ? '#3B82F6' : 'transparent'
+                borderColor: currentSection === index ? '#4b9cd3' : 'transparent'
               }}
               transition={{ duration: 0.3 }}
               className="space-y-4"
@@ -56,13 +56,13 @@ export default function ScrollytellingContent({
               <div className="flex items-center space-x-3 mb-4">
                 <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold ${
                   currentSection === index 
-                    ? 'bg-primary-600 text-white' 
+                    ? 'bg-brand-600 text-white' 
                     : 'bg-neutral-200 text-neutral-600'
                 }`}>
                   {index + 1}
                 </div>
                 <div className={`h-0.5 flex-1 ${
-                  currentSection >= index ? 'bg-primary-600' : 'bg-neutral-200'
+                  currentSection >= index ? 'bg-brand-600' : 'bg-neutral-200'
                 }`} />
               </div>
               
@@ -70,7 +70,7 @@ export default function ScrollytellingContent({
                 {section.title}
               </h2>
               
-              <div className="prose prose-lg text-neutral-700">
+              <div className="prose prose-lg text-content-secondary">
                 {section.content && Array.isArray(section.content) ? (
                   <PortableText 
                     value={section.content}
@@ -115,10 +115,10 @@ export default function ScrollytellingContent({
             <motion.div
               key={index}
               className={`w-2 h-8 rounded-full ${
-                currentSection >= index ? 'bg-primary-600' : 'bg-neutral-300'
+                currentSection >= index ? 'bg-brand-600' : 'bg-neutral-300'
               }`}
               animate={{
-                backgroundColor: currentSection >= index ? '#2563EB' : '#D1D5DB',
+                backgroundColor: currentSection >= index ? '#4b9cd3' : '#D1D5DB',
                 scale: currentSection === index ? 1.2 : 1
               }}
               transition={{ duration: 0.3 }}

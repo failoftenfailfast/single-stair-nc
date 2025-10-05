@@ -67,16 +67,16 @@ export default function ArticlesPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-white flex items-center justify-center">
-        <div className="text-2xl font-black">LOADING ARTICLES...</div>
+      <div className="min-h-screen surface-primary flex items-center justify-center">
+        <div className="text-display-sm loading">LOADING ARTICLES...</div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen surface-primary">
       {/* Hero Section */}
-      <section className="section-padding bg-white">
+      <section className="section-padding surface-primary">
         <div className="container-custom">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -85,16 +85,16 @@ export default function ArticlesPage() {
           >
             <Link
               href="/learn"
-              className="inline-flex items-center space-x-2 text-sm font-bold hover:underline mb-8"
+              className="link-brutal inline-flex items-center space-x-tight mb-section"
             >
               <span>←</span>
               <span>BACK TO LEARN</span>
             </Link>
-            <h1 className="text-5xl md:text-7xl lg:text-8xl font-black text-black mb-8 leading-none">
+            <h1 className="text-display-xl mb-section">
               ARTICLES
             </h1>
-            <div className="w-32 h-1 bg-black mb-8"></div>
-            <p className="text-xl md:text-2xl text-black font-medium leading-relaxed mb-12">
+            <div className="w-32 h-1 bg-border-primary mb-section"></div>
+            <p className="text-body-lg text-content-secondary mb-section-lg text-balance">
               LATEST INSIGHTS FROM CITYBUILDER NC ON HOUSING, URBAN PLANNING,
               AND POLICY DEVELOPMENTS ACROSS THE TRIANGLE.
             </p>
@@ -104,34 +104,34 @@ export default function ArticlesPage() {
 
       {/* Featured Article */}
       {featuredPost && (
-        <section className="section-padding bg-black text-white">
+        <section className="section-padding surface-inverse">
           <div className="container-custom">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 }}
             >
-              <span className="text-sm font-bold tracking-wider text-gray-300 mb-4 block">
+              <span className="text-caption text-content-tertiary mb-element block">
                 FEATURED ARTICLE
               </span>
               <div className="max-w-4xl">
-                <h2 className="text-3xl md:text-4xl lg:text-5xl font-black mb-6 leading-tight">
+                <h2 className="text-display-md text-content-inverse mb-content">
                   {featuredPost.title}
                 </h2>
                 {featuredPost.description && (
-                  <p className="text-lg md:text-xl text-gray-300 leading-relaxed mb-8">
+                  <p className="text-body-lg text-brutal-gray-300 mb-section">
                     {featuredPost.description}
                   </p>
                 )}
-                <div className="flex items-center space-x-6 mb-8 text-sm">
-                  <span className="font-bold">{featuredPost.author}</span>
-                  <span className="text-gray-400">
+                <div className="flex items-center space-x-content mb-section text-body-sm">
+                  <span className="font-bold text-content-inverse">{featuredPost.author}</span>
+                  <span className="text-brutal-gray-400">
                     {formatDate(featuredPost.publishedAt)}
                   </span>
                   {featuredPost.tags && featuredPost.tags.length > 0 && (
-                    <div className="flex items-center space-x-2">
+                    <div className="flex items-center space-x-tight">
                       {featuredPost.tags.slice(0, 3).map((tag, index) => (
-                        <span key={index} className="bg-white text-black px-2 py-1 text-xs font-bold">
+                        <span key={index} className="bg-surface-primary text-content-primary px-tight py-1 text-caption">
                           {tag}
                         </span>
                       ))}
@@ -142,7 +142,7 @@ export default function ArticlesPage() {
                   href={featuredPost.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center space-x-2 font-bold hover:underline text-lg"
+                  className="link-inverse inline-flex items-center space-x-tight text-body-lg"
                 >
                   <span>READ ON SUBSTACK</span>
                   <span>→</span>
