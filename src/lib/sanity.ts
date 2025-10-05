@@ -1,12 +1,42 @@
 import { createClient } from '@sanity/client';
 import imageUrlBuilder from '@sanity/image-url';
 
+function getEnv(...names: string[]): string | undefined {
+  for (const name of names) {
+    const value = process.env[name];
+    if (value && value.length > 0) return value;
+  }
+  return undefined;
+}
+
+// Support multiple env var conventions (Vercel + Sanity integration)
+const projectId = getEnv(
+  'SANITY_PROJECT_ID',
+  'SANITY_API_PROJECT_ID',
+  'SANITY_STUDIO_PROJECT_ID',
+  'NEXT_PUBLIC_SANITY_PROJECT_ID'
+);
+
+const dataset = getEnv(
+  'SANITY_DATASET',
+  'SANITY_API_DATASET',
+  'SANITY_STUDIO_DATASET',
+  'NEXT_PUBLIC_SANITY_DATASET'
+);
+
+const apiVersion = process.env.SANITY_API_VERSION || '2024-03-01';
+const token = getEnv('SANITY_API_TOKEN', 'SANITY_API_READ_TOKEN', 'SANITY_API_WRITE_TOKEN');
+
+if (!projectId || !dataset) {
+  throw new Error('Missing Sanity configuration: projectId or dataset not set.');
+}
+
 export const client = createClient({
-  projectId: process.env.SANITY_PROJECT_ID!,
-  dataset: process.env.SANITY_DATASET!,
-  apiVersion: process.env.SANITY_API_VERSION || '2024-03-01',
+  projectId,
+  dataset,
+  apiVersion,
   useCdn: process.env.NODE_ENV === 'production',
-  token: process.env.SANITY_API_TOKEN,
+  token,
 });
 
 const builder = imageUrlBuilder(client);
