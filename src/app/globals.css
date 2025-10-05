@@ -81,15 +81,15 @@
   
   /* Card Components */
   .card-brutal {
-    @apply bg-surface-primary border-2 border-border-primary shadow-brutal hover:shadow-brutal-hover transition-all duration-200;
+    @apply bg-surface-primary border border-border-secondary rounded-lg shadow-soft hover:shadow-brutal transition-all duration-200;
   }
   
   .card-brutal-sm {
-    @apply bg-surface-primary border-2 border-border-primary shadow-brutal-sm hover:shadow-brutal transition-all duration-200;
+    @apply bg-surface-primary border border-border-secondary rounded-md shadow-soft hover:shadow-brutal-sm transition-all duration-200;
   }
   
   .card-inverse {
-    @apply bg-surface-inverse text-content-inverse border-2 border-border-primary shadow-brutal;
+    @apply bg-surface-inverse text-content-inverse border border-border-secondary rounded-lg shadow-soft;
   }
   
   /* Surface Components */
@@ -107,23 +107,23 @@
   
   /* Border & Shadow Components */
   .border-brutal {
-    @apply border-2 border-border-primary;
+    @apply border border-border-primary rounded-md;
   }
   
   .border-brutal-focus {
-    @apply border-2 border-border-focus;
+    @apply border border-border-focus rounded-md;
   }
   
   .shadow-brutal {
-    box-shadow: 8px 8px 0px 0px var(--tw-shadow-color, #000000);
+    box-shadow: 0 8px 24px -6px rgba(0, 0, 0, 0.15);
   }
   
   .shadow-brutal-sm {
-    box-shadow: 4px 4px 0px 0px var(--tw-shadow-color, #000000);
+    box-shadow: 0 4px 16px -4px rgba(0, 0, 0, 0.12);
   }
   
   .shadow-brutal-hover {
-    box-shadow: 12px 12px 0px 0px var(--tw-shadow-color, #000000);
+    box-shadow: 0 12px 28px -6px rgba(0, 0, 0, 0.22);
   }
   
   /* Interactive Components */
