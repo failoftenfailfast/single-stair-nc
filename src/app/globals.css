@@ -57,17 +57,17 @@
   
   /* Button Components */
   .btn-primary {
-    @apply inline-flex items-center justify-center bg-brand-500 text-white border-2 border-brand-700 hover:bg-brand-600 hover:border-brand-800 focus:outline-none disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200;
+    @apply inline-flex items-center justify-center bg-brand-500 text-white border-2 border-brand-700 hover:bg-brand-600 hover:border-brand-800 focus:outline-none disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 rounded-lg;
     @apply px-6 py-3 text-body font-bold shadow-brutal hover:shadow-brutal-hover;
   }
   
   .btn-secondary {
-    @apply inline-flex items-center justify-center bg-surface-secondary text-content-primary border-2 border-border-primary hover:bg-brand-500 hover:text-white hover:border-brand-700 focus:outline-none disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200;
+    @apply inline-flex items-center justify-center bg-surface-secondary text-content-primary border-2 border-border-primary hover:bg-brand-500 hover:text-white hover:border-brand-700 focus:outline-none disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 rounded-lg;
     @apply px-6 py-3 text-body font-bold shadow-brutal hover:shadow-brutal-hover;
   }
   
   .btn-ghost {
-    @apply inline-flex items-center justify-center bg-transparent text-brand-700 hover:bg-brand-50 hover:text-brand-800 focus:outline-none disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200;
+    @apply inline-flex items-center justify-center bg-transparent text-brand-700 hover:bg-brand-50 hover:text-brand-800 focus:outline-none disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 rounded-md;
     @apply px-6 py-3 text-body font-bold;
   }
   
