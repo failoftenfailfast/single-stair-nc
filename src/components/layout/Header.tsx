@@ -42,7 +42,7 @@ export default function Header() {
               <Link
                 key={item.href}
                 href={item.href}
-                className="text-black font-bold text-sm hover:bg-black hover:text-white px-4 py-2 transition-colors border-2 border-transparent hover:border-black"
+                className="text-content-primary font-semibold text-sm hover:bg-brand-500 hover:text-white px-4 py-2 transition-colors border-2 border-transparent hover:border-brand-700"
               >
                 {item.label}
               </Link>
@@ -59,7 +59,7 @@ export default function Header() {
           {/* Mobile Menu Button */}
           <button
             onClick={toggleMenu}
-            className="lg:hidden w-10 h-10 border-2 border-black bg-white hover:bg-black hover:text-white transition-colors flex items-center justify-center"
+            className="lg:hidden w-10 h-10 border-2 border-border-primary bg-surface-primary hover:bg-brand-500 hover:text-white transition-colors flex items-center justify-center"
             aria-label="Toggle menu"
           >
             <div className="flex flex-col space-y-1">
@@ -88,7 +88,7 @@ export default function Header() {
             animate={{ height: 'auto', opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
             transition={{ duration: 0.3 }}
-            className="lg:hidden bg-white border-t-2 border-black overflow-hidden"
+            className="lg:hidden surface-primary border-t-2 border-border-primary overflow-hidden"
           >
             <nav className="container-custom py-4">
               <div className="space-y-2">
@@ -102,7 +102,7 @@ export default function Header() {
                     <Link
                       href={item.href}
                       onClick={() => setIsMenuOpen(false)}
-                      className="block py-3 px-4 text-black font-bold text-lg border-2 border-transparent hover:border-black hover:bg-black hover:text-white transition-colors"
+                      className="block py-3 px-4 text-content-primary font-semibold text-lg border-2 border-transparent hover:border-brand-700 hover:bg-brand-500 hover:text-white transition-colors"
                     >
                       {item.label}
                     </Link>

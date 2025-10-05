@@ -14,9 +14,9 @@ export default function ActPage() {
   ];
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen surface-primary">
       {/* Hero Section */}
-      <section className="section-padding bg-black text-white">
+      <section className="section-padding surface-inverse text-content-inverse">
         <div className="container-custom">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -28,17 +28,17 @@ export default function ActPage() {
               <br />
               ACTION
             </h1>
-            <div className="w-32 h-1 bg-white mb-8"></div>
+            <div className="w-32 h-1 bg-brand-500 mb-8"></div>
             <p className="text-xl md:text-2xl font-medium leading-relaxed mb-12">
               YOUR VOICE MATTERS. MAKE A DIRECT IMPACT ON SINGLE-STAIR 
               HOUSING POLICY IN NORTH CAROLINA THROUGH TARGETED ADVOCACY.
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4">
-              <button className="bg-white text-black hover:bg-black hover:text-white border-2 border-white px-8 py-4 font-bold transition-colors shadow-brutal">
+              <button className="bg-surface-primary text-content-primary hover:bg-brand-500 hover:text-white border-2 border-surface-primary px-8 py-4 font-semibold transition-colors shadow-brutal">
                 FIND YOUR REPRESENTATIVE
               </button>
-              <button className="border-2 border-white text-white hover:bg-white hover:text-black px-8 py-4 font-bold transition-colors shadow-brutal">
+              <button className="border-2 border-surface-primary text-content-inverse hover:bg-surface-primary hover:text-content-primary px-8 py-4 font-semibold transition-colors shadow-brutal">
                 VIEW PROGRESS MAP
               </button>
             </div>
@@ -47,17 +47,17 @@ export default function ActPage() {
       </section>
 
       {/* Action Tabs */}
-      <section className="bg-white">
+      <section className="surface-primary">
         <div className="container-custom">
-          <div className="flex border-b-2 border-black">
+          <div className="flex border-b-2 border-border-primary">
             {tabs.map((tab) => (
               <button
                 key={tab.id}
                 onClick={() => setSelectedTab(tab.id)}
-                className={`flex-1 py-4 px-6 font-bold text-sm md:text-base transition-colors ${
+                className={`flex-1 py-4 px-6 font-semibold text-sm md:text-base transition-colors ${
                   selectedTab === tab.id
-                    ? 'bg-black text-white'
-                    : 'bg-white text-black hover:bg-gray-100'
+                    ? 'bg-brand-500 text-white'
+                    : 'bg-surface-primary text-content-primary hover:bg-brand-50'
                 }`}
               >
                 {tab.label}

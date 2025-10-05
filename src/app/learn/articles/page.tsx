@@ -154,7 +154,7 @@ export default function ArticlesPage() {
       )}
 
       {/* Articles Grid */}
-      <section className="section-padding bg-gray-50">
+      <section className="section-padding surface-secondary">
         <div className="container-custom">
           {posts.length === 0 ? (
             <motion.div
@@ -163,14 +163,14 @@ export default function ArticlesPage() {
               className="text-center py-16"
             >
               <h2 className="text-3xl font-black mb-4">NO ARTICLES YET</h2>
-              <p className="text-lg text-gray-600 mb-8">
+              <p className="text-lg text-content-secondary mb-8">
                 Articles from CITYBUILDER will appear here once the RSS feed is populated.
               </p>
               <Link
                 href="https://citybuildernc.org"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center space-x-2 bg-black text-white px-6 py-3 font-bold hover:bg-gray-800 transition-colors"
+                className="inline-flex items-center space-x-2 bg-brand-500 text-white px-6 py-3 font-semibold hover:bg-brand-600 transition-colors"
               >
                 <span>VISIT CITYBUILDER</span>
                 <span>→</span>
@@ -185,14 +185,14 @@ export default function ArticlesPage() {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: index * 0.1 }}
                   whileHover={{ y: -4 }}
-                  className="bg-white border-2 border-black shadow-brutal hover:shadow-brutal-hover transition-all"
+                  className="surface-primary border-brutal shadow-brutal hover:shadow-brutal-hover transition-all"
                 >
                   <div className="p-6">
                     <div className="flex items-center justify-between mb-4">
-                      <span className="text-xs font-bold text-gray-500 tracking-wider">
+                      <span className="text-xs font-semibold text-content-tertiary tracking-wider">
                         {formatDate(post.publishedAt)}
                       </span>
-                      <span className="text-xs font-bold bg-gray-100 px-2 py-1">
+                      <span className="text-xs font-semibold bg-surface-secondary px-2 py-1">
                         {post.author}
                       </span>
                     </div>
@@ -202,7 +202,7 @@ export default function ArticlesPage() {
                     </h3>
                     
                     {post.description && (
-                      <p className="text-sm text-gray-600 leading-relaxed mb-6 line-clamp-4">
+                      <p className="text-sm text-content-secondary leading-relaxed mb-6 line-clamp-4">
                         {post.description}
                       </p>
                     )}
@@ -212,7 +212,7 @@ export default function ArticlesPage() {
                         {post.tags.slice(0, 3).map((tag, tagIndex) => (
                           <span
                             key={tagIndex}
-                            className="text-xs font-bold bg-gray-100 px-2 py-1"
+                            className="text-xs font-medium bg-surface-secondary px-2 py-1"
                           >
                             {tag}
                           </span>
@@ -224,7 +224,7 @@ export default function ArticlesPage() {
                       href={post.url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center space-x-2 text-sm font-bold hover:underline"
+                      className="inline-flex items-center space-x-2 text-sm font-semibold hover:underline text-brand-700 hover:text-brand-800"
                     >
                       <span>READ MORE</span>
                       <span>→</span>

@@ -11,7 +11,7 @@ export default function Hero() {
             <h1 className="text-display-lg md:text-display-xl text-balance mb-content">
               HOW CAN A STAIRCASE MAKE HOUSING MORE AFFORDABLE IN NORTH CAROLINA?
             </h1>
-            <div className="w-full h-1 bg-border-primary mb-element"></div>
+            <div className="w-full h-1 bg-brand-500/40 mb-element"></div>
           </div>
           
           <p className="text-body-lg text-content-secondary mb-section-lg max-w-3xl mx-auto text-balance">
@@ -38,7 +38,7 @@ export default function Hero() {
               transition={{ duration: 2, repeat: Infinity }}
               className="w-6 h-12 border-brutal flex justify-center"
             >
-              <div className="w-1 h-4 bg-border-primary mt-2"></div>
+              <div className="w-1 h-4 bg-brand-500 mt-2"></div>
             </motion.div>
           </div>
         </div>
