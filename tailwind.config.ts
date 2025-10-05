@@ -151,21 +151,21 @@ const config: Config = {
       },
       fontSize: {
         // Design System Typography
-        'display-xl': ['4.5rem', { lineHeight: '1', fontWeight: '900' }],      // Hero headlines
-        'display-lg': ['3.75rem', { lineHeight: '1', fontWeight: '900' }],     // Page headlines
-        'display-md': ['3rem', { lineHeight: '1.1', fontWeight: '900' }],      // Section headlines
-        'display-sm': ['2.25rem', { lineHeight: '1.2', fontWeight: '900' }],   // Sub-headlines
+        'display-xl': ['4.5rem', { lineHeight: '1', fontWeight: '800' }],      // Hero headlines (softer)
+        'display-lg': ['3.75rem', { lineHeight: '1', fontWeight: '800' }],     // Page headlines (softer)
+        'display-md': ['3rem', { lineHeight: '1.1', fontWeight: '700' }],      // Section headlines (softer)
+        'display-sm': ['2.25rem', { lineHeight: '1.2', fontWeight: '700' }],   // Sub-headlines (softer)
         
-        'heading-xl': ['1.875rem', { lineHeight: '1.3', fontWeight: '900' }],  // Card titles
-        'heading-lg': ['1.5rem', { lineHeight: '1.4', fontWeight: '900' }],    // Content titles
-        'heading-md': ['1.25rem', { lineHeight: '1.5', fontWeight: '900' }],   // Sub-titles
-        'heading-sm': ['1.125rem', { lineHeight: '1.5', fontWeight: '700' }],  // Small headings
+        'heading-xl': ['1.875rem', { lineHeight: '1.3', fontWeight: '700' }],  // Card titles (softer)
+        'heading-lg': ['1.5rem', { lineHeight: '1.4', fontWeight: '600' }],    // Content titles (softer)
+        'heading-md': ['1.25rem', { lineHeight: '1.5', fontWeight: '600' }],   // Sub-titles (softer)
+        'heading-sm': ['1.125rem', { lineHeight: '1.5', fontWeight: '600' }],  // Small headings (softer)
         
         'body-lg': ['1.125rem', { lineHeight: '1.7', fontWeight: '400' }],     // Large body text
         'body': ['1rem', { lineHeight: '1.6', fontWeight: '400' }],            // Default body text
         'body-sm': ['0.875rem', { lineHeight: '1.5', fontWeight: '400' }],     // Small body text
         
-        'label': ['0.875rem', { lineHeight: '1.25', fontWeight: '700' }],      // Form labels
+        'label': ['0.875rem', { lineHeight: '1.25', fontWeight: '600' }],      // Form labels (softer)
         'caption': ['0.75rem', { lineHeight: '1.25', fontWeight: '500' }],     // Captions, meta text
         
         // Legacy sizes for backward compatibility

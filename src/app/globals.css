@@ -58,17 +58,17 @@
   /* Button Components */
   .btn-primary {
     @apply inline-flex items-center justify-center bg-brand-500 text-white border-2 border-brand-700 hover:bg-brand-600 hover:border-brand-800 focus:outline-none disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200;
-    @apply px-6 py-3 text-body font-bold shadow-brutal hover:shadow-brutal-hover;
+    @apply px-6 py-3 text-body font-semibold shadow-brutal hover:shadow-brutal-hover;
   }
   
   .btn-secondary {
     @apply inline-flex items-center justify-center bg-surface-secondary text-content-primary border-2 border-border-primary hover:bg-brand-500 hover:text-white hover:border-brand-700 focus:outline-none disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200;
-    @apply px-6 py-3 text-body font-bold shadow-brutal hover:shadow-brutal-hover;
+    @apply px-6 py-3 text-body font-semibold shadow-brutal hover:shadow-brutal-hover;
   }
   
   .btn-ghost {
     @apply inline-flex items-center justify-center bg-transparent text-brand-700 hover:bg-brand-50 hover:text-brand-800 focus:outline-none disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200;
-    @apply px-6 py-3 text-body font-bold;
+    @apply px-6 py-3 text-body font-semibold;
   }
   
   .btn-large {
@@ -128,11 +128,11 @@
   
   /* Interactive Components */
   .link-brutal {
-    @apply text-brand-700 font-bold hover:underline hover:text-brand-800 transition-colors duration-200;
+    @apply text-brand-700 font-semibold hover:underline hover:text-brand-800 transition-colors duration-200;
   }
   
   .link-inverse {
-    @apply text-brand-200 font-bold hover:underline hover:text-brand-100 transition-colors duration-200;
+    @apply text-brand-200 font-semibold hover:underline hover:text-brand-100 transition-colors duration-200;
   }
   
   .focus-brutal {
