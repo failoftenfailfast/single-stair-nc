@@ -43,40 +43,12 @@
   }
   
   /* Typography Components */
-  .text-display-xl {
-    @apply text-display-xl text-content-primary font-black leading-none tracking-tight;
-  }
-  
-  .text-display-lg {
-    @apply text-display-lg text-content-primary font-black leading-none tracking-tight;
-  }
-  
-  .text-display-md {
-    @apply text-display-md text-content-primary font-black leading-tight tracking-tight;
-  }
-  
-  .text-heading-xl {
-    @apply text-heading-xl text-content-primary font-black tracking-wide;
-  }
-  
-  .text-heading-lg {
-    @apply text-heading-lg text-content-primary font-black tracking-wide;
-  }
-  
-  .text-body-lg {
-    @apply text-body-lg text-content-primary leading-relaxed;
-  }
-  
-  .text-body {
-    @apply text-body text-content-primary;
-  }
-  
   .text-body-secondary {
     @apply text-body text-content-secondary;
   }
   
   .text-caption {
-    @apply text-caption text-content-tertiary uppercase tracking-wider;
+    @apply text-content-tertiary uppercase tracking-wider;
   }
   
   .text-balance {
