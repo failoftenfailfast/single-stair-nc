@@ -54,9 +54,9 @@ export default function AboutPage() {
   ];
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen surface-primary">
       {/* Hero Section */}
-      <section className="section-padding bg-white">
+      <section className="section-padding surface-primary">
         <div className="container-custom">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -66,7 +66,7 @@ export default function AboutPage() {
             <h1 className="text-5xl md:text-7xl lg:text-8xl font-black text-black mb-8 leading-none">
               ABOUT
             </h1>
-            <div className="w-32 h-1 bg-black mb-8"></div>
+            <div className="w-32 h-1 bg-gradient-to-r from-brand-500 via-earth-sand-300 to-earth-sage-500/80 mb-8"></div>
             <p className="text-xl md:text-2xl text-black font-medium leading-relaxed mb-12">
               WE ARE A COALITION OF ARCHITECTS, PLANNERS, POLICYMAKERS, AND 
               ADVOCATES WORKING TO TRANSFORM NORTH CAROLINA'S HOUSING LANDSCAPE.
@@ -76,7 +76,7 @@ export default function AboutPage() {
       </section>
 
       {/* Mission Section */}
-      <section className="section-padding bg-gray-50">
+      <section className="section-padding surface-secondary">
         <div className="container-custom">
           <div className="grid lg:grid-cols-2 gap-16 items-center">
             <motion.div
@@ -100,19 +100,19 @@ export default function AboutPage() {
               
               <div className="space-y-4">
                 <div className="flex items-center space-x-4">
-                  <div className="w-8 h-8 bg-black flex items-center justify-center">
+                  <div className="w-8 h-8 bg-brand-500 flex items-center justify-center">
                     <span className="text-white font-bold text-sm">■</span>
                   </div>
                   <span className="font-medium">Advocate for policy reform</span>
                 </div>
                 <div className="flex items-center space-x-4">
-                  <div className="w-8 h-8 bg-black flex items-center justify-center">
+                  <div className="w-8 h-8 bg-earth-sage-600 flex items-center justify-center">
                     <span className="text-white font-bold text-sm">■</span>
                   </div>
                   <span className="font-medium">Educate communities and stakeholders</span>
                 </div>
                 <div className="flex items-center space-x-4">
-                  <div className="w-8 h-8 bg-black flex items-center justify-center">
+                  <div className="w-8 h-8 bg-earth-soil-600 flex items-center justify-center">
                     <span className="text-white font-bold text-sm">■</span>
                   </div>
                   <span className="font-medium">Support innovative housing projects</span>
@@ -124,7 +124,7 @@ export default function AboutPage() {
               initial={{ opacity: 0, x: 20 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              className="border-2 border-black p-8 shadow-brutal"
+              className="border-2 border-border-primary p-8 shadow-brutal bg-white"
             >
               <h3 className="text-2xl font-black mb-6">
                 WHY SINGLE STAIR?
@@ -158,7 +158,7 @@ export default function AboutPage() {
       </section>
 
       {/* Team Section */}
-      <section className="section-padding bg-white">
+      <section className="section-padding surface-primary">
         <div className="container-custom">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -169,7 +169,7 @@ export default function AboutPage() {
             <h2 className="text-3xl md:text-4xl font-black mb-4">
               OUR TEAM
             </h2>
-            <div className="w-24 h-1 bg-black mx-auto"></div>
+            <div className="w-24 h-1 bg-gradient-to-r from-brand-500 via-earth-sand-300 to-earth-sage-500/80 mx-auto"></div>
           </motion.div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
@@ -182,7 +182,7 @@ export default function AboutPage() {
                 transition={{ delay: index * 0.1 }}
                 className="text-center"
               >
-                <div className="w-32 h-32 bg-black mx-auto mb-6 flex items-center justify-center">
+                <div className="w-32 h-32 bg-brand-500 mx-auto mb-6 flex items-center justify-center">
                   <span className="text-white font-black text-2xl">
                     {member.name.split(' ').map(n => n[0]).join('')}
                   </span>
@@ -200,7 +200,7 @@ export default function AboutPage() {
                   {member.expertise.map((skill) => (
                     <span
                       key={skill}
-                      className="text-xs bg-gray-100 text-black px-2 py-1 font-bold border border-gray-300"
+                      className="text-xs bg-earth-sand-100 text-black px-2 py-1 font-bold border border-border-secondary"
                     >
                       {skill}
                     </span>
@@ -213,7 +213,7 @@ export default function AboutPage() {
       </section>
 
       {/* Timeline Section */}
-      <section className="section-padding bg-black text-white">
+      <section className="section-padding surface-inverse text-content-inverse">
         <div className="container-custom">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -224,7 +224,7 @@ export default function AboutPage() {
             <h2 className="text-3xl md:text-4xl font-black mb-4">
               OUR JOURNEY
             </h2>
-            <div className="w-24 h-1 bg-white mx-auto"></div>
+            <div className="w-24 h-1 bg-gradient-to-r from-brand-500 via-earth-sand-300 to-earth-sage-500/80 mx-auto"></div>
           </motion.div>
 
           <div className="max-w-4xl mx-auto">
@@ -246,7 +246,7 @@ export default function AboutPage() {
                     <h3 className="text-xl font-bold mb-4">
                       {milestone.title}
                     </h3>
-                    <p className="text-gray-300 leading-relaxed">
+                    <p className="text-content-secondary leading-relaxed">
                       {milestone.description}
                     </p>
                   </div>
@@ -260,7 +260,7 @@ export default function AboutPage() {
       </section>
 
       {/* Contact CTA */}
-      <section className="section-padding bg-white">
+      <section className="section-padding surface-primary">
         <div className="container-custom text-center">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -277,10 +277,10 @@ export default function AboutPage() {
               communities for all North Carolinians.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <button className="bg-black text-white hover:bg-gray-800 px-8 py-4 font-bold transition-colors shadow-brutal">
+              <button className="btn-primary px-8 py-4 font-bold">
                 GET INVOLVED
               </button>
-              <button className="border-2 border-black text-black hover:bg-black hover:text-white px-8 py-4 font-bold transition-colors shadow-brutal">
+              <button className="btn-secondary px-8 py-4 font-bold">
                 CONTACT US
               </button>
             </div>
@@ -290,6 +290,9 @@ export default function AboutPage() {
     </div>
   );
 }
+
+
+
 
 
 

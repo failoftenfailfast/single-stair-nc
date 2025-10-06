@@ -6,12 +6,97 @@
 @tailwind utilities;
 
 @layer base {
+  :root {
+    /* Core neutrals */
+    --color-black: #000000;
+    --color-white: #ffffff;
+    --color-gray-600: #666666;
+    --color-gray-100: #f3f4f6;
+    --color-gray-300: #d1d5db;
+
+    /* Brand */
+    --color-brand-500: #4b9cd3;
+    --color-brand-600: #3f8fc8;
+    --color-brand-700: #337db4;
+    --color-brand-800: #2a6694;
+
+    /* Surfaces */
+    --color-surface-primary: #ffffff;
+    --color-surface-secondary: #f4f1ea;
+    --color-surface-inverse: #0f172a;
+
+    /* Content */
+    --color-content-primary: #0f172a;
+    --color-content-secondary: #334155;
+    --color-content-tertiary: #64748b;
+    --color-content-inverse: #ffffff;
+
+    /* Borders */
+    --color-border: #000000;
+    --color-border-primary: #334155;
+    --color-border-secondary: #e7dfcf;
+    --color-border-focus: #4b9cd3;
+
+    /* Soft gradients used in scrollytelling */
+    --gradient-brand-soft: linear-gradient(135deg, rgba(75, 156, 211, 0.10), rgba(62, 131, 178, 0.14));
+    --gradient-sage-soft: linear-gradient(135deg, rgba(120, 157, 129, 0.10), rgba(95, 139, 101, 0.14));
+
+    /* Policy status colors */
+    --status-signed: #22c55e;
+    --status-passed-both: #3b82f6;
+    --status-passed-chamber: #6366f1;
+    --status-committee: #f59e0b;
+    --status-introduced: #eab308;
+    --status-studying: #8b5cf6;
+    --status-failed: #ef4444;
+    --status-no-activity: #9ca3af;
+  }
+  :root[data-theme="dark"] {
+    --color-black: #000000;
+    --color-white: #ffffff;
+    --color-gray-600: #9aa3ae;
+    --color-gray-100: #111827;
+    --color-gray-300: #374151;
+
+    --color-brand-500: #79b6e7;
+    --color-brand-600: #4b9cd3;
+    --color-brand-700: #3f8fc8;
+    --color-brand-800: #337db4;
+
+    --color-surface-primary: #0b1220;
+    --color-surface-secondary: #0f172a;
+    --color-surface-inverse: #ffffff;
+
+    --color-content-primary: #e5e7eb;
+    --color-content-secondary: #cbd5e1;
+    --color-content-tertiary: #94a3b8;
+    --color-content-inverse: #0b1220;
+
+    --color-border: #1f2937;
+    --color-border-primary: #334155;
+    --color-border-secondary: #1f2937;
+    --color-border-focus: #79b6e7;
+
+    --gradient-brand-soft: linear-gradient(135deg, rgba(75, 156, 211, 0.16), rgba(62, 131, 178, 0.18));
+    --gradient-sage-soft: linear-gradient(135deg, rgba(120, 157, 129, 0.16), rgba(95, 139, 101, 0.18));
+
+    --status-signed: #16a34a;
+    --status-passed-both: #3b82f6;
+    --status-passed-chamber: #6366f1;
+    --status-committee: #f59e0b;
+    --status-introduced: #eab308;
+    --status-studying: #8b5cf6;
+    --status-failed: #ef4444;
+    --status-no-activity: #6b7280;
+  }
   html {
     scroll-behavior: smooth;
   }
   
   body {
     @apply antialiased;
+    background-color: var(--color-surface-primary);
+    color: var(--color-content-primary);
   }
   
   /* Custom scrollbar */
@@ -62,12 +147,12 @@
   }
   
   .btn-secondary {
-    @apply inline-flex items-center justify-center bg-surface-secondary text-content-primary border-2 border-border-primary hover:bg-brand-500 hover:text-white hover:border-brand-700 focus:outline-none disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200;
+    @apply inline-flex items-center justify-center bg-earth-sand-100 text-content-primary border-2 border-border-primary hover:bg-brand-500 hover:text-white hover:border-brand-700 focus:outline-none disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200;
     @apply px-6 py-3 text-body font-semibold shadow-brutal hover:shadow-brutal-hover;
   }
   
   .btn-ghost {
-    @apply inline-flex items-center justify-center bg-transparent text-brand-700 hover:bg-brand-50 hover:text-brand-800 focus:outline-none disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200;
+    @apply inline-flex items-center justify-center bg-transparent text-brand-700 hover:bg-earth-sand-100 hover:text-brand-800 focus:outline-none disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200;
     @apply px-6 py-3 text-body font-semibold;
   }
   
@@ -232,7 +317,7 @@
 
 /* Loading states */
 .loading-shimmer {
-  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background: linear-gradient(90deg, var(--color-gray-100) 25%, var(--color-gray-300) 50%, var(--color-gray-100) 75%);
   background-size: 200% 100%;
   animation: shimmer 2s infinite;
 }

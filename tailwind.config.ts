@@ -85,7 +85,7 @@ const config: Config = {
         
         border: {
           primary: '#334155',      // Main borders (slate-700)
-          secondary: '#e2e8f0',    // Subtle borders (slate-200)
+          secondary: '#e7dfcf',    // Subtle borders (earth.sand.200)
           focus: '#4b9cd3',        // Focus rings (brand.500)
         },
         

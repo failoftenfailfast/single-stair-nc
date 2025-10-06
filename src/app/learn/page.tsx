@@ -38,9 +38,9 @@ export default function LearnPage() {
   ];
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen surface-primary">
       {/* Hero Section */}
-      <section className="section-padding bg-white">
+      <section className="section-padding surface-primary">
         <div className="container-custom">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -50,7 +50,7 @@ export default function LearnPage() {
             <h1 className="text-5xl md:text-7xl lg:text-8xl font-black text-black mb-8 leading-none">
               LEARN
             </h1>
-            <div className="w-32 h-1 bg-black mb-8"></div>
+            <div className="w-32 h-1 bg-gradient-to-r from-brand-500 via-earth-sand-300 to-earth-sage-500/80 mb-8"></div>
             <p className="text-xl md:text-2xl text-black font-medium leading-relaxed mb-12">
               DISCOVER THE SCIENCE, POLICY, AND DESIGN PRINCIPLES BEHIND 
               SINGLE-STAIR HOUSING. UNDERSTAND WHY THIS APPROACH CREATES 
@@ -61,7 +61,7 @@ export default function LearnPage() {
       </section>
 
       {/* Learn Sections Grid */}
-      <section className="section-padding bg-gray-50">
+      <section className="section-padding surface-secondary">
         <div className="container-custom">
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {learnSections.map((section, index) => (
@@ -74,11 +74,11 @@ export default function LearnPage() {
               >
                 <Link
                   href={section.href}
-                  className="block bg-white border-2 border-black p-8 hover:bg-black hover:text-white transition-colors group shadow-brutal"
+                  className="block bg-white border-2 border-border-primary p-8 hover:bg-brand-500 hover:text-white transition-colors group shadow-brutal"
                 >
                   <div className="flex items-center justify-between mb-6">
                     <span className="text-4xl font-black">{section.icon}</span>
-                    <div className="w-8 h-8 border-2 border-black group-hover:border-white flex items-center justify-center">
+                    <div className="w-8 h-8 border-2 border-border-primary group-hover:border-white flex items-center justify-center">
                       <span className="text-sm font-black">→</span>
                     </div>
                   </div>
@@ -99,9 +99,9 @@ export default function LearnPage() {
               transition={{ delay: 0.5 }}
               className="md:col-span-2 lg:col-span-1"
             >
-              <div className="bg-black text-white p-8 h-full shadow-brutal">
+              <div className="bg-brand-500 text-white p-8 h-full shadow-brutal border-2 border-brand-700">
                 <div className="mb-6">
-                  <span className="text-sm font-bold tracking-wider text-gray-300">
+                  <span className="text-sm font-bold tracking-wider text-earth-sand-200">
                     FEATURED ARTICLE
                   </span>
                 </div>
@@ -190,6 +190,9 @@ export default function LearnPage() {
     </div>
   );
 }
+
+
+
 
 
 

@@ -30,8 +30,8 @@ export default function ScrollytellingContent({
           className="min-h-screen flex items-center justify-end pr-8 lg:pr-16"
           style={{
             background: index % 2 === 0 
-              ? 'linear-gradient(135deg, rgba(75, 156, 211, 0.08), rgba(62, 131, 178, 0.1))' // brand blues
-              : 'linear-gradient(135deg, rgba(120, 157, 129, 0.08), rgba(95, 139, 101, 0.1))' // sage greens
+              ? 'var(--gradient-brand-soft)'
+              : 'var(--gradient-sage-soft)'
           }}
         >
           <motion.div
@@ -48,7 +48,7 @@ export default function ScrollytellingContent({
             <motion.div
               animate={{
                 scale: currentSection === index ? 1.05 : 1,
-                borderColor: currentSection === index ? '#4b9cd3' : 'transparent'
+              borderColor: currentSection === index ? 'var(--color-brand-500)' : 'transparent'
               }}
               transition={{ duration: 0.3 }}
               className="space-y-4"
@@ -118,7 +118,7 @@ export default function ScrollytellingContent({
                 currentSection >= index ? 'bg-brand-600' : 'bg-neutral-300'
               }`}
               animate={{
-                backgroundColor: currentSection >= index ? '#4b9cd3' : '#D1D5DB',
+                    backgroundColor: currentSection >= index ? 'var(--color-brand-500)' : 'var(--color-gray-300)',
                 scale: currentSection === index ? 1.2 : 1
               }}
               transition={{ duration: 0.3 }}

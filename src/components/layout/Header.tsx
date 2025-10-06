@@ -3,9 +3,11 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useTheme } from '@/hooks/useTheme';
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { theme, toggleTheme } = useTheme();
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
 
@@ -24,7 +26,7 @@ export default function Header() {
           {/* Logo */}
           <Link href="/" className="flex items-center space-x-tight group">
             <div className="w-8 h-8 lg:w-10 lg:h-10 bg-surface-inverse flex items-center justify-center group-hover:bg-brutal-gray-800 transition-colors">
-              <span className="text-content-inverse font-bold text-body-sm lg:text-body">SS</span>
+              <span className="text-content-inverse font-bold text-body-sm lg:text-body">NC</span>
             </div>
             <div className="hidden sm:block">
               <div className="text-content-primary font-bold text-body-sm lg:text-body leading-tight">
@@ -50,10 +52,17 @@ export default function Header() {
           </nav>
 
           {/* CTA Button - Desktop */}
-          <div className="hidden lg:block">
+          <div className="hidden lg:flex items-center space-x-3">
             <Link href="/act" className="btn-primary">
               TAKE ACTION
             </Link>
+            <button
+              onClick={toggleTheme}
+              aria-label="Toggle theme"
+              className="border-2 border-border-primary px-3 py-2 text-sm font-semibold surface-primary hover:bg-brand-500 hover:text-white transition-colors"
+            >
+              {theme === 'dark' ? 'Light' : 'Dark'}
+            </button>
           </div>
 
           {/* Mobile Menu Button */}
@@ -79,6 +88,9 @@ export default function Header() {
           </button>
         </div>
       </div>
+
+      {/* Gradient Accent */}
+      <div className="h-1 bg-gradient-to-r from-brand-500 via-earth-sand-300 to-earth-sage-500" />
 
       {/* Mobile Menu */}
       <AnimatePresence>
@@ -112,15 +124,22 @@ export default function Header() {
                   initial={{ x: -20, opacity: 0 }}
                   animate={{ x: 0, opacity: 1 }}
                   transition={{ delay: navItems.length * 0.1 }}
-                  className="pt-4"
+                  className="pt-4 flex items-center space-x-2"
                 >
                   <Link
                     href="/act"
                     onClick={() => setIsMenuOpen(false)}
-                    className="btn-primary w-full justify-center"
+                    className="btn-primary flex-1 justify-center"
                   >
                     TAKE ACTION
                   </Link>
+                  <button
+                    onClick={toggleTheme}
+                    aria-label="Toggle theme"
+                    className="border-2 border-border-primary px-3 py-2 text-sm font-semibold surface-primary hover:bg-brand-500 hover:text-white transition-colors"
+                  >
+                    {theme === 'dark' ? 'Light' : 'Dark'}
+                  </button>
                 </motion.div>
               </div>
             </nav>

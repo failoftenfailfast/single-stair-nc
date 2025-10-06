@@ -11,7 +11,7 @@ export default function Hero() {
             <h1 className="text-display-lg md:text-display-xl text-balance mb-content">
               HOW CAN A STAIRCASE MAKE HOUSING MORE AFFORDABLE IN NORTH CAROLINA?
             </h1>
-            <div className="w-full h-1 bg-brand-500/40 mb-element"></div>
+            <div className="w-full h-1 bg-gradient-to-r from-brand-500 via-earth-sand-300 to-earth-sage-500/80 mb-element"></div>
           </div>
           
           <p className="text-body-lg text-content-secondary mb-section-lg max-w-3xl mx-auto text-balance">

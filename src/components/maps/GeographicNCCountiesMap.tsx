@@ -83,15 +83,15 @@ export default function GeographicNCCountiesMap({ className = '' }: GeographicNC
         <div style="font-family: Inter, sans-serif;">
           <h3 style="margin: 0 0 8px 0; font-weight: bold; font-size: 16px;">${county.name}</h3>
           <div style="margin-bottom: 8px;">
-            <span style="display: inline-block; width: 12px; height: 12px; background-color: ${getStatusColor(county.status)}; margin-right: 8px; border: 1px solid #000;"></span>
+            <span style="display: inline-block; width: 12px; height: 12px; background-color: ${getStatusColor(county.status)}; margin-right: 8px; border: 1px solid var(--color-black);"></span>
             <strong>${getStatusLabel(county.status)}</strong>
           </div>
           ${county.billNumber ? `<div style="margin-bottom: 4px;"><strong>Bill:</strong> ${county.billNumber}</div>` : ''}
           ${county.sponsor ? `<div style="margin-bottom: 4px;"><strong>Sponsor:</strong> ${county.sponsor}</div>` : ''}
-          <div style="margin-bottom: 8px; font-size: 12px; color: #666;">
+          <div style="margin-bottom: 8px; font-size: 12px; color: var(--color-gray-600);">
             Updated: ${new Date(county.lastUpdated).toLocaleDateString()}
           </div>
-          <button onclick="window.selectCounty('${county.id}')" style="background: #000; color: #fff; border: none; padding: 8px 16px; font-weight: bold; cursor: pointer; width: 100%;">
+          <button onclick="window.selectCounty('${county.id}')" style="background: var(--color-black); color: var(--color-white); border: none; padding: 8px 16px; font-weight: bold; cursor: pointer; width: 100%;">
             VIEW DETAILS
           </button>
         </div>
@@ -101,10 +101,10 @@ export default function GeographicNCCountiesMap({ className = '' }: GeographicNC
         <div style="font-family: Inter, sans-serif;">
           <h3 style="margin: 0 0 8px 0; font-weight: bold; font-size: 16px;">${countyName}</h3>
           <div style="margin-bottom: 8px;">
-            <span style="display: inline-block; width: 12px; height: 12px; background-color: #9ca3af; margin-right: 8px; border: 1px solid #000;"></span>
+            <span style="display: inline-block; width: 12px; height: 12px; background-color: #9ca3af; margin-right: 8px; border: 1px solid var(--color-black);"></span>
             <strong>No Activity</strong>
           </div>
-          <div style="font-size: 12px; color: #666;">
+          <div style="font-size: 12px; color: var(--color-gray-600);">
             No current single-stair legislation
           </div>
         </div>
@@ -139,10 +139,10 @@ export default function GeographicNCCountiesMap({ className = '' }: GeographicNC
     const county = getCountyByName(countyName);
     
     return {
-      fillColor: county ? getStatusColor(county.status) : '#f3f4f6',
+      fillColor: county ? getStatusColor(county.status) : 'var(--color-gray-100)',
       weight: 1,
       opacity: 1,
-      color: '#666',
+      color: 'var(--color-gray-600)',
       fillOpacity: 0.6
     };
   };
@@ -164,16 +164,16 @@ export default function GeographicNCCountiesMap({ className = '' }: GeographicNC
 
   return (
     <div className={`relative ${className}`}>
-      <div className="bg-white border-2 border-black p-6">
+      <div className="bg-white border-2 border-border-primary p-6">
         <div className="flex items-center justify-between mb-6">
           <h3 className="text-xl font-black">NORTH CAROLINA COUNTIES</h3>
-          <div className="text-sm text-gray-600">
+          <div className="text-sm text-content-secondary">
             Click counties for details
           </div>
         </div>
 
         {/* Real Geographic Map */}
-        <div className="relative h-96 border-2 border-black">
+        <div className="relative h-96 border-2 border-border-primary">
           {geoData && (
             <MapContainer
               center={[35.7596, -79.0193]}
@@ -194,7 +194,7 @@ export default function GeographicNCCountiesMap({ className = '' }: GeographicNC
           )}
           
           {!geoData && (
-            <div className="absolute inset-0 flex items-center justify-center bg-gray-100">
+            <div className="absolute inset-0 flex items-center justify-center bg-earth-sand-100">
               <div className="text-center">
                 <div className="w-8 h-8 border-2 border-black border-t-transparent animate-spin mx-auto mb-2"></div>
                 <span className="text-sm font-bold">Loading County Data...</span>
@@ -206,19 +206,19 @@ export default function GeographicNCCountiesMap({ className = '' }: GeographicNC
         {/* Legend */}
         <div className="mt-6 grid grid-cols-2 md:grid-cols-4 gap-2 text-xs">
           <div className="flex items-center space-x-2">
-            <div className="w-4 h-4 border border-black" style={{ backgroundColor: getStatusColor('signed') }}></div>
+            <div className="w-4 h-4 border border-border-primary" style={{ backgroundColor: getStatusColor('signed') }}></div>
             <span className="font-medium">Signed</span>
           </div>
           <div className="flex items-center space-x-2">
-            <div className="w-4 h-4 border border-black" style={{ backgroundColor: getStatusColor('committee') }}></div>
+            <div className="w-4 h-4 border border-border-primary" style={{ backgroundColor: getStatusColor('committee') }}></div>
             <span className="font-medium">In Committee</span>
           </div>
           <div className="flex items-center space-x-2">
-            <div className="w-4 h-4 border border-black" style={{ backgroundColor: getStatusColor('studying') }}></div>
+            <div className="w-4 h-4 border border-border-primary" style={{ backgroundColor: getStatusColor('studying') }}></div>
             <span className="font-medium">Under Study</span>
           </div>
           <div className="flex items-center space-x-2">
-            <div className="w-4 h-4 border border-black" style={{ backgroundColor: getStatusColor('no_activity') }}></div>
+            <div className="w-4 h-4 border border-border-primary" style={{ backgroundColor: getStatusColor('no_activity') }}></div>
             <span className="font-medium">No Activity</span>
           </div>
         </div>
@@ -238,7 +238,7 @@ export default function GeographicNCCountiesMap({ className = '' }: GeographicNC
               initial={{ scale: 0.9, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.9, opacity: 0 }}
-              className="bg-white border-2 border-black p-6 max-w-lg mx-4 shadow-brutal"
+              className="bg-white border-2 border-border-primary p-6 max-w-lg mx-4 shadow-brutal"
               onClick={(e) => e.stopPropagation()}
             >
               <div className="flex items-center justify-between mb-4">
@@ -266,7 +266,7 @@ export default function GeographicNCCountiesMap({ className = '' }: GeographicNC
                       <div>
                         <span className="font-bold">Bill Number:</span>
                         <br />
-                        <span className="bg-gray-100 px-2 py-1 font-mono">{selectedCounty.billNumber}</span>
+                    <span className="bg-earth-sand-100 px-2 py-1 font-mono">{selectedCounty.billNumber}</span>
                       </div>
                     )}
 
@@ -289,7 +289,7 @@ export default function GeographicNCCountiesMap({ className = '' }: GeographicNC
                 {selectedCounty.description && (
                   <div>
                     <h4 className="font-bold mb-2 text-lg">Description</h4>
-                    <p className="text-sm leading-relaxed bg-gray-50 p-3 border border-gray-200">
+                    <p className="text-sm leading-relaxed bg-earth-sand-100 p-3 border border-border-secondary">
                       {selectedCounty.description}
                     </p>
                   </div>
@@ -298,7 +298,7 @@ export default function GeographicNCCountiesMap({ className = '' }: GeographicNC
                 {selectedCounty.nextStep && (
                   <div>
                     <h4 className="font-bold mb-2 text-lg">Next Steps</h4>
-                    <p className="text-sm leading-relaxed bg-blue-50 p-3 border border-blue-200">
+                    <p className="text-sm leading-relaxed bg-brand-50 p-3 border border-brand-200">
                       {selectedCounty.nextStep}
                     </p>
                   </div>
@@ -320,6 +320,9 @@ export default function GeographicNCCountiesMap({ className = '' }: GeographicNC
     </div>
   );
 }
+
+
+
 
 
 

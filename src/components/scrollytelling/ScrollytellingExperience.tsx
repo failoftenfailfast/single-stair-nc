@@ -19,7 +19,7 @@ export default function ScrollytellingExperience({ sections }: ScrollytellingExp
   return (
     <div ref={containerRef} className="relative">
       {/* 3D Animation Placeholder */}
-      <div className="fixed inset-0 z-0 bg-white">
+      <div className="fixed inset-0 z-0 bg-surface-primary">
         <div className="flex items-center justify-center h-full">
           <motion.div
             style={{ opacity: scrollYProgress }}
@@ -28,7 +28,7 @@ export default function ScrollytellingExperience({ sections }: ScrollytellingExp
             <div className="w-96 h-96 bg-black mx-auto mb-8 flex items-center justify-center">
               <span className="text-white text-2xl font-bold">3D ANIMATION</span>
             </div>
-            <p className="text-black text-lg">Scroll to explore the experience</p>
+            <p className="text-content-primary text-lg">Scroll to explore the experience</p>
           </motion.div>
         </div>
       </div>
@@ -40,7 +40,7 @@ export default function ScrollytellingExperience({ sections }: ScrollytellingExp
             key={section._id}
             className="min-h-screen flex items-center justify-end pr-8 lg:pr-16"
             style={{
-              background: index % 2 === 0 ? '#ffffff' : '#f8f9fa'
+              background: index % 2 === 0 ? 'var(--color-surface-primary)' : 'var(--color-surface-secondary)'
             }}
           >
             <motion.div
@@ -48,7 +48,7 @@ export default function ScrollytellingExperience({ sections }: ScrollytellingExp
               whileInView={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
               viewport={{ once: true, margin: "-20%" }}
-              className="max-w-md lg:max-w-lg p-8 bg-white border-2 border-black shadow-[8px_8px_0px_0px_#000000]"
+              className="max-w-md lg:max-w-lg p-8 bg-surface-primary border-2 border-black shadow-[8px_8px_0px_0px_#000000]"
             >
               <div className="space-y-4">
                 <div className="flex items-center space-x-3 mb-4">
@@ -58,11 +58,11 @@ export default function ScrollytellingExperience({ sections }: ScrollytellingExp
                   <div className="h-0.5 flex-1 bg-black" />
                 </div>
                 
-                <h2 className="text-2xl lg:text-3xl font-bold text-black mb-4">
+                <h2 className="text-2xl lg:text-3xl font-bold text-content-primary mb-4">
                   {section.title}
                 </h2>
                 
-                <div className="text-black leading-relaxed">
+                <div className="text-content-primary leading-relaxed">
                   {Array.isArray(section.content) && section.content[0]?.children?.[0]?.text ? (
                     <p>{section.content[0].children[0].text}</p>
                   ) : (
@@ -78,7 +78,7 @@ export default function ScrollytellingExperience({ sections }: ScrollytellingExp
                     transition={{ delay: 0.5 }}
                     className="pt-6 space-y-3"
                   >
-                    <button className="w-full bg-black text-white py-3 px-6 font-bold hover:bg-gray-800 transition-colors">
+                    <button className="w-full bg-black text-white py-3 px-6 font-bold hover:bg-neutral-800 transition-colors">
                       CONTACT YOUR REPRESENTATIVE
                     </button>
                     <button className="w-full border-2 border-black text-black py-3 px-6 font-bold hover:bg-black hover:text-white transition-colors">

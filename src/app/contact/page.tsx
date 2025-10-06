@@ -65,9 +65,9 @@ export default function ContactPage() {
   ];
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen surface-primary">
       {/* Hero Section */}
-      <section className="section-padding bg-white">
+      <section className="section-padding surface-primary">
         <div className="container-custom">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -77,7 +77,7 @@ export default function ContactPage() {
             <h1 className="text-5xl md:text-7xl lg:text-8xl font-black text-black mb-8 leading-none">
               CONTACT
             </h1>
-            <div className="w-32 h-1 bg-black mb-8"></div>
+            <div className="w-32 h-1 bg-gradient-to-r from-brand-500 via-earth-sand-300 to-earth-sage-500/80 mb-8"></div>
             <p className="text-xl md:text-2xl text-black font-medium leading-relaxed mb-12">
               GET IN TOUCH WITH OUR TEAM. WE'RE HERE TO ANSWER QUESTIONS, 
               DISCUSS PARTNERSHIPS, AND HELP YOU GET INVOLVED.
@@ -94,7 +94,7 @@ export default function ContactPage() {
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.2 }}
           >
-            <div className="border-2 border-black p-8 shadow-brutal">
+            <div className="border-2 border-border-primary p-8 shadow-brutal bg-white">
               <h2 className="text-2xl font-black mb-6">
                 SEND US A MESSAGE
               </h2>
@@ -111,7 +111,7 @@ export default function ContactPage() {
                       value={formData.name}
                       onChange={handleChange}
                       required
-                      className="w-full p-3 border-2 border-black focus:outline-none"
+                      className="w-full p-3 border-2 border-border-primary focus:outline-none"
                     />
                   </div>
                   <div>
@@ -124,7 +124,7 @@ export default function ContactPage() {
                       value={formData.email}
                       onChange={handleChange}
                       required
-                      className="w-full p-3 border-2 border-black focus:outline-none"
+                      className="w-full p-3 border-2 border-border-primary focus:outline-none"
                     />
                   </div>
                 </div>
@@ -138,7 +138,7 @@ export default function ContactPage() {
                     name="organization"
                     value={formData.organization}
                     onChange={handleChange}
-                    className="w-full p-3 border-2 border-black focus:outline-none"
+                    className="w-full p-3 border-2 border-border-primary focus:outline-none"
                   />
                 </div>
 
@@ -151,7 +151,7 @@ export default function ContactPage() {
                     value={formData.type}
                     onChange={handleChange}
                     required
-                    className="w-full p-3 border-2 border-black focus:outline-none bg-white"
+                    className="w-full p-3 border-2 border-border-primary focus:outline-none bg-white"
                   >
                     <option value="general">General Inquiry</option>
                     <option value="media">Media & Press</option>
@@ -171,7 +171,7 @@ export default function ContactPage() {
                     value={formData.subject}
                     onChange={handleChange}
                     required
-                    className="w-full p-3 border-2 border-black focus:outline-none"
+                    className="w-full p-3 border-2 border-border-primary focus:outline-none"
                   />
                 </div>
 
@@ -185,13 +185,13 @@ export default function ContactPage() {
                     onChange={handleChange}
                     required
                     rows={6}
-                    className="w-full p-3 border-2 border-black focus:outline-none resize-none"
+                    className="w-full p-3 border-2 border-border-primary focus:outline-none resize-none"
                   />
                 </div>
 
                 <button
                   type="submit"
-                  className="w-full bg-black text-white hover:bg-gray-800 py-4 font-bold text-lg transition-colors"
+                  className="w-full btn-primary py-4 text-lg"
                 >
                   SEND MESSAGE
                 </button>
@@ -213,15 +213,15 @@ export default function ContactPage() {
               
               <div className="space-y-6">
                 {contactInfo.map((info) => (
-                  <div key={info.title} className="border-l-4 border-black pl-4">
+                  <div key={info.title} className="border-l-4 border-brand-500 pl-4">
                     <h3 className="font-bold mb-2">{info.title}</h3>
                     <a 
                       href={`mailto:${info.email}`}
-                      className="text-black hover:underline font-medium block mb-2"
+                      className="text-brand-700 hover:underline font-medium block mb-2"
                     >
                       {info.email}
                     </a>
-                    <p className="text-sm text-gray-600">
+                    <p className="text-sm text-content-secondary">
                       {info.description}
                     </p>
                   </div>
@@ -236,7 +236,7 @@ export default function ContactPage() {
               
               <div className="space-y-6">
                 {offices.map((office) => (
-                  <div key={office.city} className="border-2 border-black p-6">
+                  <div key={office.city} className="border-2 border-border-primary p-6 bg-white">
                     <h3 className="font-black text-lg mb-3">{office.city}</h3>
                     <div className="space-y-2 text-sm">
                       <div>
@@ -258,7 +258,7 @@ export default function ContactPage() {
               </div>
             </div>
 
-            <div className="border-2 border-black p-6 bg-black text-white">
+            <div className="border-2 border-brand-700 p-6 bg-brand-500 text-white">
               <h3 className="font-black text-lg mb-4">
                 FOLLOW OUR WORK
               </h3>
@@ -268,19 +268,19 @@ export default function ContactPage() {
               <div className="flex space-x-4">
                 <a 
                   href="#" 
-                  className="w-10 h-10 border-2 border-white hover:bg-white hover:text-black transition-colors flex items-center justify-center"
+                  className="w-10 h-10 border-2 border-white hover:bg-white hover:text-brand-700 transition-colors flex items-center justify-center"
                 >
                   T
                 </a>
                 <a 
                   href="#" 
-                  className="w-10 h-10 border-2 border-white hover:bg-white hover:text-black transition-colors flex items-center justify-center"
+                  className="w-10 h-10 border-2 border-white hover:bg-white hover:text-brand-700 transition-colors flex items-center justify-center"
                 >
                   F
                 </a>
                 <a 
                   href="#" 
-                  className="w-10 h-10 border-2 border-white hover:bg-white hover:text-black transition-colors flex items-center justify-center"
+                  className="w-10 h-10 border-2 border-white hover:bg-white hover:text-brand-700 transition-colors flex items-center justify-center"
                 >
                   L
                 </a>
@@ -292,6 +292,9 @@ export default function ContactPage() {
     </div>
   );
 }
+
+
+
 
 
 

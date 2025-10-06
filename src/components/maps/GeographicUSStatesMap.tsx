@@ -71,15 +71,15 @@ export default function GeographicUSStatesMap({ className = '' }: GeographicUSSt
         <div style="font-family: Inter, sans-serif;">
           <h3 style="margin: 0 0 8px 0; font-weight: bold; font-size: 16px;">${state.name}</h3>
           <div style="margin-bottom: 8px;">
-            <span style="display: inline-block; width: 12px; height: 12px; background-color: ${getStatusColor(state.status)}; margin-right: 8px; border: 1px solid #000;"></span>
+            <span style="display: inline-block; width: 12px; height: 12px; background-color: ${getStatusColor(state.status)}; margin-right: 8px; border: 1px solid var(--color-black);"></span>
             <strong>${getStatusLabel(state.status)}</strong>
           </div>
           ${state.billNumber ? `<div style="margin-bottom: 4px;"><strong>Bill:</strong> ${state.billNumber}</div>` : ''}
           ${state.sponsor ? `<div style="margin-bottom: 4px;"><strong>Sponsor:</strong> ${state.sponsor}</div>` : ''}
-          <div style="margin-bottom: 8px; font-size: 12px; color: #666;">
+          <div style="margin-bottom: 8px; font-size: 12px; color: var(--color-gray-600);">
             Updated: ${new Date(state.lastUpdated).toLocaleDateString()}
           </div>
-          <button onclick="window.selectState('${state.id}')" style="background: #000; color: #fff; border: none; padding: 8px 16px; font-weight: bold; cursor: pointer; width: 100%;">
+          <button onclick="window.selectState('${state.id}')" style="background: var(--color-black); color: var(--color-white); border: none; padding: 8px 16px; font-weight: bold; cursor: pointer; width: 100%;">
             VIEW DETAILS
           </button>
         </div>
@@ -114,10 +114,10 @@ export default function GeographicUSStatesMap({ className = '' }: GeographicUSSt
     const state = getStateByName(stateName);
     
     return {
-      fillColor: state ? getStatusColor(state.status) : '#f3f4f6',
+      fillColor: state ? getStatusColor(state.status) : 'var(--color-gray-100)',
       weight: stateName === 'North Carolina' ? 3 : 1,
       opacity: 1,
-      color: stateName === 'North Carolina' ? '#000' : '#666',
+      color: stateName === 'North Carolina' ? 'var(--color-black)' : 'var(--color-gray-600)',
       fillOpacity: 0.6
     };
   };
@@ -147,10 +147,10 @@ export default function GeographicUSStatesMap({ className = '' }: GeographicUSSt
 
   return (
     <div className={`relative ${className}`}>
-      <div className="bg-white border-2 border-black p-6">
+      <div className="bg-white border-2 border-border-primary p-6">
         <div className="flex items-center justify-between mb-6">
           <h3 className="text-xl font-black">UNITED STATES PROGRESS</h3>
-          <div className="text-sm text-gray-600">
+          <div className="text-sm text-content-secondary">
             Click states for details
           </div>
         </div>
@@ -176,7 +176,7 @@ export default function GeographicUSStatesMap({ className = '' }: GeographicUSSt
         </div>
 
         {/* Real Geographic Map */}
-        <div className="relative h-96 border-2 border-black">
+        <div className="relative h-96 border-2 border-border-primary">
           {geoData && (
             <MapContainer
               center={[39.8283, -98.5795]}
@@ -197,7 +197,7 @@ export default function GeographicUSStatesMap({ className = '' }: GeographicUSSt
           )}
           
           {!geoData && (
-            <div className="absolute inset-0 flex items-center justify-center bg-gray-100">
+            <div className="absolute inset-0 flex items-center justify-center bg-earth-sand-100">
               <div className="text-center">
                 <div className="w-8 h-8 border-2 border-black border-t-transparent animate-spin mx-auto mb-2"></div>
                 <span className="text-sm font-bold">Loading Map Data...</span>
@@ -209,27 +209,27 @@ export default function GeographicUSStatesMap({ className = '' }: GeographicUSSt
         {/* Legend */}
         <div className="mt-6 grid grid-cols-2 md:grid-cols-3 gap-2 text-xs">
           <div className="flex items-center space-x-2">
-            <div className="w-4 h-4 border border-black" style={{ backgroundColor: getStatusColor('signed') }}></div>
+            <div className="w-4 h-4 border border-border-primary" style={{ backgroundColor: getStatusColor('signed') }}></div>
             <span className="font-medium">Signed into Law</span>
           </div>
           <div className="flex items-center space-x-2">
-            <div className="w-4 h-4 border border-black" style={{ backgroundColor: getStatusColor('passed_both') }}></div>
+            <div className="w-4 h-4 border border-border-primary" style={{ backgroundColor: getStatusColor('passed_both') }}></div>
             <span className="font-medium">Passed Legislature</span>
           </div>
           <div className="flex items-center space-x-2">
-            <div className="w-4 h-4 border border-black" style={{ backgroundColor: getStatusColor('committee') }}></div>
+            <div className="w-4 h-4 border border-border-primary" style={{ backgroundColor: getStatusColor('committee') }}></div>
             <span className="font-medium">In Committee</span>
           </div>
           <div className="flex items-center space-x-2">
-            <div className="w-4 h-4 border border-black" style={{ backgroundColor: getStatusColor('introduced') }}></div>
+            <div className="w-4 h-4 border border-border-primary" style={{ backgroundColor: getStatusColor('introduced') }}></div>
             <span className="font-medium">Bill Introduced</span>
           </div>
           <div className="flex items-center space-x-2">
-            <div className="w-4 h-4 border border-black" style={{ backgroundColor: getStatusColor('studying') }}></div>
+            <div className="w-4 h-4 border border-border-primary" style={{ backgroundColor: getStatusColor('studying') }}></div>
             <span className="font-medium">Under Study</span>
           </div>
           <div className="flex items-center space-x-2">
-            <div className="w-4 h-4 border border-black" style={{ backgroundColor: getStatusColor('no_activity') }}></div>
+            <div className="w-4 h-4 border border-border-primary" style={{ backgroundColor: getStatusColor('no_activity') }}></div>
             <span className="font-medium">No Activity</span>
           </div>
         </div>
@@ -331,6 +331,9 @@ export default function GeographicUSStatesMap({ className = '' }: GeographicUSSt
     </div>
   );
 }
+
+
+
 
 
 

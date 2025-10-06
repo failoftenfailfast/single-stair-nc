@@ -44,7 +44,7 @@ export default function Footer() {
   ];
 
   return (
-    <footer className="bg-black text-white">
+    <footer className="bg-earth-soil-800 text-white">
       <div className="container-custom">
         {/* Main Footer Content */}
         <div className="section-padding">
@@ -52,8 +52,8 @@ export default function Footer() {
             {/* Brand Section */}
             <div className="lg:col-span-2">
               <Link href="/" className="inline-flex items-center space-x-3 mb-6">
-                <div className="w-12 h-12 bg-white flex items-center justify-center">
-                  <span className="text-black font-bold text-lg">SS</span>
+                <div className="w-12 h-12 bg-brand-500 flex items-center justify-center">
+                  <span className="text-white font-bold text-lg">NC</span>
                 </div>
                 <div>
                   <div className="text-white font-bold text-lg leading-tight">
@@ -126,7 +126,7 @@ export default function Footer() {
         </div>
 
         {/* Newsletter Signup */}
-        <div className="border-t border-gray-800 py-8">
+        <div className="border-t border-earth-soil-600 py-8">
           <div className="max-w-2xl">
             <h3 className="text-white font-bold text-lg mb-4">
               STAY INFORMED
@@ -152,7 +152,7 @@ export default function Footer() {
         </div>
 
         {/* Bottom Bar */}
-        <div className="border-t border-gray-800 py-6">
+        <div className="border-t border-earth-soil-600 py-6">
           <div className="flex flex-col sm:flex-row justify-between items-center space-y-4 sm:space-y-0">
             <div className="text-gray-400 text-sm">
               © {currentYear} Single Stair North Carolina. All rights reserved.
@@ -174,6 +174,7 @@ export default function Footer() {
     </footer>
   );
 }
+
 
 
 

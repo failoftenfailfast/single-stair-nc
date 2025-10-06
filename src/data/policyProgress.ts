@@ -491,15 +491,15 @@ export const usStatesProgress: PolicyProgress[] = [
 // Helper functions
 export const getStatusColor = (status: PolicyStatus): string => {
   switch (status) {
-    case 'signed': return '#22c55e'; // Green
-    case 'passed_both': return '#3b82f6'; // Blue
-    case 'passed_chamber': return '#6366f1'; // Indigo
-    case 'committee': return '#f59e0b'; // Amber
-    case 'introduced': return '#eab308'; // Yellow
-    case 'studying': return '#8b5cf6'; // Violet
-    case 'failed': return '#ef4444'; // Red
-    case 'no_activity': return '#9ca3af'; // Gray
-    default: return '#9ca3af';
+    case 'signed': return 'var(--status-signed, #22c55e)';
+    case 'passed_both': return 'var(--status-passed-both, #3b82f6)';
+    case 'passed_chamber': return 'var(--status-passed-chamber, #6366f1)';
+    case 'committee': return 'var(--status-committee, #f59e0b)';
+    case 'introduced': return 'var(--status-introduced, #eab308)';
+    case 'studying': return 'var(--status-studying, #8b5cf6)';
+    case 'failed': return 'var(--status-failed, #ef4444)';
+    case 'no_activity': return 'var(--status-no-activity, #9ca3af)';
+    default: return 'var(--status-no-activity, #9ca3af)';
   }
 };
 
@@ -516,6 +516,9 @@ export const getStatusLabel = (status: PolicyStatus): string => {
     default: return 'Unknown';
   }
 };
+
+
+
 
 
 

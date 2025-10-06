@@ -99,9 +99,9 @@ export default function GalleryPage() {
     : projects.filter(project => project.category === selectedCategory);
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen surface-primary">
       {/* Hero Section */}
-      <section className="section-padding bg-white">
+      <section className="section-padding surface-primary">
         <div className="container-custom">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -111,7 +111,7 @@ export default function GalleryPage() {
             <h1 className="text-5xl md:text-7xl lg:text-8xl font-black text-black mb-8 leading-none">
               GALLERY
             </h1>
-            <div className="w-32 h-1 bg-black mb-8"></div>
+            <div className="w-32 h-1 bg-gradient-to-r from-brand-500 via-earth-sand-300 to-earth-sage-500/80 mb-8"></div>
             <p className="text-xl md:text-2xl text-black font-medium leading-relaxed mb-12">
               EXPLORE SUCCESSFUL SINGLE-STAIR BUILDINGS ACROSS NORTH CAROLINA. 
               SEE HOW INNOVATIVE DESIGN CREATES BETTER COMMUNITIES.
@@ -121,17 +121,17 @@ export default function GalleryPage() {
       </section>
 
       {/* Category Filter */}
-      <section className="bg-gray-50 py-8">
+      <section className="surface-secondary py-8">
         <div className="container-custom">
           <div className="flex flex-wrap gap-4 justify-center">
             {categories.map((category) => (
               <button
                 key={category.id}
                 onClick={() => setSelectedCategory(category.id)}
-                className={`px-6 py-3 font-bold text-sm border-2 border-black transition-colors ${
+                className={`px-6 py-3 font-bold text-sm border-2 border-border-primary transition-colors ${
                   selectedCategory === category.id
-                    ? 'bg-black text-white'
-                    : 'bg-white text-black hover:bg-black hover:text-white'
+                    ? 'bg-brand-500 text-white'
+                    : 'bg-white text-content-primary hover:bg-brand-500 hover:text-white'
                 }`}
               >
                 {category.label}
@@ -155,12 +155,12 @@ export default function GalleryPage() {
                 className="bg-white border-2 border-black shadow-brutal hover:shadow-none transition-all"
               >
                 {/* Placeholder Image */}
-                <div className="h-64 bg-gray-200 border-b-2 border-black flex items-center justify-center">
+                <div className="h-64 bg-earth-sand-200 border-b-2 border-border-primary flex items-center justify-center">
                   <div className="text-center">
-                    <div className="w-16 h-16 bg-black mx-auto mb-4 flex items-center justify-center">
+                    <div className="w-16 h-16 bg-brand-500 mx-auto mb-4 flex items-center justify-center">
                       <span className="text-white font-black text-xl">■</span>
                     </div>
-                    <span className="text-sm font-bold text-gray-600">
+                    <span className="text-sm font-bold text-content-secondary">
                       PROJECT IMAGE
                     </span>
                   </div>
@@ -172,13 +172,13 @@ export default function GalleryPage() {
                       <h3 className="text-lg font-black mb-1">
                         {project.title}
                       </h3>
-                      <p className="text-sm text-gray-600">
+                      <p className="text-sm text-content-secondary">
                         {project.location}
                       </p>
                     </div>
                     <div className="text-right text-sm">
                       <div className="font-bold">{project.year}</div>
-                      <div className="text-gray-600">{project.floors} floors</div>
+                      <div className="text-content-secondary">{project.floors} floors</div>
                     </div>
                   </div>
 
@@ -190,7 +190,7 @@ export default function GalleryPage() {
                     <span className="text-sm font-bold">
                       {project.units} UNITS
                     </span>
-                    <span className="text-sm text-gray-600">
+                    <span className="text-sm text-content-secondary">
                       {project.architect}
                     </span>
                   </div>
@@ -199,19 +199,19 @@ export default function GalleryPage() {
                     {project.features.slice(0, 3).map((feature) => (
                       <span
                         key={feature}
-                        className="text-xs bg-black text-white px-2 py-1 font-bold"
+                        className="text-xs bg-brand-500 text-white px-2 py-1 font-bold"
                       >
                         {feature}
                       </span>
                     ))}
                     {project.features.length > 3 && (
-                      <span className="text-xs bg-gray-200 text-black px-2 py-1 font-bold">
+                      <span className="text-xs bg-earth-sand-200 text-black px-2 py-1 font-bold">
                         +{project.features.length - 3}
                       </span>
                     )}
                   </div>
 
-                  <button className="w-full border-2 border-black text-black hover:bg-black hover:text-white py-2 font-bold text-sm transition-colors">
+                  <button className="w-full border-2 border-border-primary text-content-primary hover:bg-brand-500 hover:text-white py-2 font-bold text-sm transition-colors">
                     VIEW DETAILS
                   </button>
                 </div>
@@ -301,6 +301,9 @@ export default function GalleryPage() {
     </div>
   );
 }
+
+
+
 
 
 
