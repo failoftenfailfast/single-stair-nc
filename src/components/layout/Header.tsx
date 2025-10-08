@@ -3,7 +3,6 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
-import { useTheme } from '@/hooks/useTheme';
 import { client, queries } from '@/lib/sanity';
 
 interface SiteSettings {
@@ -23,7 +22,6 @@ interface SiteSettings {
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [siteSettings, setSiteSettings] = useState<SiteSettings | null>(null);
-  const { theme, toggleTheme } = useTheme();
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
 
@@ -40,12 +38,16 @@ export default function Header() {
     fetchSiteSettings();
   }, []);
 
-  const navItems = siteSettings?.navigation || [
-    { href: '/learn', label: 'LEARN' },
-    { href: '/act', label: 'ACT' },
-    { href: '/examples', label: 'EXAMPLES' },
-    { href: '/about', label: 'ABOUT' },
-  ];
+  const navItems = (siteSettings?.navigation && siteSettings.navigation.length > 0
+    ? siteSettings.navigation
+    : [
+        { href: '/learn', label: 'LEARN', external: false },
+        { href: '/act', label: 'ACT', external: false },
+        { href: '/examples', label: 'EXAMPLES', external: false },
+        { href: '/policymakers', label: 'POLICYMAKERS', external: false },
+        { href: '/about', label: 'ABOUT', external: false },
+      ]
+  );
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 surface-primary border-b-2 border-border-primary">
@@ -53,7 +55,7 @@ export default function Header() {
         <div className="flex items-center justify-between h-16 lg:h-20">
           {/* Logo */}
           <Link href="/" className="flex items-center space-x-tight group">
-            <div className="w-8 h-8 lg:w-10 lg:h-10 bg-nc-red flex items-center justify-center group-hover:bg-nc-blue transition-colors">
+            <div className="w-8 h-8 lg:w-10 lg:h-10 bg-brand-500 flex items-center justify-center group-hover:bg-brand-600 transition-colors">
               <span className="text-white font-bold text-body-sm lg:text-body">NC</span>
             </div>
             <div className="hidden sm:block">
@@ -84,13 +86,6 @@ export default function Header() {
             <Link href={siteSettings?.ctaButton?.href || "/act"} className="btn-primary">
               {siteSettings?.ctaButton?.text || 'TAKE ACTION'}
             </Link>
-            <button
-              onClick={toggleTheme}
-              aria-label="Toggle theme"
-              className="border-2 border-border-primary px-3 py-2 text-sm font-semibold surface-primary hover:bg-brand-500 hover:text-white transition-colors"
-            >
-              {theme === 'dark' ? 'Light' : 'Dark'}
-            </button>
           </div>
 
           {/* Mobile Menu Button */}
@@ -152,22 +147,15 @@ export default function Header() {
                   initial={{ x: -20, opacity: 0 }}
                   animate={{ x: 0, opacity: 1 }}
                   transition={{ delay: navItems.length * 0.1 }}
-                  className="pt-4 flex items-center space-x-2"
+                  className="pt-4"
                 >
                   <Link
                     href={siteSettings?.ctaButton?.href || "/act"}
                     onClick={() => setIsMenuOpen(false)}
-                    className="btn-primary flex-1 justify-center"
+                    className="btn-primary w-full justify-center"
                   >
                     {siteSettings?.ctaButton?.text || 'TAKE ACTION'}
                   </Link>
-                  <button
-                    onClick={toggleTheme}
-                    aria-label="Toggle theme"
-                    className="border-2 border-border-primary px-3 py-2 text-sm font-semibold surface-primary hover:bg-brand-500 hover:text-white transition-colors"
-                  >
-                    {theme === 'dark' ? 'Light' : 'Dark'}
-                  </button>
                 </motion.div>
               </div>
             </nav>
