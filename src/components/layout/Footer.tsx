@@ -1,11 +1,51 @@
 'use client';
 
 import Link from 'next/link';
+import { useState, useEffect } from 'react';
+import { client, queries } from '@/lib/sanity';
+
+interface SiteSettings {
+  footerBrandDescription: string;
+  footerSections: Array<{
+    title: string;
+    links: Array<{
+      label: string;
+      href: string;
+    }>;
+  }>;
+  newsletterTitle: string;
+  newsletterDescription: string;
+  newsletterButtonText: string;
+  socialLinks: Array<{
+    platform: string;
+    url: string;
+    label: string;
+  }>;
+  footerBottomLinks: Array<{
+    label: string;
+    href: string;
+  }>;
+  copyrightText: string;
+}
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
+  const [siteSettings, setSiteSettings] = useState<SiteSettings | null>(null);
 
-  const footerSections = [
+  useEffect(() => {
+    const fetchSiteSettings = async () => {
+      try {
+        const data = await client.fetch(queries.siteSettings);
+        setSiteSettings(data);
+      } catch (error) {
+        console.error('Error fetching site settings:', error);
+      }
+    };
+
+    fetchSiteSettings();
+  }, []);
+
+  const footerSections = siteSettings?.footerSections || [
     {
       title: 'LEARN',
       links: [
@@ -28,7 +68,7 @@ export default function Footer() {
       title: 'ABOUT',
       links: [
         { href: '/about', label: 'Mission' },
-        { href: '/gallery', label: 'Building Gallery' },
+        { href: '/examples', label: 'Building Examples' },
         { href: '/contact', label: 'Contact Us' },
       ],
     },
@@ -44,7 +84,7 @@ export default function Footer() {
   ];
 
   return (
-    <footer className="bg-earth-soil-800 text-white">
+    <footer className="bg-brand-900 text-white">
       <div className="container-custom">
         {/* Main Footer Content */}
         <div className="section-padding">
@@ -66,39 +106,41 @@ export default function Footer() {
               </Link>
               
               <p className="text-gray-300 text-sm leading-relaxed mb-6 max-w-md">
-                Advocating for better housing design through single-stair buildings. 
-                Creating more livable, affordable, and sustainable communities across North Carolina.
+                {siteSettings?.footerBrandDescription || 'Advocating for better housing design through single-stair buildings. Creating more livable, affordable, and sustainable communities across North Carolina.'}
               </p>
 
               <div className="flex space-x-4">
-                <a 
-                  href="#" 
-                  className="w-10 h-10 border-2 border-white hover:bg-white hover:text-black transition-colors flex items-center justify-center"
-                  aria-label="Twitter"
-                >
-                  <span className="text-sm font-bold">T</span>
-                </a>
-                <a 
-                  href="#" 
-                  className="w-10 h-10 border-2 border-white hover:bg-white hover:text-black transition-colors flex items-center justify-center"
-                  aria-label="Facebook"
-                >
-                  <span className="text-sm font-bold">F</span>
-                </a>
-                <a 
-                  href="#" 
-                  className="w-10 h-10 border-2 border-white hover:bg-white hover:text-black transition-colors flex items-center justify-center"
-                  aria-label="LinkedIn"
-                >
-                  <span className="text-sm font-bold">L</span>
-                </a>
-                <a 
-                  href="#" 
-                  className="w-10 h-10 border-2 border-white hover:bg-white hover:text-black transition-colors flex items-center justify-center"
-                  aria-label="Email"
-                >
-                  <span className="text-sm font-bold">@</span>
-                </a>
+                {siteSettings?.socialLinks?.map((link) => (
+                  <a
+                    key={link.platform}
+                    href={link.url}
+                    className="w-10 h-10 border-2 border-white hover:bg-white hover:text-black transition-colors flex items-center justify-center"
+                    aria-label={link.platform}
+                  >
+                    <span className="text-sm font-bold">{link.label || link.platform.charAt(0)}</span>
+                  </a>
+                )) || (
+                  <>
+                    <a
+                      href="#"
+                      className="w-10 h-10 border-2 border-white hover:bg-white hover:text-black transition-colors flex items-center justify-center"
+                    >
+                      T
+                    </a>
+                    <a
+                      href="#"
+                      className="w-10 h-10 border-2 border-white hover:bg-white hover:text-black transition-colors flex items-center justify-center"
+                    >
+                      F
+                    </a>
+                    <a
+                      href="#"
+                      className="w-10 h-10 border-2 border-white hover:bg-white hover:text-black transition-colors flex items-center justify-center"
+                    >
+                      L
+                    </a>
+                  </>
+                )}
               </div>
             </div>
 
@@ -126,13 +168,13 @@ export default function Footer() {
         </div>
 
         {/* Newsletter Signup */}
-        <div className="border-t border-earth-soil-600 py-8">
+        <div className="border-t border-brand-800 py-8">
           <div className="max-w-2xl">
             <h3 className="text-white font-bold text-lg mb-4">
-              STAY INFORMED
+              {siteSettings?.newsletterTitle || 'STAY INFORMED'}
             </h3>
             <p className="text-gray-300 text-sm mb-6">
-              Get updates on single-stair legislation, new research, and advocacy opportunities.
+              {siteSettings?.newsletterDescription || 'Get updates on single-stair legislation, new research, and advocacy opportunities.'}
             </p>
             <form className="flex flex-col sm:flex-row gap-4">
               <input
@@ -145,28 +187,36 @@ export default function Footer() {
                 type="submit"
                 className="bg-white text-black font-bold px-6 py-3 border-2 border-white hover:bg-black hover:text-white transition-colors"
               >
-                SUBSCRIBE
+                {siteSettings?.newsletterButtonText || 'SUBSCRIBE'}
               </button>
             </form>
           </div>
         </div>
 
         {/* Bottom Bar */}
-        <div className="border-t border-earth-soil-600 py-6">
+        <div className="border-t border-brand-800 py-6">
           <div className="flex flex-col sm:flex-row justify-between items-center space-y-4 sm:space-y-0">
             <div className="text-gray-400 text-sm">
-              © {currentYear} Single Stair North Carolina. All rights reserved.
+              © {currentYear} {siteSettings?.copyrightText || 'Single Stair North Carolina. All rights reserved.'}
             </div>
             <div className="flex space-x-6 text-sm">
-              <Link href="/privacy" className="text-gray-400 hover:text-white transition-colors">
-                Privacy Policy
-              </Link>
-              <Link href="/accessibility" className="text-gray-400 hover:text-white transition-colors">
-                Accessibility
-              </Link>
-              <Link href="/contact" className="text-gray-400 hover:text-white transition-colors">
-                Contact
-              </Link>
+              {siteSettings?.footerBottomLinks?.map((link) => (
+                <Link key={link.href} href={link.href} className="text-gray-400 hover:text-white transition-colors">
+                  {link.label}
+                </Link>
+              )) || (
+                <>
+                  <Link href="/privacy" className="text-gray-400 hover:text-white transition-colors">
+                    Privacy Policy
+                  </Link>
+                  <Link href="/accessibility" className="text-gray-400 hover:text-white transition-colors">
+                    Accessibility
+                  </Link>
+                  <Link href="/contact" className="text-gray-400 hover:text-white transition-colors">
+                    Contact
+                  </Link>
+                </>
+              )}
             </div>
           </div>
         </div>

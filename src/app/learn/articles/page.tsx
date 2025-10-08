@@ -119,13 +119,13 @@ export default function ArticlesPage() {
                   {featuredPost.title}
                 </h2>
                 {featuredPost.description && (
-                  <p className="text-body-lg text-brutal-gray-300 mb-section">
+                  <p className="text-body-lg text-content-tertiary mb-section">
                     {featuredPost.description}
                   </p>
                 )}
                 <div className="flex items-center space-x-content mb-section text-body-sm">
                   <span className="font-bold text-content-inverse">{featuredPost.author}</span>
-                  <span className="text-brutal-gray-400">
+                  <span className="text-content-tertiary">
                     {formatDate(featuredPost.publishedAt)}
                   </span>
                   {featuredPost.tags && featuredPost.tags.length > 0 && (
@@ -185,7 +185,7 @@ export default function ArticlesPage() {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: index * 0.1 }}
                   whileHover={{ y: -4 }}
-                  className="surface-primary border-brutal shadow-brutal hover:shadow-brutal-hover transition-all"
+                  className="surface-primary border border-border-primary shadow-soft hover:shadow-lg transition-all"
                 >
                   <div className="p-6">
                     <div className="flex items-center justify-between mb-4">
@@ -257,7 +257,7 @@ export default function ArticlesPage() {
               href="https://citybuildernc.org"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center space-x-2 bg-black text-white px-8 py-4 font-bold hover:bg-gray-800 transition-colors shadow-brutal"
+              className="inline-flex items-center space-x-2 bg-brand-600 text-white px-8 py-4 font-medium hover:bg-brand-700 transition-colors shadow-soft"
             >
               <span>SUBSCRIBE TO CITYBUILDER</span>
               <span>→</span>

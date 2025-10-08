@@ -142,13 +142,13 @@
   
   /* Button Components */
   .btn-primary {
-    @apply inline-flex items-center justify-center bg-brand-500 text-white border-2 border-brand-700 hover:bg-brand-600 hover:border-brand-800 focus:outline-none disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200;
-    @apply px-6 py-3 text-body font-semibold shadow-brutal hover:shadow-brutal-hover;
+    @apply inline-flex items-center justify-center bg-brand-500 text-white border border-brand-600 hover:bg-brand-600 hover:border-brand-700 focus:outline-none disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200;
+    @apply px-6 py-3 text-body font-medium shadow-soft hover:shadow-md;
   }
-  
+
   .btn-secondary {
-    @apply inline-flex items-center justify-center bg-earth-sand-100 text-content-primary border-2 border-border-primary hover:bg-brand-500 hover:text-white hover:border-brand-700 focus:outline-none disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200;
-    @apply px-6 py-3 text-body font-semibold shadow-brutal hover:shadow-brutal-hover;
+    @apply inline-flex items-center justify-center bg-surface-secondary text-content-primary border border-border-primary hover:bg-brand-500 hover:text-white hover:border-brand-700 focus:outline-none disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200;
+    @apply px-6 py-3 text-body font-medium shadow-soft hover:shadow-md;
   }
   
   .btn-ghost {
@@ -166,11 +166,11 @@
   
   /* Card Components */
   .card-brutal {
-    @apply bg-surface-primary border border-border-secondary shadow-soft hover:shadow-brutal transition-all duration-200;
+    @apply bg-surface-primary border border-border-secondary shadow-soft hover:shadow-lg transition-all duration-200;
   }
-  
+
   .card-brutal-sm {
-    @apply bg-surface-primary border border-border-secondary shadow-soft hover:shadow-brutal-sm transition-all duration-200;
+    @apply bg-surface-primary border border-border-secondary shadow-soft hover:shadow-md transition-all duration-200;
   }
   
   .card-inverse {
@@ -192,23 +192,11 @@
   
   /* Border & Shadow Components */
   .border-brutal {
-    @apply border-2 border-border-primary;
+    @apply border border-border-primary;
   }
-  
+
   .border-brutal-focus {
-    @apply border-2 border-border-focus;
-  }
-  
-  .shadow-brutal {
-    box-shadow: 0 8px 24px -6px rgba(0, 0, 0, 0.15);
-  }
-  
-  .shadow-brutal-sm {
-    box-shadow: 0 4px 16px -4px rgba(0, 0, 0, 0.12);
-  }
-  
-  .shadow-brutal-hover {
-    box-shadow: 0 12px 28px -6px rgba(0, 0, 0, 0.22);
+    @apply border border-border-focus;
   }
   
   /* Interactive Components */
@@ -220,7 +208,7 @@
     @apply text-brand-200 font-semibold hover:underline hover:text-brand-100 transition-colors duration-200;
   }
   
-  .focus-brutal {
+  .focus-standard {
     @apply focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2;
   }
 }

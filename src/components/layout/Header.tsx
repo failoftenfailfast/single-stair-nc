@@ -1,21 +1,49 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useTheme } from '@/hooks/useTheme';
+import { client, queries } from '@/lib/sanity';
+
+interface SiteSettings {
+  title: string;
+  tagline: string;
+  navigation: Array<{
+    label: string;
+    href: string;
+    external: boolean;
+  }>;
+  ctaButton?: {
+    text: string;
+    href: string;
+  };
+}
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [siteSettings, setSiteSettings] = useState<SiteSettings | null>(null);
   const { theme, toggleTheme } = useTheme();
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
 
-  const navItems = [
-    { href: '/', label: 'HOME' },
+  useEffect(() => {
+    const fetchSiteSettings = async () => {
+      try {
+        const data = await client.fetch(queries.siteSettings);
+        setSiteSettings(data);
+      } catch (error) {
+        console.error('Error fetching site settings:', error);
+      }
+    };
+
+    fetchSiteSettings();
+  }, []);
+
+  const navItems = siteSettings?.navigation || [
     { href: '/learn', label: 'LEARN' },
     { href: '/act', label: 'ACT' },
-    { href: '/gallery', label: 'GALLERY' },
+    { href: '/examples', label: 'EXAMPLES' },
     { href: '/about', label: 'ABOUT' },
   ];
 
@@ -25,7 +53,7 @@ export default function Header() {
         <div className="flex items-center justify-between h-16 lg:h-20">
           {/* Logo */}
           <Link href="/" className="flex items-center space-x-tight group">
-            <div className="w-8 h-8 lg:w-10 lg:h-10 bg-surface-inverse flex items-center justify-center group-hover:bg-brutal-gray-800 transition-colors">
+            <div className="w-8 h-8 lg:w-10 lg:h-10 bg-surface-inverse flex items-center justify-center group-hover:bg-surface-primary transition-colors">
               <span className="text-content-inverse font-bold text-body-sm lg:text-body">NC</span>
             </div>
             <div className="hidden sm:block">
@@ -33,7 +61,7 @@ export default function Header() {
                 SINGLE STAIR
               </div>
               <div className="text-content-primary font-bold text-caption lg:text-body-sm leading-tight">
-                NORTH CAROLINA
+                {siteSettings?.tagline || 'NORTH CAROLINA'}
               </div>
             </div>
           </Link>
@@ -53,8 +81,8 @@ export default function Header() {
 
           {/* CTA Button - Desktop */}
           <div className="hidden lg:flex items-center space-x-3">
-            <Link href="/act" className="btn-primary">
-              TAKE ACTION
+            <Link href={siteSettings?.ctaButton?.href || "/act"} className="btn-primary">
+              {siteSettings?.ctaButton?.text || 'TAKE ACTION'}
             </Link>
             <button
               onClick={toggleTheme}
@@ -127,11 +155,11 @@ export default function Header() {
                   className="pt-4 flex items-center space-x-2"
                 >
                   <Link
-                    href="/act"
+                    href={siteSettings?.ctaButton?.href || "/act"}
                     onClick={() => setIsMenuOpen(false)}
                     className="btn-primary flex-1 justify-center"
                   >
-                    TAKE ACTION
+                    {siteSettings?.ctaButton?.text || 'TAKE ACTION'}
                   </Link>
                   <button
                     onClick={toggleTheme}

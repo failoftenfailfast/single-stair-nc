@@ -115,6 +115,76 @@ export const queries = {
     socialLinks,
     contactInfo,
     letterTemplates
+  }`,
+
+  // Act page content
+  actPage: `*[_type == "actPage"][0]{
+    title,
+    heroTitle,
+    heroDescription,
+    heroBackgroundImage,
+    primaryButtonText,
+    secondaryButtonText,
+    seo
+  }`,
+
+  // About page content
+  aboutPage: `*[_type == "aboutPage"][0]{
+    title,
+    heroTitle,
+    heroDescription,
+    missionTitle,
+    missionContent,
+    missionBulletPoints,
+    whySingleStairTitle,
+    whySingleStairBenefits,
+    teamTitle,
+    teamMembers,
+    timelineTitle,
+    timelineItems,
+    ctaTitle,
+    ctaDescription,
+    primaryButtonText,
+    secondaryButtonText,
+    seo
+  }`,
+
+  // Contact page content
+  contactPage: `*[_type == "contactPage"][0]{
+    title,
+    heroTitle,
+    heroDescription,
+    formTitle,
+    inquiryTypes,
+    submitButtonText,
+    contactInfoTitle,
+    contactInfoItems,
+    officesTitle,
+    officeLocations,
+    followUsTitle,
+    followUsDescription,
+    socialLinks,
+    seo
+  }`,
+
+  // Site settings
+  siteSettings: `*[_type == "siteSettings"][0]{
+    title,
+    tagline,
+    description,
+    logo,
+    favicon,
+    navigation,
+    ctaButton,
+    footerBrandDescription,
+    footerSections,
+    newsletterTitle,
+    newsletterDescription,
+    newsletterButtonText,
+    socialLinks,
+    footerBottomLinks,
+    copyrightText,
+    seo
   }`
 };
 

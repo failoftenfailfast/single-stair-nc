@@ -1,9 +1,42 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { client, queries } from '@/lib/sanity';
+
+interface ContactPageData {
+  title: string;
+  heroTitle: string;
+  heroDescription: string;
+  formTitle: string;
+  inquiryTypes: string[];
+  submitButtonText: string;
+  contactInfoTitle: string;
+  contactInfoItems: Array<{
+    title: string;
+    email: string;
+    description: string;
+  }>;
+  officesTitle: string;
+  officeLocations: Array<{
+    city: string;
+    address: string;
+    phone: string;
+    hours: string;
+  }>;
+  followUsTitle: string;
+  followUsDescription: string;
+  socialLinks?: Array<{
+    platform: string;
+    url: string;
+    label: string;
+  }>;
+  seo?: any;
+}
 
 export default function ContactPage() {
+  const [contactData, setContactData] = useState<ContactPageData | null>(null);
+  const [loading, setLoading] = useState(true);
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -12,6 +45,41 @@ export default function ContactPage() {
     message: '',
     type: 'general',
   });
+
+  useEffect(() => {
+    const fetchContactData = async () => {
+      try {
+        const data = await client.fetch(queries.contactPage);
+        setContactData(data);
+        // Set the first inquiry type as default if available
+        if (data?.inquiryTypes?.length > 0) {
+          setFormData(prev => ({ ...prev, type: data.inquiryTypes[0].toLowerCase() }));
+        }
+      } catch (error) {
+        console.error('Error fetching Contact page data:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchContactData();
+  }, []);
+
+  if (loading) {
+    return (
+      <div className="min-h-screen surface-primary flex items-center justify-center">
+        <div className="text-xl">Loading...</div>
+      </div>
+    );
+  }
+
+  if (!contactData) {
+    return (
+      <div className="min-h-screen surface-primary flex items-center justify-center">
+        <div className="text-xl text-red-600">Error loading content</div>
+      </div>
+    );
+  }
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -75,12 +143,11 @@ export default function ContactPage() {
             className="max-w-4xl"
           >
             <h1 className="text-5xl md:text-7xl lg:text-8xl font-black text-black mb-8 leading-none">
-              CONTACT
+              {contactData.heroTitle || 'CONTACT'}
             </h1>
             <div className="w-32 h-1 bg-gradient-to-r from-brand-500 via-earth-sand-300 to-earth-sage-500/80 mb-8"></div>
             <p className="text-xl md:text-2xl text-black font-medium leading-relaxed mb-12">
-              GET IN TOUCH WITH OUR TEAM. WE'RE HERE TO ANSWER QUESTIONS, 
-              DISCUSS PARTNERSHIPS, AND HELP YOU GET INVOLVED.
+              {contactData.heroDescription || 'GET IN TOUCH WITH OUR TEAM. WE\'RE HERE TO ANSWER QUESTIONS, DISCUSS PARTNERSHIPS, AND HELP YOU GET INVOLVED.'}
             </p>
           </motion.div>
         </div>
@@ -94,9 +161,9 @@ export default function ContactPage() {
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.2 }}
           >
-            <div className="border-2 border-border-primary p-8 shadow-brutal bg-white">
+            <div className="border border-border-primary p-8 shadow-soft bg-surface-primary">
               <h2 className="text-2xl font-black mb-6">
-                SEND US A MESSAGE
+                {contactData.formTitle || 'SEND US A MESSAGE'}
               </h2>
               
               <form onSubmit={handleSubmit} className="space-y-6">
@@ -153,11 +220,19 @@ export default function ContactPage() {
                     required
                     className="w-full p-3 border-2 border-border-primary focus:outline-none bg-white"
                   >
-                    <option value="general">General Inquiry</option>
-                    <option value="media">Media & Press</option>
-                    <option value="partnership">Partnership</option>
-                    <option value="policy">Policy & Research</option>
-                    <option value="volunteer">Volunteer</option>
+                    {contactData.inquiryTypes?.map((type) => (
+                      <option key={type.toLowerCase()} value={type.toLowerCase()}>
+                        {type}
+                      </option>
+                    )) || (
+                      <>
+                        <option value="general">General Inquiry</option>
+                        <option value="media">Media & Press</option>
+                        <option value="partnership">Partnership</option>
+                        <option value="policy">Policy & Research</option>
+                        <option value="volunteer">Volunteer</option>
+                      </>
+                    )}
                   </select>
                 </div>
 
@@ -193,7 +268,7 @@ export default function ContactPage() {
                   type="submit"
                   className="w-full btn-primary py-4 text-lg"
                 >
-                  SEND MESSAGE
+                  {contactData.submitButtonText || 'SEND MESSAGE'}
                 </button>
               </form>
             </div>
@@ -208,11 +283,11 @@ export default function ContactPage() {
           >
             <div>
               <h2 className="text-2xl font-black mb-6">
-                CONTACT INFORMATION
+                {contactData.contactInfoTitle || 'CONTACT INFORMATION'}
               </h2>
-              
+
               <div className="space-y-6">
-                {contactInfo.map((info) => (
+                {contactData.contactInfoItems?.map((info) => (
                   <div key={info.title} className="border-l-4 border-brand-500 pl-4">
                     <h3 className="font-bold mb-2">{info.title}</h3>
                     <a 
@@ -231,11 +306,11 @@ export default function ContactPage() {
 
             <div>
               <h2 className="text-2xl font-black mb-6">
-                OFFICE LOCATIONS
+                {contactData.officesTitle || 'OFFICE LOCATIONS'}
               </h2>
-              
+
               <div className="space-y-6">
-                {offices.map((office) => (
+                {contactData.officeLocations?.map((office) => (
                   <div key={office.city} className="border-2 border-border-primary p-6 bg-white">
                     <h3 className="font-black text-lg mb-3">{office.city}</h3>
                     <div className="space-y-2 text-sm">
@@ -260,30 +335,43 @@ export default function ContactPage() {
 
             <div className="border-2 border-brand-700 p-6 bg-brand-500 text-white">
               <h3 className="font-black text-lg mb-4">
-                FOLLOW OUR WORK
+                {contactData.followUsTitle || 'FOLLOW OUR WORK'}
               </h3>
               <p className="text-sm mb-4">
-                Stay updated on our advocacy efforts and policy developments.
+                {contactData.followUsDescription || 'Stay updated on our advocacy efforts and policy developments.'}
               </p>
               <div className="flex space-x-4">
-                <a 
-                  href="#" 
-                  className="w-10 h-10 border-2 border-white hover:bg-white hover:text-brand-700 transition-colors flex items-center justify-center"
-                >
-                  T
-                </a>
-                <a 
-                  href="#" 
-                  className="w-10 h-10 border-2 border-white hover:bg-white hover:text-brand-700 transition-colors flex items-center justify-center"
-                >
-                  F
-                </a>
-                <a 
-                  href="#" 
-                  className="w-10 h-10 border-2 border-white hover:bg-white hover:text-brand-700 transition-colors flex items-center justify-center"
-                >
-                  L
-                </a>
+                {contactData.socialLinks?.map((link) => (
+                  <a
+                    key={link.platform}
+                    href={link.url}
+                    className="w-10 h-10 border-2 border-white hover:bg-white hover:text-brand-700 transition-colors flex items-center justify-center"
+                    aria-label={link.platform}
+                  >
+                    {link.label || link.platform.charAt(0)}
+                  </a>
+                )) || (
+                  <>
+                    <a
+                      href="#"
+                      className="w-10 h-10 border-2 border-white hover:bg-white hover:text-brand-700 transition-colors flex items-center justify-center"
+                    >
+                      T
+                    </a>
+                    <a
+                      href="#"
+                      className="w-10 h-10 border-2 border-white hover:bg-white hover:text-brand-700 transition-colors flex items-center justify-center"
+                    >
+                      F
+                    </a>
+                    <a
+                      href="#"
+                      className="w-10 h-10 border-2 border-white hover:bg-white hover:text-brand-700 transition-colors flex items-center justify-center"
+                    >
+                      L
+                    </a>
+                  </>
+                )}
               </div>
             </div>
           </motion.div>

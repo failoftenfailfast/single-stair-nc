@@ -1,22 +1,74 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { client, queries, urlFor } from '@/lib/sanity';
+import Image from 'next/image';
 import GeographicProgressMaps from '@/components/maps/GeographicProgressMaps';
+import RepresentativeLookup from '@/components/advocacy/RepresentativeLookup';
+import AdvocacyProgress from '@/components/advocacy/AdvocacyProgress';
+
+interface ActPageData {
+  title: string;
+  heroTitle: string;
+  heroDescription: string;
+  heroBackgroundImage?: any;
+  primaryButtonText: string;
+  secondaryButtonText: string;
+  seo?: any;
+}
 
 export default function ActPage() {
   const [selectedTab, setSelectedTab] = useState('progress');
+  const [actPageData, setActPageData] = useState<ActPageData | null>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchActPageData = async () => {
+      try {
+        const data = await client.fetch(queries.actPage);
+        setActPageData(data);
+      } catch (error) {
+        console.error('Error fetching Act page data:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchActPageData();
+  }, []);
 
   const tabs = [
     { id: 'contact', label: 'CONTACT REPS' },
     { id: 'progress', label: 'TRACK PROGRESS' },
     { id: 'volunteer', label: 'VOLUNTEER' },
+    { id: 'my-impact', label: 'MY IMPACT' },
   ];
+
+  if (loading) {
+    return (
+      <div className="min-h-screen surface-primary flex items-center justify-center">
+        <div className="text-xl">Loading...</div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen surface-primary">
       {/* Hero Section */}
-      <section className="section-padding surface-inverse text-content-inverse">
+      <section className={`section-padding text-content-inverse ${actPageData?.heroBackgroundImage ? 'relative' : 'surface-inverse'}`}>
+        {actPageData?.heroBackgroundImage && (
+          <div className="absolute inset-0 -z-10">
+            <Image
+              src={urlFor(actPageData.heroBackgroundImage).width(1920).height(1080).url()}
+              alt="Hero background"
+              fill
+              className="object-cover"
+              priority
+            />
+            <div className="absolute inset-0 bg-black bg-opacity-50"></div>
+          </div>
+        )}
         <div className="container-custom">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -24,22 +76,24 @@ export default function ActPage() {
             className="max-w-4xl"
           >
             <h1 className="text-5xl md:text-7xl lg:text-8xl font-black mb-8 leading-none">
-              TAKE
-              <br />
-              ACTION
+              {actPageData?.heroTitle?.split('\n').map((line, index) => (
+                <span key={index}>
+                  {line}
+                  {index < (actPageData.heroTitle?.split('\n').length || 0) - 1 && <br />}
+                </span>
+              )) || 'TAKE\nACTION'}
             </h1>
             <div className="w-32 h-1 bg-brand-500 mb-8"></div>
             <p className="text-xl md:text-2xl font-medium leading-relaxed mb-12">
-              YOUR VOICE MATTERS. MAKE A DIRECT IMPACT ON SINGLE-STAIR 
-              HOUSING POLICY IN NORTH CAROLINA THROUGH TARGETED ADVOCACY.
+              {actPageData?.heroDescription || 'YOUR VOICE MATTERS. MAKE A DIRECT IMPACT ON SINGLE-STAIR HOUSING POLICY IN NORTH CAROLINA THROUGH TARGETED ADVOCACY.'}
             </p>
-            
+
             <div className="flex flex-col sm:flex-row gap-4">
-              <button className="bg-surface-primary text-content-primary hover:bg-brand-500 hover:text-white border-2 border-surface-primary px-8 py-4 font-semibold transition-colors shadow-brutal">
-                FIND YOUR REPRESENTATIVE
+              <button className="bg-surface-primary text-content-primary hover:bg-brand-500 hover:text-white border border-border-primary px-8 py-4 font-medium transition-colors shadow-soft">
+                {actPageData?.primaryButtonText || 'FIND YOUR REPRESENTATIVE'}
               </button>
-              <button className="border-2 border-surface-primary text-content-inverse hover:bg-surface-primary hover:text-content-primary px-8 py-4 font-semibold transition-colors shadow-brutal">
-                VIEW PROGRESS MAP
+              <button className="border border-border-primary bg-surface-inverse text-content-inverse hover:bg-surface-primary hover:text-content-primary px-8 py-4 font-medium transition-colors shadow-soft">
+                {actPageData?.secondaryButtonText || 'VIEW PROGRESS MAP'}
               </button>
             </div>
           </motion.div>
@@ -76,60 +130,38 @@ export default function ActPage() {
               animate={{ opacity: 1, y: 0 }}
               className="max-w-4xl mx-auto"
             >
-              <div className="grid md:grid-cols-2 gap-12">
-                <div>
-                  <h2 className="text-3xl md:text-4xl font-black mb-6">
-                    CONTACT YOUR REPRESENTATIVES
-                  </h2>
-                  <p className="text-lg leading-relaxed mb-8">
-                    Find your North Carolina representatives and send them 
-                    a personalized message about single-stair housing policy.
-                  </p>
-                  
-                  <div className="space-y-4 mb-8">
-                    <div className="flex items-center space-x-3">
-                      <div className="w-6 h-6 bg-black flex items-center justify-center">
-                        <span className="text-white text-xs font-bold">1</span>
-                      </div>
-                      <span className="font-medium">Enter your address</span>
+              <div className="mb-8">
+                <h2 className="text-3xl md:text-4xl font-black mb-6">
+                  CONTACT YOUR REPRESENTATIVES
+                </h2>
+                <p className="text-lg leading-relaxed mb-8">
+                  Find your North Carolina representatives and send them
+                  a personalized message about single-stair housing policy.
+                </p>
+
+                <div className="space-y-4 mb-8">
+                  <div className="flex items-center space-x-3">
+                    <div className="w-6 h-6 bg-black flex items-center justify-center">
+                      <span className="text-white text-xs font-bold">1</span>
                     </div>
-                    <div className="flex items-center space-x-3">
-                      <div className="w-6 h-6 bg-black flex items-center justify-center">
-                        <span className="text-white text-xs font-bold">2</span>
-                      </div>
-                      <span className="font-medium">Choose a message template</span>
+                    <span className="font-medium">Enter your address</span>
+                  </div>
+                  <div className="flex items-center space-x-3">
+                    <div className="w-6 h-6 bg-black flex items-center justify-center">
+                      <span className="text-white text-xs font-bold">2</span>
                     </div>
-                    <div className="flex items-center space-x-3">
-                      <div className="w-6 h-6 bg-black flex items-center justify-center">
-                        <span className="text-white text-xs font-bold">3</span>
-                      </div>
-                      <span className="font-medium">Personalize and send</span>
+                    <span className="font-medium">Choose a message template</span>
+                  </div>
+                  <div className="flex items-center space-x-3">
+                    <div className="w-6 h-6 bg-black flex items-center justify-center">
+                      <span className="text-white text-xs font-bold">3</span>
                     </div>
+                    <span className="font-medium">Personalize and send</span>
                   </div>
                 </div>
-
-                <div className="border-2 border-black p-8 shadow-brutal">
-                  <h3 className="text-xl font-bold mb-6">FIND YOUR DISTRICT</h3>
-                  <form className="space-y-4">
-                    <div>
-                      <label className="block text-sm font-bold mb-2">
-                        YOUR ADDRESS
-                      </label>
-                      <input
-                        type="text"
-                        placeholder="123 Main St, Charlotte, NC 28202"
-                        className="w-full p-3 border-2 border-black focus:outline-none"
-                      />
-                    </div>
-                    <button
-                      type="submit"
-                      className="w-full bg-black text-white hover:bg-gray-800 py-3 font-bold transition-colors"
-                    >
-                      FIND MY REPRESENTATIVES
-                    </button>
-                  </form>
-                </div>
               </div>
+
+              <RepresentativeLookup />
             </motion.div>
           )}
 
@@ -241,10 +273,20 @@ export default function ActPage() {
               </div>
 
               <div className="mt-12">
-                <button className="bg-black text-white hover:bg-gray-800 px-12 py-4 font-bold text-lg transition-colors shadow-brutal">
+                <button className="bg-brand-600 text-white hover:bg-brand-700 px-12 py-4 font-medium text-lg transition-colors shadow-soft">
                   JOIN THE MOVEMENT
                 </button>
               </div>
+            </motion.div>
+          )}
+
+          {selectedTab === 'my-impact' && (
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="max-w-4xl mx-auto"
+            >
+              <AdvocacyProgress />
             </motion.div>
           )}
         </div>

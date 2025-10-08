@@ -1,0 +1,15 @@
+{
+  "mcpServers": {
+    "sanity": {
+      "command": "node",
+      "args": [
+        "node_modules/@sanity/mcp-server/dist/index.js"
+      ],
+      "env": {
+        "SANITY_PROJECT_ID": "${SANITY_PROJECT_ID}",
+        "SANITY_DATASET": "${SANITY_DATASET}",
+        "SANITY_API_TOKEN": "${SANITY_API_TOKEN}"
+      }
+    }
+  }
+}

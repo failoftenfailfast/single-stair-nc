@@ -1,8 +1,12 @@
 // Site configuration
 import siteConfig from './siteConfig';
+import siteSettings from './siteSettings';
 
 // Page content
 import page from './page';
+import actPage from './actPage';
+import aboutPage from './aboutPage';
+import contactPage from './contactPage';
 import scrollytellingSection from './scrollytellingSection';
 
 // Educational content
@@ -32,9 +36,13 @@ import blockContent from './blockContent';
 export const schemas = [
   // Site configuration
   siteConfig,
-  
+  siteSettings,
+
   // Page content
   page,
+  actPage,
+  aboutPage,
+  contactPage,
   scrollytellingSection,
   
   // Educational content

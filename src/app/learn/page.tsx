@@ -74,11 +74,11 @@ export default function LearnPage() {
               >
                 <Link
                   href={section.href}
-                  className="block bg-white border-2 border-border-primary p-8 hover:bg-brand-500 hover:text-white transition-colors group shadow-brutal"
+                  className="block bg-surface-primary border border-border-primary p-8 hover:bg-brand-500 hover:text-white transition-colors group shadow-soft"
                 >
                   <div className="flex items-center justify-between mb-6">
                     <span className="text-4xl font-black">{section.icon}</span>
-                    <div className="w-8 h-8 border-2 border-border-primary group-hover:border-white flex items-center justify-center">
+                    <div className="w-8 h-8 border border-border-primary group-hover:border-white flex items-center justify-center">
                       <span className="text-sm font-black">→</span>
                     </div>
                   </div>
@@ -99,7 +99,7 @@ export default function LearnPage() {
               transition={{ delay: 0.5 }}
               className="md:col-span-2 lg:col-span-1"
             >
-              <div className="bg-brand-500 text-white p-8 h-full shadow-brutal border-2 border-brand-700">
+              <div className="bg-brand-500 text-white p-8 h-full shadow-soft border border-brand-600">
                 <div className="mb-6">
                   <span className="text-sm font-bold tracking-wider text-earth-sand-200">
                     FEATURED ARTICLE

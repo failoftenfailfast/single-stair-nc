@@ -10,22 +10,6 @@ const config: Config = {
     extend: {
       colors: {
         // Design System Colors
-        brutal: {
-          black: '#000000',
-          white: '#ffffff',
-          gray: {
-            50: '#fafafa',
-            100: '#f5f5f5', 
-            200: '#e5e5e5',
-            300: '#d4d4d4',
-            400: '#a3a3a3',
-            500: '#737373',
-            600: '#525252',
-            700: '#404040',
-            800: '#262626',
-            900: '#171717',
-          }
-        },
         
         // Brand palette (Carolina Blue)
         brand: {
@@ -151,15 +135,15 @@ const config: Config = {
       },
       fontSize: {
         // Design System Typography
-        'display-xl': ['4.5rem', { lineHeight: '1', fontWeight: '800' }],      // Hero headlines (softer)
-        'display-lg': ['3.75rem', { lineHeight: '1', fontWeight: '800' }],     // Page headlines (softer)
-        'display-md': ['3rem', { lineHeight: '1.1', fontWeight: '700' }],      // Section headlines (softer)
-        'display-sm': ['2.25rem', { lineHeight: '1.2', fontWeight: '700' }],   // Sub-headlines (softer)
-        
-        'heading-xl': ['1.875rem', { lineHeight: '1.3', fontWeight: '700' }],  // Card titles (softer)
-        'heading-lg': ['1.5rem', { lineHeight: '1.4', fontWeight: '600' }],    // Content titles (softer)
-        'heading-md': ['1.25rem', { lineHeight: '1.5', fontWeight: '600' }],   // Sub-titles (softer)
-        'heading-sm': ['1.125rem', { lineHeight: '1.5', fontWeight: '600' }],  // Small headings (softer)
+        'display-xl': ['4.5rem', { lineHeight: '1.1', fontWeight: '700' }],    // Hero headlines
+        'display-lg': ['3.75rem', { lineHeight: '1.1', fontWeight: '700' }],   // Page headlines
+        'display-md': ['3rem', { lineHeight: '1.2', fontWeight: '600' }],     // Section headlines
+        'display-sm': ['2.25rem', { lineHeight: '1.3', fontWeight: '600' }],  // Sub-headlines
+
+        'heading-xl': ['1.875rem', { lineHeight: '1.3', fontWeight: '600' }], // Card titles
+        'heading-lg': ['1.5rem', { lineHeight: '1.4', fontWeight: '500' }],   // Content titles
+        'heading-md': ['1.25rem', { lineHeight: '1.5', fontWeight: '500' }],  // Sub-titles
+        'heading-sm': ['1.125rem', { lineHeight: '1.5', fontWeight: '500' }], // Small headings
         
         'body-lg': ['1.125rem', { lineHeight: '1.7', fontWeight: '400' }],     // Large body text
         'body': ['1rem', { lineHeight: '1.6', fontWeight: '400' }],            // Default body text

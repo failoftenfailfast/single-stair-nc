@@ -171,10 +171,9 @@ export default defineType({
     defineField({
       name: 'backgroundColor',
       title: 'Background Color',
-      type: 'color',
-      options: {
-        disableAlpha: false,
-      },
+      type: 'string',
+      description: 'Hex color code (e.g., #ff0000)',
+      validation: (Rule) => Rule.regex(/^#[0-9A-F]{6}$/i, 'Must be a valid hex color'),
     }),
     defineField({
       name: 'isActive',

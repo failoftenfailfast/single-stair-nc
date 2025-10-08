@@ -33,20 +33,20 @@ text-feedback-error     /* Error state (#dc2626) */
 text-feedback-info      /* Info state (#2563eb) */
 ```
 
-### Brutal Gray Scale
+### Neutral Gray Scale
 For custom implementations:
 
 ```css
-brutal-gray-50   /* #fafafa */
-brutal-gray-100  /* #f5f5f5 */
-brutal-gray-200  /* #e5e5e5 */
-brutal-gray-300  /* #d4d4d4 */
-brutal-gray-400  /* #a3a3a3 */
-brutal-gray-500  /* #737373 */
-brutal-gray-600  /* #525252 */
-brutal-gray-700  /* #404040 */
-brutal-gray-800  /* #262626 */
-brutal-gray-900  /* #171717 */
+neutral-50   /* #f9fafb */
+neutral-100  /* #f3f4f6 */
+neutral-200  /* #e5e7eb */
+neutral-300  /* #d1d5db */
+neutral-400  /* #9ca3af */
+neutral-500  /* #6b7280 */
+neutral-600  /* #4b5563 */
+neutral-700  /* #374151 */
+neutral-800  /* #1f2937 */
+neutral-900  /* #111827 */
 ```
 
 ## 📝 Typography System
@@ -116,8 +116,8 @@ py-section-lg      /* padding-top/bottom: 6rem */
 
 ### Buttons
 ```css
-.btn-primary       /* Black background, white text */
-.btn-secondary     /* White background, black text */
+.btn-primary       /* Brand background, white text */
+.btn-secondary     /* Light background, dark text */
 .btn-ghost         /* Transparent background */
 
 /* Size modifiers */
@@ -127,9 +127,9 @@ py-section-lg      /* padding-top/bottom: 6rem */
 
 ### Cards
 ```css
-.card-brutal       /* Standard brutal card with shadow */
-.card-brutal-sm    /* Smaller brutal card */
-.card-inverse      /* Dark brutal card */
+.card-standard     /* Standard card with subtle shadow */
+.card-small        /* Smaller card */
+.card-inverse      /* Dark card */
 ```
 
 ### Surfaces
@@ -141,25 +141,25 @@ py-section-lg      /* padding-top/bottom: 6rem */
 
 ### Links
 ```css
-.link-brutal       /* Primary link with hover effects */
+.link-primary      /* Primary link with hover effects */
 .link-inverse      /* Inverse link for dark backgrounds */
 ```
 
 ## 🎭 Shadow System
 
-### Brutal Shadows
+### Subtle Shadows
 ```css
-.shadow-brutal         /* 8px offset shadow */
-.shadow-brutal-sm      /* 4px offset shadow */
-.shadow-brutal-hover   /* 12px offset shadow for hover states */
-.shadow-soft          /* Subtle drop shadow */
+.shadow-soft       /* Subtle drop shadow */
+.shadow-sm         /* Small shadow */
+.shadow-md         /* Medium shadow */
+.shadow-lg         /* Large shadow */
 ```
 
 ## 🖼️ Border System
 
 ```css
-.border-brutal        /* 2px black border */
-.border-brutal-focus  /* Focus border styling */
+.border-standard   /* Standard border */
+.border-focus      /* Focus border styling */
 ```
 
 ## 🔧 Utility Classes
@@ -191,7 +191,7 @@ py-section-lg      /* padding-top/bottom: 6rem */
 
 ### Focus
 ```css
-.focus-brutal        /* Brutal-style focus ring */
+.focus-standard      /* Standard focus ring */
 ```
 
 ## 🚀 Usage Examples
@@ -267,7 +267,7 @@ className="bg-white text-black border-2 border-black p-6 text-xl font-black"
 
 ### After (Design System)
 ```css
-className="surface-primary border-brutal p-content text-heading-lg"
+className="surface-primary border-standard p-content text-heading-lg"
 ```
 
 ## 🎯 Best Practices

@@ -9,24 +9,31 @@ export default function Hero() {
         <div className="max-w-5xl mx-auto">
           <div className="mb-section">
             <h1 className="text-display-lg md:text-display-xl text-balance mb-content">
-              HOW CAN A STAIRCASE MAKE HOUSING MORE AFFORDABLE IN NORTH CAROLINA?
+              Fewer stairs, cheaper housing?
             </h1>
             <div className="w-full h-1 bg-gradient-to-r from-brand-500 via-earth-sand-300 to-earth-sage-500/80 mb-element"></div>
           </div>
           
           <p className="text-body-lg text-content-secondary mb-section-lg max-w-3xl mx-auto text-balance">
-            ADVOCATING FOR BETTER HOUSING DESIGN THROUGH SINGLE-STAIR BUILDINGS.<br />
-            CREATING MORE LIVABLE, AFFORDABLE, AND SUSTAINABLE COMMUNITIES.
+            DISCOVER HOW SINGLE-STAIR BUILDINGS CAN TRANSFORM NORTH CAROLINA'S HOUSING LANDSCAPE.<br />
+            SCROLL TO EXPLORE THE DATA, STORIES, AND SOLUTIONS DRIVING THIS MOVEMENT.
           </p>
-          
-          <div className="flex flex-col sm:flex-row gap-element justify-center">
-            <button className="btn-primary btn-large">
-              EXPLORE THE EXPERIENCE
-            </button>
-            
-            <button className="btn-secondary btn-large">
-              TAKE ACTION NOW
-            </button>
+
+          {/* Stair Placeholder Image */}
+          <div className="mb-section-lg">
+            <div className="max-w-2xl mx-auto">
+              <div className="aspect-video bg-gradient-to-br from-earth-sand-100 to-earth-sand-200 border border-border-primary shadow-soft flex items-center justify-center">
+                <div className="text-center p-8">
+                  <div className="text-6xl mb-4">🏠</div>
+                  <div className="text-lg font-bold text-content-primary mb-2">
+                    SINGLE STAIR BUILDING
+                  </div>
+                  <div className="text-sm text-content-secondary">
+                    Visual representation placeholder
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
         
@@ -36,7 +43,7 @@ export default function Hero() {
             <motion.div
               animate={{ y: [0, 8, 0] }}
               transition={{ duration: 2, repeat: Infinity }}
-              className="w-6 h-12 border-brutal flex justify-center"
+              className="w-6 h-12 border border-border-primary flex justify-center"
             >
               <div className="w-1 h-4 bg-brand-500 mt-2"></div>
             </motion.div>
@@ -44,10 +51,7 @@ export default function Hero() {
         </div>
       </div>
 
-      {/* Decorative Elements */}
-      <div className="absolute top-20 left-section w-16 h-16 border-brutal hidden lg:block"></div>
-      <div className="absolute top-32 right-12 w-24 h-24 border-brutal hidden lg:block"></div>
-      <div className="absolute bottom-20 left-16 w-20 h-20 border-brutal hidden lg:block"></div>
+      {/* Decorative Elements removed to de-brutalize the homepage */}
     </section>
   );
 }

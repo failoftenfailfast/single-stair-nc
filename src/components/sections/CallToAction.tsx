@@ -93,7 +93,7 @@ export default function CallToAction() {
             <motion.button
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
-              className="bg-white text-black hover:bg-black hover:text-white border-2 border-white px-12 py-4 font-bold text-lg transition-colors shadow-brutal"
+              className="bg-surface-primary text-content-primary hover:bg-brand-500 hover:text-white border border-border-primary px-12 py-4 font-medium text-lg transition-colors shadow-soft"
             >
               FIND YOUR REPRESENTATIVE
             </motion.button>
@@ -101,7 +101,7 @@ export default function CallToAction() {
             <motion.button
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
-              className="border-2 border-white text-white hover:bg-white hover:text-black px-12 py-4 font-bold text-lg transition-colors shadow-brutal"
+              className="border border-border-primary bg-surface-inverse text-content-inverse hover:bg-surface-primary hover:text-content-primary px-12 py-4 font-medium text-lg transition-colors shadow-soft"
             >
               LEARN MORE
             </motion.button>

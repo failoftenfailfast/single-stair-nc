@@ -117,7 +117,7 @@ export default function SimpleProgressMaps({ className = '' }: SimpleProgressMap
                       key={state.id}
                       whileHover={{ y: -2 }}
                       onClick={() => setSelectedItem(state)}
-                      className="border-2 border-green-600 p-4 cursor-pointer hover:bg-green-50 transition-colors shadow-brutal-sm"
+                      className="border border-green-600 p-4 cursor-pointer hover:bg-green-50 transition-colors shadow-soft"
                     >
                       <div className="flex items-center justify-between mb-2">
                         <span className="font-black text-lg">{state.name}</span>
@@ -308,7 +308,7 @@ export default function SimpleProgressMaps({ className = '' }: SimpleProgressMap
               initial={{ scale: 0.9, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.9, opacity: 0 }}
-              className="bg-white border-2 border-black p-6 max-w-lg mx-4 shadow-brutal"
+              className="bg-surface-primary border border-border-primary p-6 max-w-lg mx-4 shadow-soft"
               onClick={(e) => e.stopPropagation()}
             >
               <div className="flex items-center justify-between mb-4">

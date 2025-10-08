@@ -3,7 +3,7 @@
 import { motion } from 'framer-motion';
 import { useState } from 'react';
 
-export default function GalleryPage() {
+export default function ExamplesPage() {
   const [selectedCategory, setSelectedCategory] = useState('all');
 
   const categories = [
@@ -109,7 +109,7 @@ export default function GalleryPage() {
             className="max-w-4xl"
           >
             <h1 className="text-5xl md:text-7xl lg:text-8xl font-black text-black mb-8 leading-none">
-              GALLERY
+              EXAMPLES
             </h1>
             <div className="w-32 h-1 bg-gradient-to-r from-brand-500 via-earth-sand-300 to-earth-sage-500/80 mb-8"></div>
             <p className="text-xl md:text-2xl text-black font-medium leading-relaxed mb-12">
@@ -152,7 +152,7 @@ export default function GalleryPage() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.1 }}
                 whileHover={{ y: -4 }}
-                className="bg-white border-2 border-black shadow-brutal hover:shadow-none transition-all"
+                className="bg-surface-primary border border-border-primary shadow-soft hover:shadow-md transition-all"
               >
                 {/* Placeholder Image */}
                 <div className="h-64 bg-earth-sand-200 border-b-2 border-border-primary flex items-center justify-center">

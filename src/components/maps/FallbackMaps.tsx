@@ -83,7 +83,7 @@ export function FallbackNCCountiesMap({ className = '' }: { className?: string }
               initial={{ scale: 0.9, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.9, opacity: 0 }}
-              className="bg-white border-2 border-black p-6 max-w-md mx-4 shadow-brutal"
+              className="bg-surface-primary border border-border-primary p-6 max-w-md mx-4 shadow-soft"
               onClick={(e) => e.stopPropagation()}
             >
               <div className="flex items-center justify-between mb-4">
@@ -306,7 +306,7 @@ export function FallbackUSStatesMap({ className = '' }: { className?: string }) 
               initial={{ scale: 0.9, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.9, opacity: 0 }}
-              className="bg-white border-2 border-black p-6 max-w-md mx-4 shadow-brutal"
+              className="bg-surface-primary border border-border-primary p-6 max-w-md mx-4 shadow-soft"
               onClick={(e) => e.stopPropagation()}
             >
               <div className="flex items-center justify-between mb-4">

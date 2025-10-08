@@ -6,9 +6,9 @@ import { schemas } from './sanity/schemas';
 export default defineConfig({
   name: 'single-stair-nc',
   title: 'Single Stair NC',
-  
-  projectId: process.env.SANITY_PROJECT_ID!,
-  dataset: process.env.SANITY_DATASET!,
+
+  projectId: 'n8639pbu',
+  dataset: 'production',
   
   plugins: [
     deskTool({
@@ -20,17 +20,58 @@ export default defineConfig({
             S.listItem()
               .title('Site Configuration')
               .child(
-                S.document()
-                  .schemaType('siteConfig')
-                  .documentId('siteConfig')
+                S.list()
+                  .title('Site Configuration')
+                  .items([
+                    S.listItem()
+                      .title('Site Settings')
+                      .child(
+                        S.document()
+                          .schemaType('siteSettings')
+                          .documentId('siteSettings')
+                      ),
+                    S.listItem()
+                      .title('Site Config')
+                      .child(
+                        S.document()
+                          .schemaType('siteConfig')
+                          .documentId('siteConfig')
+                      ),
+                  ])
               ),
             
             // Pages
             S.listItem()
               .title('Pages')
               .child(
-                S.documentTypeList('page')
+                S.list()
                   .title('Pages')
+                  .items([
+                    S.listItem()
+                      .title('General Pages')
+                      .child(S.documentTypeList('page').title('General Pages')),
+                    S.listItem()
+                      .title('Act Page')
+                      .child(
+                        S.document()
+                          .schemaType('actPage')
+                          .documentId('actPage')
+                      ),
+                    S.listItem()
+                      .title('About Page')
+                      .child(
+                        S.document()
+                          .schemaType('aboutPage')
+                          .documentId('aboutPage')
+                      ),
+                    S.listItem()
+                      .title('Contact Page')
+                      .child(
+                        S.document()
+                          .schemaType('contactPage')
+                          .documentId('contactPage')
+                      ),
+                  ])
               ),
             
             // Scrollytelling Content
