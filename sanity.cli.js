@@ -4,5 +4,6 @@ export default defineCliConfig({
   api: {
     projectId: 'n8639pbu',
     dataset: 'production'
-  }
+  },
+  studioHost: 'singlestair-nc'
 })

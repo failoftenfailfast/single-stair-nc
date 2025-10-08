@@ -92,7 +92,7 @@ export default function Footer() {
             {/* Brand Section */}
             <div className="lg:col-span-2">
               <Link href="/" className="inline-flex items-center space-x-3 mb-6">
-                <div className="w-12 h-12 bg-brand-500 flex items-center justify-center">
+                <div className="w-12 h-12 bg-nc-red flex items-center justify-center">
                   <span className="text-white font-bold text-lg">NC</span>
                 </div>
                 <div>

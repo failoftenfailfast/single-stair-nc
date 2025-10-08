@@ -4,33 +4,53 @@ A comprehensive design system for consistent styling and easy refactoring across
 
 ## 🎨 Color System
 
+### North Carolina State Flag Colors
+The design system incorporates colors from the North Carolina state flag:
+
+```css
+/* NC Flag Colors */
+bg-nc-red         /* #B22234 - NC flag red */
+bg-nc-blue        /* #3C3B6E - NC flag blue */
+bg-nc-gold        /* #FFD700 - NC flag gold */
+bg-nc-white       /* #FFFFFF - NC flag white */
+text-nc-red       /* NC flag red text */
+text-nc-blue      /* NC flag blue text */
+text-nc-gold      /* NC flag gold text */
+border-nc-red     /* NC flag red borders */
+border-nc-blue    /* NC flag blue borders */
+```
+
 ### Semantic Colors
 Use these semantic color tokens instead of hardcoded values:
 
 ```css
 /* Surfaces */
 bg-surface-primary      /* Main backgrounds (#ffffff) */
-bg-surface-secondary    /* Secondary backgrounds (#f5f5f5) */
-bg-surface-tertiary     /* Subtle backgrounds (#fafafa) */
-bg-surface-inverse      /* Dark/inverted backgrounds (#000000) */
+bg-surface-secondary    /* Secondary backgrounds (#f4f1ea) - warm earth tone */
+bg-surface-tertiary     /* Subtle backgrounds (#faf7f0) - light earth tone */
+bg-surface-inverse      /* Dark/inverted backgrounds (#0f172a) */
 
 /* Content/Text */
-text-content-primary    /* Main text (#000000) */
-text-content-secondary  /* Secondary text (#525252) */
-text-content-tertiary   /* Subtle text (#737373) */
+text-content-primary    /* Main text (#0f172a) - dark slate */
+text-content-secondary  /* Secondary text (#334155) - medium slate */
+text-content-tertiary   /* Subtle text (#64748b) - light slate */
 text-content-inverse    /* Light text on dark (#ffffff) */
-text-content-disabled   /* Disabled text (#a3a3a3) */
+text-content-disabled   /* Disabled text (#94a3b8) - muted slate */
 
 /* Borders */
-border-border-primary   /* Main borders (#000000) */
-border-border-secondary /* Subtle borders (#d4d4d4) */
-border-border-focus     /* Focus rings (#000000) */
+border-border-primary   /* Main borders (#334155) - slate */
+border-border-secondary /* Subtle borders (#e7dfcf) - earth sand */
+border-border-focus     /* Focus rings (#3C3B6E) - NC blue */
 
-/* Feedback */
-text-feedback-success   /* Success state (#16a34a) */
-text-feedback-warning   /* Warning state (#ea580c) */
-text-feedback-error     /* Error state (#dc2626) */
-text-feedback-info      /* Info state (#2563eb) */
+/* Interactive Elements */
+text-link-primary       /* Primary links (#B22234) - NC red */
+text-link-inverse       /* Inverse links (#FFD700) - NC gold */
+
+/* Feedback (using NC colors where appropriate) */
+text-feedback-success   /* Success state (#22c55e) - green */
+text-feedback-warning   /* Warning state (#ea580c) - orange */
+text-feedback-error     /* Error state (#dc2626) - red */
+text-feedback-info      /* Info state (#3C3B6E) - NC blue */
 ```
 
 ### Neutral Gray Scale
@@ -116,9 +136,9 @@ py-section-lg      /* padding-top/bottom: 6rem */
 
 ### Buttons
 ```css
-.btn-primary       /* Brand background, white text */
-.btn-secondary     /* Light background, dark text */
-.btn-ghost         /* Transparent background */
+.btn-primary       /* NC red background, white text */
+.btn-secondary     /* Light background, dark text with NC blue hover */
+.btn-ghost         /* Transparent background with NC red text */
 
 /* Size modifiers */
 .btn-large         /* Larger padding and text */
@@ -141,8 +161,8 @@ py-section-lg      /* padding-top/bottom: 6rem */
 
 ### Links
 ```css
-.link-primary      /* Primary link with hover effects */
-.link-inverse      /* Inverse link for dark backgrounds */
+.link-primary      /* NC red link with darker red hover */
+.link-inverse      /* NC gold link with lighter gold hover */
 ```
 
 ## 🎭 Shadow System
@@ -191,7 +211,7 @@ py-section-lg      /* padding-top/bottom: 6rem */
 
 ### Focus
 ```css
-.focus-standard      /* Standard focus ring */
+.focus-standard      /* NC blue focus ring */
 ```
 
 ## 🚀 Usage Examples

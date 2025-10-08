@@ -11,18 +11,26 @@ const config: Config = {
       colors: {
         // Design System Colors
         
-        // Brand palette (Carolina Blue)
+        // Brand palette (North Carolina inspired)
         brand: {
-          50: '#f1f7fd',
-          100: '#e3effb',
-          200: '#c2def7',
-          300: '#9ecaf0',
-          400: '#79b6e7',
-          500: '#4b9cd3', // Carolina blue
-          600: '#3f8fc8',
-          700: '#337db4',
-          800: '#2a6694',
-          900: '#234f73',
+          50: '#fef2f2',   // Light red tint
+          100: '#fee2e2',  // Red tint
+          200: '#fecaca',  // Light red
+          300: '#fca5a5',  // Red accent
+          400: '#f87171',  // Medium red
+          500: '#ef4444',  // NC flag red
+          600: '#dc2626',  // Darker red
+          700: '#b91c1c',  // Deep red
+          800: '#991b1b',  // Very dark red
+          900: '#7f1d1d',  // Darkest red
+        },
+
+        // North Carolina state colors
+        nc: {
+          red: '#B22234',    // NC flag red
+          blue: '#3C3B6E',   // NC flag blue
+          gold: '#FFD700',   // NC flag gold
+          white: '#FFFFFF',  // NC flag white
         },
         
         // Earth tones

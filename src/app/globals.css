@@ -14,11 +14,17 @@
     --color-gray-100: #f3f4f6;
     --color-gray-300: #d1d5db;
 
-    /* Brand */
-    --color-brand-500: #4b9cd3;
-    --color-brand-600: #3f8fc8;
-    --color-brand-700: #337db4;
-    --color-brand-800: #2a6694;
+    /* Brand (North Carolina inspired) */
+    --color-brand-500: #ef4444;  /* NC flag red */
+    --color-brand-600: #dc2626;
+    --color-brand-700: #b91c1c;
+    --color-brand-800: #991b1b;
+
+    /* North Carolina state colors */
+    --color-nc-red: #B22234;
+    --color-nc-blue: #3C3B6E;
+    --color-nc-gold: #FFD700;
+    --color-nc-white: #ffffff;
 
     /* Surfaces */
     --color-surface-primary: #ffffff;
@@ -37,19 +43,20 @@
     --color-border-secondary: #e7dfcf;
     --color-border-focus: #4b9cd3;
 
-    /* Soft gradients used in scrollytelling */
-    --gradient-brand-soft: linear-gradient(135deg, rgba(75, 156, 211, 0.10), rgba(62, 131, 178, 0.14));
+    /* Soft gradients used in scrollytelling (incorporating NC colors) */
+    --gradient-brand-soft: linear-gradient(135deg, rgba(239, 68, 68, 0.10), rgba(60, 59, 110, 0.14));
     --gradient-sage-soft: linear-gradient(135deg, rgba(120, 157, 129, 0.10), rgba(95, 139, 101, 0.14));
+    --gradient-nc-soft: linear-gradient(135deg, rgba(178, 34, 52, 0.08), rgba(255, 215, 0, 0.12));
 
-    /* Policy status colors */
-    --status-signed: #22c55e;
-    --status-passed-both: #3b82f6;
-    --status-passed-chamber: #6366f1;
-    --status-committee: #f59e0b;
-    --status-introduced: #eab308;
-    --status-studying: #8b5cf6;
-    --status-failed: #ef4444;
-    --status-no-activity: #9ca3af;
+    /* Policy status colors (using NC flag colors where appropriate) */
+    --status-signed: #22c55e;     /* Green for success */
+    --status-passed-both: #3C3B6E; /* NC blue for passed */
+    --status-passed-chamber: #B22234; /* NC red for chamber progress */
+    --status-committee: #f59e0b;  /* Orange for committee */
+    --status-introduced: #FFD700;  /* NC gold for introduced */
+    --status-studying: #8b5cf6;   /* Purple for studying */
+    --status-failed: #dc2626;     /* Dark red for failed */
+    --status-no-activity: #9ca3af; /* Gray for no activity */
   }
   :root[data-theme="dark"] {
     --color-black: #000000;
@@ -58,10 +65,10 @@
     --color-gray-100: #111827;
     --color-gray-300: #374151;
 
-    --color-brand-500: #79b6e7;
-    --color-brand-600: #4b9cd3;
-    --color-brand-700: #3f8fc8;
-    --color-brand-800: #337db4;
+    --color-brand-500: #f87171;  /* Light red for dark theme */
+    --color-brand-600: #ef4444;
+    --color-brand-700: #dc2626;
+    --color-brand-800: #b91c1c;
 
     --color-surface-primary: #0b1220;
     --color-surface-secondary: #0f172a;
@@ -77,17 +84,18 @@
     --color-border-secondary: #1f2937;
     --color-border-focus: #79b6e7;
 
-    --gradient-brand-soft: linear-gradient(135deg, rgba(75, 156, 211, 0.16), rgba(62, 131, 178, 0.18));
+    --gradient-brand-soft: linear-gradient(135deg, rgba(248, 113, 113, 0.16), rgba(60, 59, 110, 0.18));
     --gradient-sage-soft: linear-gradient(135deg, rgba(120, 157, 129, 0.16), rgba(95, 139, 101, 0.18));
+    --gradient-nc-soft: linear-gradient(135deg, rgba(178, 34, 52, 0.12), rgba(255, 215, 0, 0.16));
 
-    --status-signed: #16a34a;
-    --status-passed-both: #3b82f6;
-    --status-passed-chamber: #6366f1;
-    --status-committee: #f59e0b;
-    --status-introduced: #eab308;
-    --status-studying: #8b5cf6;
-    --status-failed: #ef4444;
-    --status-no-activity: #6b7280;
+    --status-signed: #16a34a;     /* Green for success */
+    --status-passed-both: #6366f1; /* Purple-blue for passed in dark mode */
+    --status-passed-chamber: #f87171; /* Light red for chamber progress */
+    --status-committee: #f59e0b;  /* Orange for committee */
+    --status-introduced: #fbbf24;  /* Yellow-gold for introduced */
+    --status-studying: #a855f7;   /* Purple for studying */
+    --status-failed: #ef4444;     /* Red for failed */
+    --status-no-activity: #6b7280; /* Gray for no activity */
   }
   html {
     scroll-behavior: smooth;
@@ -142,12 +150,12 @@
   
   /* Button Components */
   .btn-primary {
-    @apply inline-flex items-center justify-center bg-brand-500 text-white border border-brand-600 hover:bg-brand-600 hover:border-brand-700 focus:outline-none disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200;
+    @apply inline-flex items-center justify-center bg-nc-red text-white border border-nc-red hover:bg-red-700 hover:border-red-800 focus:outline-none disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200;
     @apply px-6 py-3 text-body font-medium shadow-soft hover:shadow-md;
   }
 
   .btn-secondary {
-    @apply inline-flex items-center justify-center bg-surface-secondary text-content-primary border border-border-primary hover:bg-brand-500 hover:text-white hover:border-brand-700 focus:outline-none disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200;
+    @apply inline-flex items-center justify-center bg-surface-secondary text-content-primary border border-border-primary hover:bg-nc-blue hover:text-white hover:border-nc-blue focus:outline-none disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200;
     @apply px-6 py-3 text-body font-medium shadow-soft hover:shadow-md;
   }
   
@@ -200,16 +208,16 @@
   }
   
   /* Interactive Components */
-  .link-brutal {
-    @apply text-brand-700 font-semibold hover:underline hover:text-brand-800 transition-colors duration-200;
+  .link-primary {
+    @apply text-nc-red font-semibold hover:underline hover:text-red-700 transition-colors duration-200;
   }
-  
+
   .link-inverse {
-    @apply text-brand-200 font-semibold hover:underline hover:text-brand-100 transition-colors duration-200;
+    @apply text-nc-gold font-semibold hover:underline hover:text-yellow-400 transition-colors duration-200;
   }
-  
+
   .focus-standard {
-    @apply focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2;
+    @apply focus:outline-none focus:ring-2 focus:ring-nc-blue focus:ring-offset-2;
   }
 }
 

@@ -1,0 +1,2983 @@
+[
+  {
+    "fields": [
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "title",
+        "type": "string",
+        "title": "Site Title"
+      },
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "description",
+        "type": "text",
+        "title": "Site Description"
+      },
+      {
+        "options": {
+          "hotspot": true
+        },
+        "name": "logo",
+        "type": "image"
+      },
+      {
+        "of": [
+          {
+            "fields": [
+              {
+                "options": {
+                  "list": [
+                    {
+                      "title": "Twitter",
+                      "value": "twitter"
+                    },
+                    {
+                      "title": "Facebook",
+                      "value": "facebook"
+                    },
+                    {
+                      "title": "Instagram",
+                      "value": "instagram"
+                    },
+                    {
+                      "title": "LinkedIn",
+                      "value": "linkedin"
+                    },
+                    {
+                      "title": "YouTube",
+                      "value": "youtube"
+                    }
+                  ]
+                },
+                "name": "platform",
+                "type": "string"
+              },
+              {
+                "validation": [
+                  {
+                    "rules": [
+                      {
+                        "flag": "uri",
+                        "constraint": {
+                          "options": {
+                            "scheme": [
+                              "/^http$/",
+                              "/^https$/"
+                            ],
+                            "allowRelative": false,
+                            "relativeOnly": false,
+                            "allowCredentials": false
+                          }
+                        }
+                      }
+                    ],
+                    "level": "error"
+                  }
+                ],
+                "name": "url",
+                "type": "url",
+                "title": "URL"
+              }
+            ],
+            "type": "object"
+          }
+        ],
+        "name": "socialLinks",
+        "type": "array",
+        "title": "Social Media Links"
+      },
+      {
+        "fields": [
+          {
+            "validation": [
+              {
+                "rules": [
+                  {
+                    "flag": "presence",
+                    "constraint": "required"
+                  }
+                ],
+                "level": "error"
+              }
+            ],
+            "name": "email",
+            "type": "string"
+          },
+          {
+            "name": "phone",
+            "type": "string"
+          },
+          {
+            "name": "address",
+            "type": "text"
+          }
+        ],
+        "name": "contactInfo",
+        "type": "object",
+        "title": "Contact Information"
+      }
+    ],
+    "name": "siteConfig",
+    "type": "document",
+    "title": "Site Configuration"
+  },
+  {
+    "fields": [
+      {
+        "initialValue": "Single Stair NC",
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "title",
+        "type": "string",
+        "title": "Site Title"
+      },
+      {
+        "initialValue": "NORTH CAROLINA",
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "tagline",
+        "type": "string",
+        "title": "Site Tagline"
+      },
+      {
+        "initialValue": "Advocating for better housing design through single-stair buildings. Creating more livable, affordable, and sustainable communities across North Carolina.",
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "description",
+        "type": "text",
+        "title": "Site Description"
+      },
+      {
+        "options": {
+          "hotspot": true
+        },
+        "description": "Main site logo",
+        "name": "logo",
+        "type": "image"
+      },
+      {
+        "description": "Site favicon (16x16 or 32x32)",
+        "name": "favicon",
+        "type": "image"
+      },
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "of": [
+          {
+            "fields": [
+              {
+                "validation": [
+                  {
+                    "rules": [
+                      {
+                        "flag": "presence",
+                        "constraint": "required"
+                      }
+                    ],
+                    "level": "error"
+                  }
+                ],
+                "name": "label",
+                "type": "string"
+              },
+              {
+                "validation": [
+                  {
+                    "rules": [
+                      {
+                        "flag": "presence",
+                        "constraint": "required"
+                      }
+                    ],
+                    "level": "error"
+                  }
+                ],
+                "name": "href",
+                "type": "string",
+                "title": "URL"
+              },
+              {
+                "initialValue": false,
+                "name": "external",
+                "type": "boolean",
+                "title": "External Link"
+              }
+            ],
+            "type": "object"
+          }
+        ],
+        "name": "navigation",
+        "type": "array",
+        "title": "Navigation Menu"
+      },
+      {
+        "fields": [
+          {
+            "validation": [
+              {
+                "rules": [
+                  {
+                    "flag": "presence",
+                    "constraint": "required"
+                  }
+                ],
+                "level": "error"
+              }
+            ],
+            "name": "text",
+            "type": "string",
+            "title": "Button Text"
+          },
+          {
+            "validation": [
+              {
+                "rules": [
+                  {
+                    "flag": "presence",
+                    "constraint": "required"
+                  }
+                ],
+                "level": "error"
+              }
+            ],
+            "name": "href",
+            "type": "string",
+            "title": "Button URL"
+          }
+        ],
+        "name": "ctaButton",
+        "type": "object",
+        "title": "Call-to-Action Button"
+      },
+      {
+        "initialValue": "Advocating for better housing design through single-stair buildings. Creating more livable, affordable, and sustainable communities across North Carolina.",
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "footerBrandDescription",
+        "type": "text"
+      },
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "of": [
+          {
+            "fields": [
+              {
+                "validation": [
+                  {
+                    "rules": [
+                      {
+                        "flag": "presence",
+                        "constraint": "required"
+                      }
+                    ],
+                    "level": "error"
+                  }
+                ],
+                "name": "title",
+                "type": "string",
+                "title": "Section Title"
+              },
+              {
+                "validation": [
+                  {
+                    "rules": [
+                      {
+                        "flag": "presence",
+                        "constraint": "required"
+                      }
+                    ],
+                    "level": "error"
+                  }
+                ],
+                "of": [
+                  {
+                    "fields": [
+                      {
+                        "validation": [
+                          {
+                            "rules": [
+                              {
+                                "flag": "presence",
+                                "constraint": "required"
+                              }
+                            ],
+                            "level": "error"
+                          }
+                        ],
+                        "name": "label",
+                        "type": "string",
+                        "title": "Link Label"
+                      },
+                      {
+                        "validation": [
+                          {
+                            "rules": [
+                              {
+                                "flag": "presence",
+                                "constraint": "required"
+                              }
+                            ],
+                            "level": "error"
+                          }
+                        ],
+                        "name": "href",
+                        "type": "string",
+                        "title": "Link URL"
+                      }
+                    ],
+                    "type": "object"
+                  }
+                ],
+                "name": "links",
+                "type": "array",
+                "title": "Section Links"
+              }
+            ],
+            "type": "object"
+          }
+        ],
+        "name": "footerSections",
+        "type": "array",
+        "title": "Footer Navigation Sections"
+      },
+      {
+        "initialValue": "STAY INFORMED",
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "newsletterTitle",
+        "type": "string"
+      },
+      {
+        "initialValue": "Get updates on single-stair legislation, new research, and advocacy opportunities.",
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "newsletterDescription",
+        "type": "text"
+      },
+      {
+        "initialValue": "SUBSCRIBE",
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "newsletterButtonText",
+        "type": "string"
+      },
+      {
+        "of": [
+          {
+            "fields": [
+              {
+                "validation": [
+                  {
+                    "rules": [
+                      {
+                        "flag": "presence",
+                        "constraint": "required"
+                      }
+                    ],
+                    "level": "error"
+                  }
+                ],
+                "name": "platform",
+                "type": "string"
+              },
+              {
+                "validation": [
+                  {
+                    "rules": [
+                      {
+                        "flag": "uri",
+                        "constraint": {
+                          "options": {
+                            "scheme": [
+                              "/^http$/",
+                              "/^https$/"
+                            ],
+                            "allowRelative": false,
+                            "relativeOnly": false,
+                            "allowCredentials": false
+                          }
+                        }
+                      },
+                      {
+                        "flag": "presence",
+                        "constraint": "required"
+                      }
+                    ],
+                    "level": "error"
+                  }
+                ],
+                "name": "url",
+                "type": "url",
+                "title": "URL"
+              },
+              {
+                "name": "label",
+                "type": "string"
+              }
+            ],
+            "type": "object"
+          }
+        ],
+        "name": "socialLinks",
+        "type": "array",
+        "title": "Social Media Links"
+      },
+      {
+        "initialValue": [
+          {
+            "label": "Privacy Policy",
+            "href": "/privacy"
+          },
+          {
+            "label": "Accessibility",
+            "href": "/accessibility"
+          },
+          {
+            "label": "Contact",
+            "href": "/contact"
+          }
+        ],
+        "of": [
+          {
+            "fields": [
+              {
+                "validation": [
+                  {
+                    "rules": [
+                      {
+                        "flag": "presence",
+                        "constraint": "required"
+                      }
+                    ],
+                    "level": "error"
+                  }
+                ],
+                "name": "label",
+                "type": "string",
+                "title": "Link Label"
+              },
+              {
+                "validation": [
+                  {
+                    "rules": [
+                      {
+                        "flag": "presence",
+                        "constraint": "required"
+                      }
+                    ],
+                    "level": "error"
+                  }
+                ],
+                "name": "href",
+                "type": "string",
+                "title": "Link URL"
+              }
+            ],
+            "type": "object"
+          }
+        ],
+        "name": "footerBottomLinks",
+        "type": "array"
+      },
+      {
+        "initialValue": "Single Stair North Carolina. All rights reserved.",
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "copyrightText",
+        "type": "string"
+      },
+      {
+        "fields": [
+          {
+            "initialValue": "Single Stair North Carolina - Housing Policy Advocacy & Reform",
+            "name": "title",
+            "type": "string",
+            "title": "Default SEO Title"
+          },
+          {
+            "initialValue": "Single Stair North Carolina advocates for building code reforms to enable single-stair residential buildings, creating more affordable, livable, and sustainable housing across our state.",
+            "name": "description",
+            "type": "text",
+            "title": "Default SEO Description"
+          },
+          {
+            "name": "image",
+            "type": "image",
+            "title": "Default SEO Image"
+          }
+        ],
+        "name": "seo",
+        "type": "object",
+        "title": "Default SEO"
+      }
+    ],
+    "name": "siteSettings",
+    "type": "document"
+  },
+  {
+    "fields": [
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "title",
+        "type": "string"
+      },
+      {
+        "options": {
+          "source": "title",
+          "maxLength": 96
+        },
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "custom"
+              },
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "slug",
+        "type": "slug"
+      },
+      {
+        "name": "content",
+        "type": "blockContent"
+      },
+      {
+        "fields": [
+          {
+            "name": "title",
+            "type": "string",
+            "title": "SEO Title"
+          },
+          {
+            "name": "description",
+            "type": "text",
+            "title": "SEO Description"
+          },
+          {
+            "name": "image",
+            "type": "image",
+            "title": "SEO Image"
+          }
+        ],
+        "name": "seo",
+        "type": "object",
+        "title": "SEO"
+      }
+    ],
+    "name": "page",
+    "type": "document"
+  },
+  {
+    "fields": [
+      {
+        "initialValue": "Take Action",
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "title",
+        "type": "string",
+        "title": "Page Title"
+      },
+      {
+        "initialValue": "TAKE ACTION",
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "heroTitle",
+        "type": "string"
+      },
+      {
+        "initialValue": "YOUR VOICE MATTERS. MAKE A DIRECT IMPACT ON SINGLE-STAIR HOUSING POLICY IN NORTH CAROLINA THROUGH TARGETED ADVOCACY.",
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "heroDescription",
+        "type": "text"
+      },
+      {
+        "options": {
+          "hotspot": true
+        },
+        "description": "Background image for the hero section",
+        "name": "heroBackgroundImage",
+        "type": "image"
+      },
+      {
+        "initialValue": "FIND YOUR REPRESENTATIVE",
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "primaryButtonText",
+        "type": "string"
+      },
+      {
+        "initialValue": "VIEW PROGRESS MAP",
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "secondaryButtonText",
+        "type": "string"
+      },
+      {
+        "fields": [
+          {
+            "initialValue": "Take Action - Single Stair Housing Advocacy in North Carolina",
+            "name": "title",
+            "type": "string",
+            "title": "SEO Title"
+          },
+          {
+            "initialValue": "Join the movement for single-stair housing policy reform in North Carolina. Find your representatives, track legislative progress, and get involved in creating better, more affordable housing.",
+            "name": "description",
+            "type": "text",
+            "title": "SEO Description"
+          },
+          {
+            "name": "image",
+            "type": "image",
+            "title": "SEO Image"
+          }
+        ],
+        "name": "seo",
+        "type": "object",
+        "title": "SEO"
+      }
+    ],
+    "name": "actPage",
+    "type": "document"
+  },
+  {
+    "fields": [
+      {
+        "initialValue": "About",
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "title",
+        "type": "string",
+        "title": "Page Title"
+      },
+      {
+        "initialValue": "ABOUT",
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "heroTitle",
+        "type": "string"
+      },
+      {
+        "initialValue": "WE ARE A COALITION OF ARCHITECTS, PLANNERS, POLICYMAKERS, AND ADVOCATES WORKING TO TRANSFORM NORTH CAROLINA'S HOUSING LANDSCAPE.",
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "heroDescription",
+        "type": "text"
+      },
+      {
+        "initialValue": "OUR MISSION",
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "missionTitle",
+        "type": "string",
+        "title": "Mission Section Title"
+      },
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "of": [
+          {
+            "marks": {
+              "annotations": [
+                {
+                  "i18nTitleKey": "inputs.portable-text.annotation.link",
+                  "options": {
+                    "modal": {
+                      "type": "popover"
+                    }
+                  },
+                  "fields": [
+                    {
+                      "validation": [
+                        {
+                          "rules": [
+                            {
+                              "flag": "uri",
+                              "constraint": {
+                                "options": {
+                                  "scheme": [
+                                    "/^http$/",
+                                    "/^https$/",
+                                    "/^tel$/",
+                                    "/^mailto$/"
+                                  ],
+                                  "allowRelative": true,
+                                  "relativeOnly": false,
+                                  "allowCredentials": false
+                                }
+                              }
+                            }
+                          ],
+                          "level": "error"
+                        }
+                      ],
+                      "description": "A valid web, email, phone, or relative link.",
+                      "name": "href",
+                      "type": "url",
+                      "title": "Link"
+                    }
+                  ],
+                  "name": "link",
+                  "type": "object"
+                }
+              ],
+              "decorators": [
+                {
+                  "value": "strong",
+                  "title": "Strong"
+                },
+                {
+                  "value": "em",
+                  "title": "Italic"
+                },
+                {
+                  "value": "code",
+                  "title": "Code"
+                },
+                {
+                  "value": "underline",
+                  "title": "Underline"
+                },
+                {
+                  "value": "strike-through",
+                  "title": "Strike"
+                }
+              ]
+            },
+            "lists": [
+              {
+                "value": "bullet",
+                "title": "Bulleted list"
+              },
+              {
+                "value": "number",
+                "title": "Numbered list"
+              }
+            ],
+            "styles": [
+              {
+                "value": "normal",
+                "title": "Normal"
+              },
+              {
+                "value": "h1",
+                "title": "Heading 1"
+              },
+              {
+                "value": "h2",
+                "title": "Heading 2"
+              },
+              {
+                "value": "h3",
+                "title": "Heading 3"
+              },
+              {
+                "value": "h4",
+                "title": "Heading 4"
+              },
+              {
+                "value": "h5",
+                "title": "Heading 5"
+              },
+              {
+                "value": "h6",
+                "title": "Heading 6"
+              },
+              {
+                "value": "blockquote",
+                "title": "Quote"
+              }
+            ],
+            "of": [],
+            "type": "block"
+          }
+        ],
+        "name": "missionContent",
+        "type": "array"
+      },
+      {
+        "initialValue": [
+          "Advocate for policy reform",
+          "Educate communities and stakeholders",
+          "Support innovative housing projects"
+        ],
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "of": [
+          {
+            "type": "string"
+          }
+        ],
+        "name": "missionBulletPoints",
+        "type": "array"
+      },
+      {
+        "initialValue": "WHY SINGLE STAIR?",
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "whySingleStairTitle",
+        "type": "string"
+      },
+      {
+        "initialValue": [
+          {
+            "title": "MORE LIVABLE SPACE",
+            "description": "Single-stair design eliminates redundant corridors, creating 20-30% more usable space."
+          },
+          {
+            "title": "BETTER NATURAL LIGHT",
+            "description": "Cross-ventilation and corner units provide superior lighting and air quality."
+          },
+          {
+            "title": "REDUCED COSTS",
+            "description": "Simplified construction reduces building costs by 15-25% while maintaining safety."
+          }
+        ],
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "of": [
+          {
+            "fields": [
+              {
+                "name": "title",
+                "type": "string",
+                "title": "Benefit Title"
+              },
+              {
+                "name": "description",
+                "type": "text"
+              }
+            ],
+            "type": "object"
+          }
+        ],
+        "name": "whySingleStairBenefits",
+        "type": "array",
+        "title": "Benefits"
+      },
+      {
+        "initialValue": "OUR TEAM",
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "teamTitle",
+        "type": "string",
+        "title": "Team Section Title"
+      },
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "of": [
+          {
+            "fields": [
+              {
+                "validation": [
+                  {
+                    "rules": [
+                      {
+                        "flag": "presence",
+                        "constraint": "required"
+                      }
+                    ],
+                    "level": "error"
+                  }
+                ],
+                "name": "name",
+                "type": "string"
+              },
+              {
+                "validation": [
+                  {
+                    "rules": [
+                      {
+                        "flag": "presence",
+                        "constraint": "required"
+                      }
+                    ],
+                    "level": "error"
+                  }
+                ],
+                "name": "role",
+                "type": "string"
+              },
+              {
+                "validation": [
+                  {
+                    "rules": [
+                      {
+                        "flag": "presence",
+                        "constraint": "required"
+                      }
+                    ],
+                    "level": "error"
+                  }
+                ],
+                "name": "bio",
+                "type": "text"
+              },
+              {
+                "of": [
+                  {
+                    "type": "string"
+                  }
+                ],
+                "name": "expertise",
+                "type": "array",
+                "title": "Areas of Expertise"
+              }
+            ],
+            "type": "object"
+          }
+        ],
+        "name": "teamMembers",
+        "type": "array"
+      },
+      {
+        "initialValue": "OUR JOURNEY",
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "timelineTitle",
+        "type": "string",
+        "title": "Timeline Section Title"
+      },
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "of": [
+          {
+            "fields": [
+              {
+                "validation": [
+                  {
+                    "rules": [
+                      {
+                        "flag": "presence",
+                        "constraint": "required"
+                      }
+                    ],
+                    "level": "error"
+                  }
+                ],
+                "name": "year",
+                "type": "string"
+              },
+              {
+                "validation": [
+                  {
+                    "rules": [
+                      {
+                        "flag": "presence",
+                        "constraint": "required"
+                      }
+                    ],
+                    "level": "error"
+                  }
+                ],
+                "name": "title",
+                "type": "string"
+              },
+              {
+                "validation": [
+                  {
+                    "rules": [
+                      {
+                        "flag": "presence",
+                        "constraint": "required"
+                      }
+                    ],
+                    "level": "error"
+                  }
+                ],
+                "name": "description",
+                "type": "text"
+              }
+            ],
+            "type": "object"
+          }
+        ],
+        "name": "timelineItems",
+        "type": "array",
+        "title": "Timeline Milestones"
+      },
+      {
+        "initialValue": "JOIN OUR MOVEMENT",
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "ctaTitle",
+        "type": "string",
+        "title": "Call to Action Title"
+      },
+      {
+        "initialValue": "Whether you're an architect, developer, policymaker, or concerned citizen, there's a place for you in our coalition. Together, we can build better communities for all North Carolinians.",
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "ctaDescription",
+        "type": "text",
+        "title": "Call to Action Description"
+      },
+      {
+        "initialValue": "GET INVOLVED",
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "primaryButtonText",
+        "type": "string"
+      },
+      {
+        "initialValue": "CONTACT US",
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "secondaryButtonText",
+        "type": "string"
+      },
+      {
+        "fields": [
+          {
+            "initialValue": "About Us - Single Stair North Carolina Housing Advocacy",
+            "name": "title",
+            "type": "string",
+            "title": "SEO Title"
+          },
+          {
+            "initialValue": "Learn about Single Stair North Carolina - a coalition of architects, planners, and advocates working to transform housing policy through single-stair building reforms.",
+            "name": "description",
+            "type": "text",
+            "title": "SEO Description"
+          },
+          {
+            "name": "image",
+            "type": "image",
+            "title": "SEO Image"
+          }
+        ],
+        "name": "seo",
+        "type": "object",
+        "title": "SEO"
+      }
+    ],
+    "name": "aboutPage",
+    "type": "document"
+  },
+  {
+    "fields": [
+      {
+        "initialValue": "Contact",
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "title",
+        "type": "string",
+        "title": "Page Title"
+      },
+      {
+        "initialValue": "CONTACT",
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "heroTitle",
+        "type": "string"
+      },
+      {
+        "initialValue": "GET IN TOUCH WITH OUR TEAM. WE'RE HERE TO ANSWER QUESTIONS, DISCUSS PARTNERSHIPS, AND HELP YOU GET INVOLVED.",
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "heroDescription",
+        "type": "text"
+      },
+      {
+        "initialValue": "SEND US A MESSAGE",
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "formTitle",
+        "type": "string",
+        "title": "Contact Form Title"
+      },
+      {
+        "initialValue": [
+          "General Inquiry",
+          "Media & Press",
+          "Partnership",
+          "Policy & Research",
+          "Volunteer"
+        ],
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "of": [
+          {
+            "type": "string"
+          }
+        ],
+        "name": "inquiryTypes",
+        "type": "array"
+      },
+      {
+        "initialValue": "SEND MESSAGE",
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "submitButtonText",
+        "type": "string"
+      },
+      {
+        "initialValue": "CONTACT INFORMATION",
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "contactInfoTitle",
+        "type": "string",
+        "title": "Contact Information Title"
+      },
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "of": [
+          {
+            "fields": [
+              {
+                "validation": [
+                  {
+                    "rules": [
+                      {
+                        "flag": "presence",
+                        "constraint": "required"
+                      }
+                    ],
+                    "level": "error"
+                  }
+                ],
+                "name": "title",
+                "type": "string",
+                "title": "Contact Type"
+              },
+              {
+                "validation": [
+                  {
+                    "rules": [
+                      {
+                        "flag": "presence",
+                        "constraint": "required"
+                      }
+                    ],
+                    "level": "error"
+                  }
+                ],
+                "name": "email",
+                "type": "string"
+              },
+              {
+                "validation": [
+                  {
+                    "rules": [
+                      {
+                        "flag": "presence",
+                        "constraint": "required"
+                      }
+                    ],
+                    "level": "error"
+                  }
+                ],
+                "name": "description",
+                "type": "text"
+              }
+            ],
+            "type": "object"
+          }
+        ],
+        "name": "contactInfoItems",
+        "type": "array",
+        "title": "Contact Information"
+      },
+      {
+        "initialValue": "OFFICE LOCATIONS",
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "officesTitle",
+        "type": "string",
+        "title": "Office Locations Title"
+      },
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "of": [
+          {
+            "fields": [
+              {
+                "validation": [
+                  {
+                    "rules": [
+                      {
+                        "flag": "presence",
+                        "constraint": "required"
+                      }
+                    ],
+                    "level": "error"
+                  }
+                ],
+                "name": "city",
+                "type": "string"
+              },
+              {
+                "validation": [
+                  {
+                    "rules": [
+                      {
+                        "flag": "presence",
+                        "constraint": "required"
+                      }
+                    ],
+                    "level": "error"
+                  }
+                ],
+                "name": "address",
+                "type": "text"
+              },
+              {
+                "validation": [
+                  {
+                    "rules": [
+                      {
+                        "flag": "presence",
+                        "constraint": "required"
+                      }
+                    ],
+                    "level": "error"
+                  }
+                ],
+                "name": "phone",
+                "type": "string"
+              },
+              {
+                "validation": [
+                  {
+                    "rules": [
+                      {
+                        "flag": "presence",
+                        "constraint": "required"
+                      }
+                    ],
+                    "level": "error"
+                  }
+                ],
+                "name": "hours",
+                "type": "string"
+              }
+            ],
+            "type": "object"
+          }
+        ],
+        "name": "officeLocations",
+        "type": "array"
+      },
+      {
+        "initialValue": "FOLLOW OUR WORK",
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "followUsTitle",
+        "type": "string"
+      },
+      {
+        "initialValue": "Stay updated on our advocacy efforts and policy developments.",
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "followUsDescription",
+        "type": "text"
+      },
+      {
+        "of": [
+          {
+            "fields": [
+              {
+                "name": "platform",
+                "type": "string"
+              },
+              {
+                "validation": [
+                  {
+                    "rules": [
+                      {
+                        "flag": "uri",
+                        "constraint": {
+                          "options": {
+                            "scheme": [
+                              "/^http$/",
+                              "/^https$/"
+                            ],
+                            "allowRelative": false,
+                            "relativeOnly": false,
+                            "allowCredentials": false
+                          }
+                        }
+                      }
+                    ],
+                    "level": "error"
+                  }
+                ],
+                "name": "url",
+                "type": "url",
+                "title": "URL"
+              },
+              {
+                "name": "label",
+                "type": "string"
+              }
+            ],
+            "type": "object"
+          }
+        ],
+        "name": "socialLinks",
+        "type": "array",
+        "title": "Social Media Links"
+      },
+      {
+        "fields": [
+          {
+            "initialValue": "Contact Us - Single Stair North Carolina Housing Advocacy",
+            "name": "title",
+            "type": "string",
+            "title": "SEO Title"
+          },
+          {
+            "initialValue": "Get in touch with Single Stair North Carolina. Contact our team for questions, partnerships, media inquiries, or to get involved in housing policy reform.",
+            "name": "description",
+            "type": "text",
+            "title": "SEO Description"
+          },
+          {
+            "name": "image",
+            "type": "image",
+            "title": "SEO Image"
+          }
+        ],
+        "name": "seo",
+        "type": "object",
+        "title": "SEO"
+      }
+    ],
+    "name": "contactPage",
+    "type": "document"
+  },
+  {
+    "fields": [
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "title",
+        "type": "string",
+        "title": "Section Title"
+      },
+      {
+        "options": {
+          "source": "title",
+          "maxLength": 96
+        },
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "custom"
+              },
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "slug",
+        "type": "slug"
+      },
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              },
+              {
+                "flag": "min",
+                "constraint": 1
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "order",
+        "type": "number",
+        "title": "Display Order"
+      },
+      {
+        "description": "The text content that appears during this section",
+        "name": "content",
+        "type": "blockContent"
+      },
+      {
+        "options": {
+          "list": [
+            {
+              "title": "Fade In",
+              "value": "fadeIn"
+            },
+            {
+              "title": "Slide Up",
+              "value": "slideUp"
+            },
+            {
+              "title": "Scale",
+              "value": "scale"
+            },
+            {
+              "title": "Rotate",
+              "value": "rotate"
+            },
+            {
+              "title": "Morph",
+              "value": "morph"
+            },
+            {
+              "title": "Camera Move",
+              "value": "cameraMove"
+            }
+          ]
+        },
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "valid",
+                "constraint": [
+                  "fadeIn",
+                  "slideUp",
+                  "scale",
+                  "rotate",
+                  "morph",
+                  "cameraMove"
+                ]
+              },
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "animationTrigger",
+        "type": "string"
+      },
+      {
+        "fields": [
+          {
+            "validation": [
+              {
+                "rules": [
+                  {
+                    "flag": "presence",
+                    "constraint": "required"
+                  }
+                ],
+                "level": "error"
+              }
+            ],
+            "name": "x",
+            "type": "number",
+            "title": "X Position"
+          },
+          {
+            "validation": [
+              {
+                "rules": [
+                  {
+                    "flag": "presence",
+                    "constraint": "required"
+                  }
+                ],
+                "level": "error"
+              }
+            ],
+            "name": "y",
+            "type": "number",
+            "title": "Y Position"
+          },
+          {
+            "validation": [
+              {
+                "rules": [
+                  {
+                    "flag": "presence",
+                    "constraint": "required"
+                  }
+                ],
+                "level": "error"
+              }
+            ],
+            "name": "z",
+            "type": "number",
+            "title": "Z Position"
+          }
+        ],
+        "name": "cameraPosition",
+        "type": "object"
+      },
+      {
+        "fields": [
+          {
+            "initialValue": 0,
+            "name": "x",
+            "type": "number",
+            "title": "X Target"
+          },
+          {
+            "initialValue": 0,
+            "name": "y",
+            "type": "number",
+            "title": "Y Target"
+          },
+          {
+            "initialValue": 0,
+            "name": "z",
+            "type": "number",
+            "title": "Z Target"
+          }
+        ],
+        "name": "cameraTarget",
+        "type": "object"
+      },
+      {
+        "initialValue": 2,
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              },
+              {
+                "flag": "min",
+                "constraint": 0.5
+              },
+              {
+                "flag": "max",
+                "constraint": 10
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "duration",
+        "type": "number",
+        "title": "Animation Duration (seconds)"
+      },
+      {
+        "of": [
+          {
+            "options": {
+              "list": [
+                {
+                  "title": "Single Stair Building",
+                  "value": "singleStairBuilding"
+                },
+                {
+                  "title": "Double Egress Building",
+                  "value": "doubleEgressBuilding"
+                },
+                {
+                  "title": "Fire Safety System",
+                  "value": "fireSystem"
+                },
+                {
+                  "title": "Cross Section View",
+                  "value": "crossSection"
+                },
+                {
+                  "title": "Floor Plan Overlay",
+                  "value": "floorPlan"
+                },
+                {
+                  "title": "Ventilation Arrows",
+                  "value": "ventilation"
+                },
+                {
+                  "title": "Light Rays",
+                  "value": "lightRays"
+                }
+              ]
+            },
+            "type": "string"
+          }
+        ],
+        "name": "models",
+        "type": "array",
+        "title": "Active Models"
+      },
+      {
+        "fields": [
+          {
+            "initialValue": 1,
+            "validation": [
+              {
+                "rules": [
+                  {
+                    "flag": "min",
+                    "constraint": 0
+                  },
+                  {
+                    "flag": "max",
+                    "constraint": 1
+                  }
+                ],
+                "level": "error"
+              }
+            ],
+            "name": "opacity",
+            "type": "number"
+          },
+          {
+            "initialValue": 1,
+            "validation": [
+              {
+                "rules": [
+                  {
+                    "flag": "min",
+                    "constraint": 0.1
+                  },
+                  {
+                    "flag": "max",
+                    "constraint": 3
+                  }
+                ],
+                "level": "error"
+              }
+            ],
+            "name": "scale",
+            "type": "number"
+          },
+          {
+            "fields": [
+              {
+                "initialValue": 0,
+                "name": "x",
+                "type": "number",
+                "title": "X Rotation"
+              },
+              {
+                "initialValue": 0,
+                "name": "y",
+                "type": "number",
+                "title": "Y Rotation"
+              },
+              {
+                "initialValue": 0,
+                "name": "z",
+                "type": "number",
+                "title": "Z Rotation"
+              }
+            ],
+            "name": "rotation",
+            "type": "object",
+            "title": "Rotation (degrees)"
+          },
+          {
+            "fields": [
+              {
+                "initialValue": 0,
+                "name": "x",
+                "type": "number",
+                "title": "X Offset"
+              },
+              {
+                "initialValue": 0,
+                "name": "y",
+                "type": "number",
+                "title": "Y Offset"
+              },
+              {
+                "initialValue": 0,
+                "name": "z",
+                "type": "number",
+                "title": "Z Offset"
+              }
+            ],
+            "name": "position",
+            "type": "object",
+            "title": "Position Offset"
+          }
+        ],
+        "name": "modelStates",
+        "type": "object"
+      },
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "regex",
+                "constraint": {
+                  "pattern": "/^#[0-9A-F]{6}$/i",
+                  "name": "Must be a valid hex color",
+                  "invert": false
+                }
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "description": "Hex color code (e.g., #ff0000)",
+        "name": "backgroundColor",
+        "type": "string"
+      },
+      {
+        "initialValue": true,
+        "description": "Uncheck to temporarily disable this section",
+        "name": "isActive",
+        "type": "boolean",
+        "title": "Active Section"
+      }
+    ],
+    "name": "scrollytellingSection",
+    "type": "document"
+  },
+  {
+    "fields": [
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "title",
+        "type": "string"
+      },
+      {
+        "options": {
+          "source": "title",
+          "maxLength": 96
+        },
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "custom"
+              },
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "slug",
+        "type": "slug"
+      },
+      {
+        "rows": 4,
+        "name": "description",
+        "type": "text",
+        "title": "Description/Excerpt"
+      },
+      {
+        "name": "content",
+        "type": "blockContent"
+      },
+      {
+        "name": "publishedAt",
+        "type": "datetime",
+        "title": "Published Date"
+      },
+      {
+        "name": "author",
+        "type": "string"
+      },
+      {
+        "initialValue": false,
+        "description": "Mark as featured article",
+        "name": "featured",
+        "type": "boolean"
+      },
+      {
+        "options": {
+          "list": [
+            {
+              "title": "Overview",
+              "value": "overview"
+            },
+            {
+              "title": "Safety",
+              "value": "safety"
+            },
+            {
+              "title": "Legislation",
+              "value": "legislation"
+            },
+            {
+              "title": "Design",
+              "value": "design"
+            },
+            {
+              "title": "Policy",
+              "value": "policy"
+            },
+            {
+              "title": "Research",
+              "value": "research"
+            }
+          ]
+        },
+        "name": "category",
+        "type": "string"
+      },
+      {
+        "options": {
+          "layout": "tags"
+        },
+        "of": [
+          {
+            "type": "string"
+          }
+        ],
+        "name": "tags",
+        "type": "array"
+      }
+    ],
+    "name": "article",
+    "type": "document"
+  },
+  {
+    "fields": [
+      {
+        "name": "question",
+        "type": "string"
+      },
+      {
+        "name": "answer",
+        "type": "blockContent"
+      }
+    ],
+    "name": "faqItem",
+    "type": "document",
+    "title": "FAQ Item"
+  },
+  {
+    "fields": [
+      {
+        "name": "title",
+        "type": "string"
+      }
+    ],
+    "name": "legislationChecklist",
+    "type": "document"
+  },
+  {
+    "fields": [
+      {
+        "name": "name",
+        "type": "string"
+      }
+    ],
+    "name": "buildingExample",
+    "type": "document"
+  },
+  {
+    "fields": [
+      {
+        "name": "title",
+        "type": "string"
+      }
+    ],
+    "name": "mediaAsset",
+    "type": "document"
+  },
+  {
+    "fields": [
+      {
+        "name": "state",
+        "type": "string"
+      }
+    ],
+    "name": "policyTracker",
+    "type": "document"
+  },
+  {
+    "fields": [
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "name",
+        "type": "string",
+        "title": "Full Name"
+      },
+      {
+        "name": "firstName",
+        "type": "string"
+      },
+      {
+        "name": "lastName",
+        "type": "string"
+      },
+      {
+        "options": {
+          "list": [
+            {
+              "title": "State Senator",
+              "value": "State Senator"
+            },
+            {
+              "title": "State Representative",
+              "value": "State Representative"
+            },
+            {
+              "title": "US Senator",
+              "value": "US Senator"
+            },
+            {
+              "title": "US Representative",
+              "value": "US Representative"
+            },
+            {
+              "title": "Mayor",
+              "value": "Mayor"
+            },
+            {
+              "title": "City Council Member",
+              "value": "City Council Member"
+            },
+            {
+              "title": "County Commissioner",
+              "value": "County Commissioner"
+            },
+            {
+              "title": "Other",
+              "value": "Other"
+            }
+          ]
+        },
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "valid",
+                "constraint": [
+                  "State Senator",
+                  "State Representative",
+                  "US Senator",
+                  "US Representative",
+                  "Mayor",
+                  "City Council Member",
+                  "County Commissioner",
+                  "Other"
+                ]
+              },
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "title",
+        "type": "string"
+      },
+      {
+        "options": {
+          "list": [
+            {
+              "title": "Democratic",
+              "value": "D"
+            },
+            {
+              "title": "Republican",
+              "value": "R"
+            },
+            {
+              "title": "Independent",
+              "value": "I"
+            },
+            {
+              "title": "Other",
+              "value": "Other"
+            }
+          ]
+        },
+        "name": "party",
+        "type": "string",
+        "title": "Party Affiliation"
+      },
+      {
+        "description": "District number or name (e.g., \"District 12\", \"Senate District 23\")",
+        "name": "district",
+        "type": "string"
+      },
+      {
+        "initialValue": "NC",
+        "readOnly": true,
+        "name": "state",
+        "type": "string"
+      },
+      {
+        "description": "Primary county or counties represented",
+        "name": "county",
+        "type": "string"
+      },
+      {
+        "options": {
+          "list": [
+            {
+              "title": "North Carolina Senate",
+              "value": "NC Senate"
+            },
+            {
+              "title": "North Carolina House",
+              "value": "NC House"
+            },
+            {
+              "title": "US Senate",
+              "value": "US Senate"
+            },
+            {
+              "title": "US House",
+              "value": "US House"
+            },
+            {
+              "title": "Local Government",
+              "value": "Local"
+            }
+          ]
+        },
+        "name": "chamber",
+        "type": "string"
+      },
+      {
+        "fields": [
+          {
+            "name": "email",
+            "type": "string"
+          },
+          {
+            "name": "phone",
+            "type": "string"
+          },
+          {
+            "name": "officePhone",
+            "type": "string"
+          },
+          {
+            "validation": [
+              {
+                "rules": [
+                  {
+                    "flag": "uri",
+                    "constraint": {
+                      "options": {
+                        "scheme": [
+                          "/^http$/",
+                          "/^https$/"
+                        ],
+                        "allowRelative": false,
+                        "relativeOnly": false,
+                        "allowCredentials": false
+                      }
+                    }
+                  }
+                ],
+                "level": "error"
+              }
+            ],
+            "name": "website",
+            "type": "url"
+          },
+          {
+            "rows": 3,
+            "name": "mailingAddress",
+            "type": "text"
+          }
+        ],
+        "name": "contact",
+        "type": "object",
+        "title": "Contact Information"
+      },
+      {
+        "description": "List of committees the legislator serves on",
+        "of": [
+          {
+            "type": "string"
+          }
+        ],
+        "name": "committees",
+        "type": "array",
+        "title": "Committee Assignments"
+      },
+      {
+        "fields": [
+          {
+            "description": "Without @ symbol",
+            "name": "twitter",
+            "type": "string",
+            "title": "Twitter Handle"
+          },
+          {
+            "validation": [
+              {
+                "rules": [
+                  {
+                    "flag": "uri",
+                    "constraint": {
+                      "options": {
+                        "scheme": [
+                          "/^http$/",
+                          "/^https$/"
+                        ],
+                        "allowRelative": false,
+                        "relativeOnly": false,
+                        "allowCredentials": false
+                      }
+                    }
+                  }
+                ],
+                "level": "error"
+              }
+            ],
+            "name": "facebook",
+            "type": "url",
+            "title": "Facebook Page"
+          },
+          {
+            "description": "Without @ symbol",
+            "name": "instagram",
+            "type": "string",
+            "title": "Instagram Handle"
+          }
+        ],
+        "name": "socialMedia",
+        "type": "object"
+      },
+      {
+        "options": {
+          "hotspot": true
+        },
+        "name": "photo",
+        "type": "image"
+      },
+      {
+        "rows": 4,
+        "name": "biography",
+        "type": "text"
+      },
+      {
+        "initialValue": 3,
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "min",
+                "constraint": 1
+              },
+              {
+                "flag": "max",
+                "constraint": 5
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "description": "Higher numbers = higher priority for advocacy (1-5)",
+        "name": "priority",
+        "type": "number",
+        "title": "Priority Level"
+      },
+      {
+        "options": {
+          "list": [
+            {
+              "title": "Strongly Supports",
+              "value": "strong_support"
+            },
+            {
+              "title": "Supports",
+              "value": "support"
+            },
+            {
+              "title": "Neutral/Unknown",
+              "value": "neutral"
+            },
+            {
+              "title": "Opposes",
+              "value": "oppose"
+            },
+            {
+              "title": "Strongly Opposes",
+              "value": "strong_oppose"
+            }
+          ]
+        },
+        "description": "Legislator's known position on single-stair housing",
+        "name": "singleStairPosition",
+        "type": "string",
+        "title": "Single-Stair Position"
+      },
+      {
+        "rows": 3,
+        "description": "Internal notes for advocacy coordination",
+        "name": "notes",
+        "type": "text",
+        "title": "Internal Notes"
+      },
+      {
+        "name": "lastUpdated",
+        "type": "datetime"
+      }
+    ],
+    "name": "legislator",
+    "type": "document"
+  },
+  {
+    "fields": [
+      {
+        "name": "name",
+        "type": "string"
+      }
+    ],
+    "name": "district",
+    "type": "document"
+  },
+  {
+    "fields": [
+      {
+        "name": "name",
+        "type": "string"
+      }
+    ],
+    "name": "letterTemplate",
+    "type": "document"
+  },
+  {
+    "fields": [
+      {
+        "name": "title",
+        "type": "string"
+      }
+    ],
+    "name": "callToAction",
+    "type": "document",
+    "title": "Call to Action"
+  },
+  {
+    "fields": [
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "title",
+        "type": "string"
+      },
+      {
+        "options": {
+          "source": "title",
+          "maxLength": 96
+        },
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "custom"
+              },
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "slug",
+        "type": "slug"
+      },
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "description": "Unique identifier from RSS feed",
+        "name": "guid",
+        "type": "string",
+        "title": "GUID"
+      },
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "uri",
+                "constraint": {
+                  "options": {
+                    "scheme": [
+                      "/^http$/",
+                      "/^https$/"
+                    ],
+                    "allowRelative": false,
+                    "relativeOnly": false,
+                    "allowCredentials": false
+                  }
+                }
+              },
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "url",
+        "type": "url",
+        "title": "Original URL"
+      },
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "publishedAt",
+        "type": "datetime",
+        "title": "Published Date"
+      },
+      {
+        "rows": 4,
+        "name": "description",
+        "type": "text",
+        "title": "Description/Excerpt"
+      },
+      {
+        "description": "Full HTML content from RSS feed",
+        "name": "content",
+        "type": "text",
+        "title": "Full Content"
+      },
+      {
+        "description": "Parsed content as rich text blocks",
+        "name": "contentBlocks",
+        "type": "blockContent",
+        "title": "Content (Rich Text)"
+      },
+      {
+        "initialValue": "CITYBUILDER",
+        "name": "author",
+        "type": "string"
+      },
+      {
+        "initialValue": false,
+        "description": "Mark as featured article",
+        "name": "featured",
+        "type": "boolean"
+      },
+      {
+        "options": {
+          "layout": "tags"
+        },
+        "of": [
+          {
+            "type": "string"
+          }
+        ],
+        "name": "tags",
+        "type": "array"
+      }
+    ],
+    "name": "substackPost",
+    "type": "document"
+  },
+  {
+    "of": [
+      {
+        "marks": {
+          "annotations": [
+            {
+              "fields": [
+                {
+                  "validation": [
+                    {
+                      "rules": [
+                        {
+                          "flag": "uri",
+                          "constraint": {
+                            "options": {
+                              "scheme": [
+                                "/^http$/",
+                                "/^https$/"
+                              ],
+                              "allowRelative": false,
+                              "relativeOnly": false,
+                              "allowCredentials": false
+                            }
+                          }
+                        }
+                      ],
+                      "level": "error"
+                    }
+                  ],
+                  "name": "href",
+                  "type": "url",
+                  "title": "URL"
+                }
+              ],
+              "name": "link",
+              "type": "object",
+              "title": "URL"
+            }
+          ],
+          "decorators": [
+            {
+              "value": "strong",
+              "title": "Strong"
+            },
+            {
+              "value": "em",
+              "title": "Emphasis"
+            },
+            {
+              "value": "code",
+              "title": "Code"
+            }
+          ]
+        },
+        "lists": [
+          {
+            "value": "bullet",
+            "title": "Bullet"
+          },
+          {
+            "value": "number",
+            "title": "Numbered"
+          }
+        ],
+        "styles": [
+          {
+            "value": "normal",
+            "title": "Normal"
+          },
+          {
+            "value": "h1",
+            "title": "H1"
+          },
+          {
+            "value": "h2",
+            "title": "H2"
+          },
+          {
+            "value": "h3",
+            "title": "H3"
+          },
+          {
+            "value": "h4",
+            "title": "H4"
+          },
+          {
+            "value": "blockquote",
+            "title": "Quote"
+          }
+        ],
+        "of": [],
+        "type": "block"
+      },
+      {
+        "options": {
+          "hotspot": true
+        },
+        "fields": [
+          {
+            "validation": [
+              {
+                "rules": [
+                  {
+                    "flag": "presence",
+                    "constraint": "required"
+                  }
+                ],
+                "level": "error"
+              }
+            ],
+            "description": "Important for SEO and accessibility.",
+            "name": "alt",
+            "type": "string",
+            "title": "Alternative Text"
+          },
+          {
+            "name": "caption",
+            "type": "string"
+          }
+        ],
+        "type": "image"
+      }
+    ],
+    "name": "blockContent",
+    "type": "array"
+  }
+]

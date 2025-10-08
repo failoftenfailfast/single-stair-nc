@@ -158,8 +158,18 @@ export default defineType({
       title: 'SEO',
       type: 'object',
       fields: [
-        { name: 'title', title: 'SEO Title', type: 'string' },
-        { name: 'description', title: 'SEO Description', type: 'text' },
+        {
+          name: 'title',
+          title: 'SEO Title',
+          type: 'string',
+          initialValue: 'About Us - Single Stair North Carolina Housing Advocacy',
+        },
+        {
+          name: 'description',
+          title: 'SEO Description',
+          type: 'text',
+          initialValue: 'Learn about Single Stair North Carolina - a coalition of architects, planners, and advocates working to transform housing policy through single-stair building reforms.',
+        },
         { name: 'image', title: 'SEO Image', type: 'image' }
       ]
     })

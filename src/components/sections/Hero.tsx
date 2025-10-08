@@ -24,7 +24,7 @@ export default function Hero() {
             <div className="max-w-2xl mx-auto">
               <div className="aspect-video bg-gradient-to-br from-earth-sand-100 to-earth-sand-200 border border-border-primary shadow-soft flex items-center justify-center">
                 <div className="text-center p-8">
-                  <div className="text-6xl mb-4">🏠</div>
+                  <div className="text-6xl mb-4 text-nc-red">🏠</div>
                   <div className="text-lg font-bold text-content-primary mb-2">
                     SINGLE STAIR BUILDING
                   </div>
@@ -45,7 +45,7 @@ export default function Hero() {
               transition={{ duration: 2, repeat: Infinity }}
               className="w-6 h-12 border border-border-primary flex justify-center"
             >
-              <div className="w-1 h-4 bg-brand-500 mt-2"></div>
+              <div className="w-1 h-4 bg-nc-blue mt-2"></div>
             </motion.div>
           </div>
         </div>

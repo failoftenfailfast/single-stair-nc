@@ -58,11 +58,13 @@ export default defineType({
           name: 'title',
           title: 'SEO Title',
           type: 'string',
+          initialValue: 'Take Action - Single Stair Housing Advocacy in North Carolina',
         },
         {
           name: 'description',
           title: 'SEO Description',
           type: 'text',
+          initialValue: 'Join the movement for single-stair housing policy reform in North Carolina. Find your representatives, track legislative progress, and get involved in creating better, more affordable housing.',
         },
         {
           name: 'image',

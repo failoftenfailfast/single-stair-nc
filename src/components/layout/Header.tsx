@@ -53,8 +53,8 @@ export default function Header() {
         <div className="flex items-center justify-between h-16 lg:h-20">
           {/* Logo */}
           <Link href="/" className="flex items-center space-x-tight group">
-            <div className="w-8 h-8 lg:w-10 lg:h-10 bg-surface-inverse flex items-center justify-center group-hover:bg-surface-primary transition-colors">
-              <span className="text-content-inverse font-bold text-body-sm lg:text-body">NC</span>
+            <div className="w-8 h-8 lg:w-10 lg:h-10 bg-nc-red flex items-center justify-center group-hover:bg-nc-blue transition-colors">
+              <span className="text-white font-bold text-body-sm lg:text-body">NC</span>
             </div>
             <div className="hidden sm:block">
               <div className="text-content-primary font-bold text-body-sm lg:text-body leading-tight">
