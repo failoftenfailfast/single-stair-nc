@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   RepresentativeLookupService,
@@ -8,6 +8,7 @@ import {
   Legislator,
   MessageTemplateService,
   MessageTemplate,
+  GeocodingService,
 } from '@/lib/representativeLookup';
 import { ContactService, ContactResult } from '@/lib/contactService';
 
@@ -25,6 +26,56 @@ export default function RepresentativeLookup({ className = '' }: RepresentativeL
   const [userEmail, setUserEmail] = useState('');
   const [isSending, setIsSending] = useState(false);
   const [contactResult, setContactResult] = useState<ContactResult | null>(null);
+  const [suggestions, setSuggestions] = useState<{ label: string; value: string }[]>([]);
+  const [showSuggestions, setShowSuggestions] = useState(false);
+  const [isSuggesting, setIsSuggesting] = useState(false);
+  const [activeSuggestionIndex, setActiveSuggestionIndex] = useState(-1);
+  const closeSuggestionsTimeout = useRef<number | null>(null);
+
+  useEffect(() => {
+    if (!address || address.trim().length < 3) {
+      setSuggestions([]);
+      setShowSuggestions(false);
+      setIsSuggesting(false);
+      setActiveSuggestionIndex(-1);
+      return;
+    }
+
+    setIsSuggesting(true);
+    const id = window.setTimeout(async () => {
+      const results = await GeocodingService.suggestAddresses(address);
+      setSuggestions(results);
+      setShowSuggestions(results.length > 0);
+      setActiveSuggestionIndex(-1);
+      setIsSuggesting(false);
+    }, 250);
+
+    return () => window.clearTimeout(id);
+  }, [address]);
+
+  const handleSelectSuggestion = (value: string) => {
+    setAddress(value);
+    setShowSuggestions(false);
+  };
+
+  const handleAddressKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (!showSuggestions || suggestions.length === 0) return;
+
+    if (e.key === 'ArrowDown') {
+      e.preventDefault();
+      setActiveSuggestionIndex((prev) => (prev + 1) % suggestions.length);
+    } else if (e.key === 'ArrowUp') {
+      e.preventDefault();
+      setActiveSuggestionIndex((prev) => (prev - 1 + suggestions.length) % suggestions.length);
+    } else if (e.key === 'Enter') {
+      if (activeSuggestionIndex >= 0) {
+        e.preventDefault();
+        handleSelectSuggestion(suggestions[activeSuggestionIndex].value);
+      }
+    } else if (e.key === 'Escape') {
+      setShowSuggestions(false);
+    }
+  };
 
   const handleLookup = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -166,7 +217,7 @@ export default function RepresentativeLookup({ className = '' }: RepresentativeL
               />
             </div>
           </div>
-          <div>
+          <div className="relative">
             <label className="block text-sm font-bold mb-2">
               YOUR ADDRESS
             </label>
@@ -174,10 +225,54 @@ export default function RepresentativeLookup({ className = '' }: RepresentativeL
               type="text"
               value={address}
               onChange={(e) => setAddress(e.target.value)}
+              onKeyDown={handleAddressKeyDown}
+              onFocus={() => setShowSuggestions(suggestions.length > 0)}
+              onBlur={() => {
+                // Delay closing so click can register
+                closeSuggestionsTimeout.current = window.setTimeout(() => setShowSuggestions(false), 120);
+              }}
               placeholder="123 Main St, Charlotte, NC 28202"
               className="w-full p-3 border-2 border-black focus:outline-none"
               required
             />
+            {showSuggestions && (
+              <div
+                className="absolute z-20 left-0 right-0 mt-1 border-2 border-black bg-white max-h-64 overflow-auto shadow-soft"
+                role="listbox"
+                aria-label="Address suggestions limited to North Carolina"
+                onMouseDown={(e) => {
+                  // Prevent input blur before click selects
+                  if (closeSuggestionsTimeout.current) {
+                    window.clearTimeout(closeSuggestionsTimeout.current);
+                    closeSuggestionsTimeout.current = null;
+                  }
+                  e.preventDefault();
+                }}
+              >
+                {isSuggesting && (
+                  <div className="px-3 py-2 text-sm text-gray-600">Searching addresses…</div>
+                )}
+                {!isSuggesting && suggestions.length === 0 && (
+                  <div className="px-3 py-2 text-sm text-gray-600">No matches in North Carolina</div>
+                )}
+                {suggestions.map((s, idx) => (
+                  <button
+                    key={`${s.value}-${idx}`}
+                    type="button"
+                    role="option"
+                    aria-selected={activeSuggestionIndex === idx}
+                    className={`w-full text-left px-3 py-2 text-sm transition-colors ${
+                      activeSuggestionIndex === idx ? 'bg-gray-100' : ''
+                    }`}
+                    onMouseEnter={() => setActiveSuggestionIndex(idx)}
+                    onClick={() => handleSelectSuggestion(s.value)}
+                  >
+                    {s.label}
+                  </button>
+                ))}
+                <div className="px-3 py-2 text-xs text-gray-500 border-t">North Carolina addresses only</div>
+              </div>
+            )}
           </div>
           <button
             type="submit"

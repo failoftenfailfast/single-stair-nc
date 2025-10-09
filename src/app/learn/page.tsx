@@ -30,15 +30,9 @@ export default function LearnPage() {
       icon: '◆',
     },
     {
-      title: 'ARTICLES',
-      description: 'Latest research, news, and expert perspectives',
-      href: '/learn/articles',
-      icon: '▼',
-    },
-    {
       title: 'NEWS',
       description: 'Fresh updates from CITYBUILDER via RSS',
-      href: '/learn/articles',
+      href: '/learn/news',
       icon: '✦',
     },
   ];
@@ -119,10 +113,10 @@ export default function LearnPage() {
                   across North America and creating more livable communities.
                 </p>
                 <Link
-                  href="/learn/articles/future-urban-housing"
+                  href="/learn/news"
                   className="inline-flex items-center space-x-2 font-bold hover:underline"
                 >
-                  <span>READ MORE</span>
+                  <span>VIEW NEWS</span>
                   <span>→</span>
                 </Link>
               </div>

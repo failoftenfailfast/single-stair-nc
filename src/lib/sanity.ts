@@ -10,7 +10,7 @@ export const client = createClient({
   projectId,
   dataset,
   apiVersion,
-  useCdn: true,
+  useCdn: false, // Disabled for fresh content updates
 });
 
 const builder = imageUrlBuilder(client);

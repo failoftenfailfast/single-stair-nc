@@ -29,6 +29,13 @@
       ]
     }
   ]
+  ,
+  "crons": [
+    {
+      "path": "/api/cron/rss",
+      "schedule": "0 * * * *"
+    }
+  ]
 }
 
 

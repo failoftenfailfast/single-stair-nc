@@ -56,6 +56,63 @@ export interface RepresentativeLookupResult {
 // Geocoding service using OpenStreetMap Nominatim (free alternative to Google Maps)
 export class GeocodingService {
   private static readonly NOMINATIM_URL = 'https://nominatim.openstreetmap.org/search';
+  
+  // Lightweight suggestion item for address autocompletion
+  static async suggestAddresses(query: string): Promise<{ label: string; value: string }[]> {
+    const trimmed = query.trim();
+    if (trimmed.length < 3) return [];
+    try {
+      const url = `${this.NOMINATIM_URL}?q=${encodeURIComponent(trimmed)}&format=json&addressdetails=1&limit=5&countrycodes=us&state=north%20carolina`;
+      const response = await fetch(url, {
+        headers: {
+          'Accept': 'application/json',
+        },
+      });
+
+      if (!response.ok) {
+        return [];
+      }
+
+      const results: any[] = await response.json();
+
+      // Ensure results are within North Carolina; extra guard in case API returns broader matches
+      const suggestions = results
+        .filter((r) => {
+          const state = r?.address?.state || '';
+          const display = (r?.display_name || '') as string;
+          return state.toLowerCase() === 'north carolina' || display.toLowerCase().includes('north carolina');
+        })
+        .map((r) => {
+          // Prefer constructing a concise label: street, city, NC zip
+          const houseNumber = r?.address?.house_number ? `${r.address.house_number} ` : '';
+          const road = r?.address?.road || r?.address?.pedestrian || r?.address?.footway || '';
+          const city = r?.address?.city || r?.address?.town || r?.address?.village || r?.address?.hamlet || '';
+          const postcode = r?.address?.postcode || '';
+          const parts = [
+            `${houseNumber}${road}`.trim(),
+            city,
+            'NC',
+            postcode,
+          ].filter(Boolean);
+          const label = parts.join(', ');
+          const value = label || (r?.display_name as string);
+          return { label: value, value };
+        });
+
+      // De-duplicate by value
+      const seen = new Set<string>();
+      const unique: { label: string; value: string }[] = [];
+      for (const s of suggestions) {
+        if (!seen.has(s.value)) {
+          seen.add(s.value);
+          unique.push(s);
+        }
+      }
+      return unique;
+    } catch {
+      return [];
+    }
+  }
 
   static async geocodeAddress(address: string): Promise<Coordinates | null> {
     try {
