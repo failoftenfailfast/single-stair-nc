@@ -5,6 +5,9 @@ import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 import ThemeProvider from '@/components/layout/ThemeProvider';
 
+// Use ISR globally unless overridden per route
+export const revalidate = 300; // 5 minutes
+
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {

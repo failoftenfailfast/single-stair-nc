@@ -1,22 +1,40 @@
 'use client';
 
+import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
+import { client, queries } from '@/lib/sanity';
+
+interface SiteSettingsData {
+  title?: string;
+  description?: string;
+}
 
 export default function Hero() {
+  const [siteSettings, setSiteSettings] = useState<SiteSettingsData | null>(null);
+
+  useEffect(() => {
+    client
+      .fetch(queries.siteSettings)
+      .then((data: SiteSettingsData) => setSiteSettings(data))
+      .catch(() => {});
+  }, []);
+
+  const heroTitle = siteSettings?.title || 'Fewer stairs, cheaper housing?';
+  const heroSubtitle = siteSettings?.description || "Discover how single-stair buildings can transform North Carolina's housing landscape.";
+
   return (
     <section className="relative min-h-screen flex items-center justify-center surface-primary">
       <div className="container-custom text-center">
         <div className="max-w-5xl mx-auto">
           <div className="mb-section">
             <h1 className="text-display-lg md:text-display-xl text-balance mb-content">
-              Fewer stairs, cheaper housing?
+              {heroTitle}
             </h1>
             <div className="w-full h-1 bg-gradient-to-r from-brand-500 via-earth-sand-300 to-earth-sage-500/80 mb-element"></div>
           </div>
           
-          <p className="text-body-lg text-content-secondary mb-section-lg max-w-3xl mx-auto text-balance">
-            DISCOVER HOW SINGLE-STAIR BUILDINGS CAN TRANSFORM NORTH CAROLINA'S HOUSING LANDSCAPE.<br />
-            SCROLL TO EXPLORE THE DATA, STORIES, AND SOLUTIONS DRIVING THIS MOVEMENT.
+          <p className="text-body-lg text-content-secondary mb-section-lg max-w-3xl mx-auto text-balance font-serif normal-case">
+            {heroSubtitle}
           </p>
 
           {/* Stair Placeholder Image */}
