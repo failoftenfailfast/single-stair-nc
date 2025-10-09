@@ -140,6 +140,35 @@ export class GeocodingService {
       return null;
     }
   }
+
+  static async geocodeZipNC(zip: string): Promise<{ coordinates: Coordinates; city?: string } | null> {
+    try {
+      const response = await fetch(
+        `${this.NOMINATIM_URL}?postalcode=${encodeURIComponent(zip)}&format=json&limit=1&countrycodes=us&state=north%20carolina`
+      );
+
+      if (!response.ok) {
+        throw new Error(`ZIP geocoding failed: ${response.status}`);
+      }
+
+      const data = await response.json();
+      if (Array.isArray(data) && data.length > 0) {
+        const first = data[0];
+        return {
+          coordinates: {
+            lat: parseFloat(first.lat),
+            lng: parseFloat(first.lon),
+          },
+          city: first?.address?.city || first?.address?.town || first?.address?.village || undefined,
+        };
+      }
+
+      return null;
+    } catch (error) {
+      console.error('ZIP geocoding error:', error);
+      return null;
+    }
+  }
 }
 
 // North Carolina district boundaries and lookup
@@ -179,6 +208,77 @@ export class NCDistrictService {
 
 // Main representative lookup service
 export class RepresentativeLookupService {
+  static normalizeZip(input: string): string {
+    const onlyDigits = (input || '').replace(/[^0-9]/g, '');
+    return onlyDigits.slice(0, 5);
+  }
+
+  static isNCZip(zip: string): boolean {
+    // NC ZIP codes begin with 27xxx or 28xxx ranges
+    return /^27\d{3}$/.test(zip) || /^28\d{3}$/.test(zip);
+  }
+
+  static async lookupRepresentativesByZip(zipInput: string): Promise<RepresentativeLookupResult> {
+    const zip = this.normalizeZip(zipInput);
+    if (!/^\d{5}$/.test(zip)) {
+      return {
+        address: { street: '', city: '', state: '', zipCode: '' },
+        coordinates: { lat: 0, lng: 0 },
+        districts: [],
+        legislators: [],
+        success: false,
+        error: 'Please enter a valid 5-digit ZIP code.',
+      };
+    }
+
+    if (!this.isNCZip(zip)) {
+      return {
+        address: { street: '', city: '', state: '', zipCode: zip },
+        coordinates: { lat: 0, lng: 0 },
+        districts: [],
+        legislators: [],
+        success: false,
+        error: 'North Carolina ZIP codes only (starting with 27 or 28).',
+      };
+    }
+
+    try {
+      const geocoded = await GeocodingService.geocodeZipNC(zip);
+      if (!geocoded) {
+        return {
+          address: { street: '', city: '', state: 'NC', zipCode: zip },
+          coordinates: { lat: 0, lng: 0 },
+          districts: [],
+          legislators: [],
+          success: false,
+          error: 'Could not locate ZIP in North Carolina.',
+        };
+      }
+
+      NCDistrictService.initializeDistricts();
+      const districts = NCDistrictService.getDistrictsForCoordinate(geocoded.coordinates);
+      const legislators = await this.getLegislatorsForDistricts(districts);
+
+      return {
+        address: { street: '', city: geocoded.city || '', state: 'NC', zipCode: zip },
+        coordinates: geocoded.coordinates,
+        districts,
+        legislators,
+        success: true,
+      };
+    } catch (error) {
+      console.error('ZIP representative lookup error:', error);
+      return {
+        address: { street: '', city: '', state: 'NC', zipCode: zip },
+        coordinates: { lat: 0, lng: 0 },
+        districts: [],
+        legislators: [],
+        success: false,
+        error: 'Lookup failed. Please try again later.',
+      };
+    }
+  }
+
   static async lookupRepresentatives(address: string): Promise<RepresentativeLookupResult> {
     try {
       // Parse address

@@ -8,7 +8,6 @@ import {
   Legislator,
   MessageTemplateService,
   MessageTemplate,
-  GeocodingService,
 } from '@/lib/representativeLookup';
 import { ContactService, ContactResult } from '@/lib/contactService';
 
@@ -17,7 +16,7 @@ interface RepresentativeLookupProps {
 }
 
 export default function RepresentativeLookup({ className = '' }: RepresentativeLookupProps) {
-  const [address, setAddress] = useState('');
+  const [zip, setZip] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [lookupResult, setLookupResult] = useState<RepresentativeLookupResult | null>(null);
   const [selectedLegislator, setSelectedLegislator] = useState<Legislator | null>(null);
@@ -26,61 +25,16 @@ export default function RepresentativeLookup({ className = '' }: RepresentativeL
   const [userEmail, setUserEmail] = useState('');
   const [isSending, setIsSending] = useState(false);
   const [contactResult, setContactResult] = useState<ContactResult | null>(null);
-  const [suggestions, setSuggestions] = useState<{ label: string; value: string }[]>([]);
-  const [showSuggestions, setShowSuggestions] = useState(false);
-  const [isSuggesting, setIsSuggesting] = useState(false);
-  const [activeSuggestionIndex, setActiveSuggestionIndex] = useState(-1);
-  const closeSuggestionsTimeout = useRef<number | null>(null);
 
-  useEffect(() => {
-    if (!address || address.trim().length < 3) {
-      setSuggestions([]);
-      setShowSuggestions(false);
-      setIsSuggesting(false);
-      setActiveSuggestionIndex(-1);
-      return;
-    }
-
-    setIsSuggesting(true);
-    const id = window.setTimeout(async () => {
-      const results = await GeocodingService.suggestAddresses(address);
-      setSuggestions(results);
-      setShowSuggestions(results.length > 0);
-      setActiveSuggestionIndex(-1);
-      setIsSuggesting(false);
-    }, 250);
-
-    return () => window.clearTimeout(id);
-  }, [address]);
-
-  const handleSelectSuggestion = (value: string) => {
-    setAddress(value);
-    setShowSuggestions(false);
-  };
-
-  const handleAddressKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (!showSuggestions || suggestions.length === 0) return;
-
-    if (e.key === 'ArrowDown') {
-      e.preventDefault();
-      setActiveSuggestionIndex((prev) => (prev + 1) % suggestions.length);
-    } else if (e.key === 'ArrowUp') {
-      e.preventDefault();
-      setActiveSuggestionIndex((prev) => (prev - 1 + suggestions.length) % suggestions.length);
-    } else if (e.key === 'Enter') {
-      if (activeSuggestionIndex >= 0) {
-        e.preventDefault();
-        handleSelectSuggestion(suggestions[activeSuggestionIndex].value);
-      }
-    } else if (e.key === 'Escape') {
-      setShowSuggestions(false);
-    }
+  const handleZipChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const normalized = RepresentativeLookupService.normalizeZip(e.target.value);
+    setZip(normalized);
   };
 
   const handleLookup = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (!address.trim()) return;
+    if (!zip.trim()) return;
 
     setIsLoading(true);
     setLookupResult(null);
@@ -88,7 +42,7 @@ export default function RepresentativeLookup({ className = '' }: RepresentativeL
     setSelectedTemplate(null);
 
     try {
-      const result = await RepresentativeLookupService.lookupRepresentatives(address);
+      const result = await RepresentativeLookupService.lookupRepresentativesByZip(zip);
       setLookupResult(result);
     } catch (error) {
       console.error('Lookup failed:', error);
@@ -185,98 +139,30 @@ export default function RepresentativeLookup({ className = '' }: RepresentativeL
 
   return (
     <div className={`space-y-6 ${className}`}>
-      {/* Address Input Form */}
+      {/* ZIP Input Form (NC only) */}
       <div className="border border-border-primary p-8 shadow-soft bg-surface-primary">
         <h3 className="text-xl font-black mb-6">FIND YOUR DISTRICT</h3>
         <form onSubmit={handleLookup} className="space-y-4">
-          <div className="grid md:grid-cols-2 gap-4">
-            <div>
-              <label className="block text-sm font-bold mb-2">
-                YOUR NAME
-              </label>
-              <input
-                type="text"
-                value={userName}
-                onChange={(e) => setUserName(e.target.value)}
-                placeholder="Enter your full name"
-                className="w-full p-3 border-2 border-black focus:outline-none"
-                required
-              />
-            </div>
-            <div>
-              <label className="block text-sm font-bold mb-2">
-                YOUR EMAIL
-              </label>
-              <input
-                type="email"
-                value={userEmail}
-                onChange={(e) => setUserEmail(e.target.value)}
-                placeholder="your.email@example.com"
-                className="w-full p-3 border-2 border-black focus:outline-none"
-                required
-              />
-            </div>
-          </div>
-          <div className="relative">
+          <div>
             <label className="block text-sm font-bold mb-2">
-              YOUR ADDRESS
+              YOUR ZIP CODE (NC ONLY)
             </label>
             <input
               type="text"
-              value={address}
-              onChange={(e) => setAddress(e.target.value)}
-              onKeyDown={handleAddressKeyDown}
-              onFocus={() => setShowSuggestions(suggestions.length > 0)}
-              onBlur={() => {
-                // Delay closing so click can register
-                closeSuggestionsTimeout.current = window.setTimeout(() => setShowSuggestions(false), 120);
-              }}
-              placeholder="123 Main St, Charlotte, NC 28202"
+              inputMode="numeric"
+              pattern="[0-9]*"
+              value={zip}
+              onChange={handleZipChange}
+              placeholder="e.g., 27601"
               className="w-full p-3 border-2 border-black focus:outline-none"
+              aria-describedby="zip-help"
               required
             />
-            {showSuggestions && (
-              <div
-                className="absolute z-20 left-0 right-0 mt-1 border-2 border-black bg-white max-h-64 overflow-auto shadow-soft"
-                role="listbox"
-                aria-label="Address suggestions limited to North Carolina"
-                onMouseDown={(e) => {
-                  // Prevent input blur before click selects
-                  if (closeSuggestionsTimeout.current) {
-                    window.clearTimeout(closeSuggestionsTimeout.current);
-                    closeSuggestionsTimeout.current = null;
-                  }
-                  e.preventDefault();
-                }}
-              >
-                {isSuggesting && (
-                  <div className="px-3 py-2 text-sm text-gray-600">Searching addresses…</div>
-                )}
-                {!isSuggesting && suggestions.length === 0 && (
-                  <div className="px-3 py-2 text-sm text-gray-600">No matches in North Carolina</div>
-                )}
-                {suggestions.map((s, idx) => (
-                  <button
-                    key={`${s.value}-${idx}`}
-                    type="button"
-                    role="option"
-                    aria-selected={activeSuggestionIndex === idx}
-                    className={`w-full text-left px-3 py-2 text-sm transition-colors ${
-                      activeSuggestionIndex === idx ? 'bg-gray-100' : ''
-                    }`}
-                    onMouseEnter={() => setActiveSuggestionIndex(idx)}
-                    onClick={() => handleSelectSuggestion(s.value)}
-                  >
-                    {s.label}
-                  </button>
-                ))}
-                <div className="px-3 py-2 text-xs text-gray-500 border-t">North Carolina addresses only</div>
-              </div>
-            )}
+            <p id="zip-help" className="mt-2 text-xs text-gray-600">North Carolina ZIP codes only (starting with 27 or 28).</p>
           </div>
           <button
             type="submit"
-            disabled={isLoading || !address.trim() || !userName.trim() || !userEmail.trim()}
+            disabled={isLoading || !zip.trim()}
             className="w-full bg-black text-white hover:bg-gray-800 py-3 font-bold transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
           >
             {isLoading ? (
@@ -302,9 +188,8 @@ export default function RepresentativeLookup({ className = '' }: RepresentativeL
           >
             {/* Address Confirmation */}
             <div className="border-2 border-black p-6 bg-white">
-              <h3 className="text-lg font-black mb-4">ADDRESS CONFIRMED</h3>
+              <h3 className="text-lg font-black mb-4">LOCATION CONFIRMED</h3>
               <div className="space-y-2 text-sm">
-                <p><span className="font-bold">Street:</span> {lookupResult.address.street}</p>
                 <p><span className="font-bold">City:</span> {lookupResult.address.city}</p>
                 <p><span className="font-bold">State:</span> {lookupResult.address.state}</p>
                 <p><span className="font-bold">ZIP:</span> {lookupResult.address.zipCode}</p>
@@ -419,7 +304,7 @@ export default function RepresentativeLookup({ className = '' }: RepresentativeL
                       <div className="text-sm whitespace-pre-wrap">
                         {MessageTemplateService.formatTemplate(
                           selectedTemplate,
-                          userName,
+                          userName || 'Constituent',
                           selectedLegislator.name,
                           selectedLegislator.district,
                           lookupResult.address.city
@@ -429,7 +314,7 @@ export default function RepresentativeLookup({ className = '' }: RepresentativeL
                     <div className="flex space-x-3">
                       <button
                         onClick={handleSendMessage}
-                        disabled={isSending || !userEmail.trim()}
+                        disabled={isSending}
                         className="flex-1 bg-black text-white hover:bg-gray-800 py-3 font-bold transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                       >
                         {isSending ? (
