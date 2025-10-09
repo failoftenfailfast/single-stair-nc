@@ -1,4 +1,5 @@
 import { defineConfig } from 'sanity';
+import { colorInput } from '@sanity/color-input';
 import { deskTool } from 'sanity/desk';
 import { visionTool } from '@sanity/vision';
 import { schemas } from './sanity/schemas';
@@ -154,6 +155,7 @@ export default defineConfig({
           ])
     }),
     visionTool(),
+    colorInput(),
   ],
   
   schema: {
