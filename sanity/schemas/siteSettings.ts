@@ -31,6 +31,28 @@ export default defineType({
           type: 'string',
           description: 'Display name for the news source',
           initialValue: 'CITYBUILDER',
+        },
+        {
+          name: 'feeds',
+          title: 'Additional RSS Feeds',
+          type: 'array',
+          description: 'Manage multiple RSS/Atom sources. Toggle enabled to include in imports.',
+          of: [
+            {
+              type: 'object',
+              fields: [
+                { name: 'label', title: 'Label', type: 'string', validation: (Rule) => Rule.required() },
+                { name: 'url', title: 'Feed URL', type: 'url', validation: (Rule) => Rule.uri({ allowRelative: false }).required() },
+                { name: 'enabled', title: 'Enabled', type: 'boolean', initialValue: true },
+              ],
+              preview: {
+                select: { title: 'label', subtitle: 'url', enabled: 'enabled' },
+                prepare({ title, subtitle, enabled }) {
+                  return { title: `${title || 'Feed'}`, subtitle: `${subtitle}${enabled === false ? ' (disabled)' : ''}` };
+                }
+              }
+            }
+          ]
         }
       ]
     }),

@@ -71,18 +71,30 @@ function extractTags(title: string, description: string): string[] {
 
 export async function fetchAndParseRSS(): Promise<void> {
   try {
-    console.log('Fetching RSS feed URL from Sanity settings...');
-    const feedUrl: string | null = await client.fetch(
-      `*[_type == "siteSettings"][0].news.rssFeedUrl`
-    );
-    const resolvedFeedUrl = feedUrl || 'https://citybuildernc.org/feed';
-    console.log(`Fetching RSS feed from ${resolvedFeedUrl}...`);
-    
-    const feed = await parser.parseURL(resolvedFeedUrl);
-    
-    console.log(`Found ${feed.items.length} items in RSS feed`);
-    
-    for (const item of feed.items) {
+    console.log('Fetching RSS feeds configuration from Sanity settings...');
+    const settings = await client.fetch(`*[_type == "siteSettings"][0]{ news }`);
+    const primaryUrl: string | null = settings?.news?.rssFeedUrl || null;
+    const primaryLabel: string = settings?.news?.sourceLabel || 'CITYBUILDER';
+    const extraFeeds: Array<{label?: string; url?: string; enabled?: boolean}> = settings?.news?.feeds || [];
+
+    const feedsToProcess: Array<{ url: string; label: string }> = [];
+    if (primaryUrl) feedsToProcess.push({ url: primaryUrl, label: primaryLabel });
+    for (const f of extraFeeds) {
+      if (f?.url && (f.enabled ?? true)) {
+        feedsToProcess.push({ url: f.url, label: f.label || new URL(f.url).hostname });
+      }
+    }
+
+    if (feedsToProcess.length === 0) {
+      feedsToProcess.push({ url: 'https://citybuildernc.org/feed', label: 'CITYBUILDER' });
+    }
+
+    for (const feedDef of feedsToProcess) {
+      console.log(`Fetching RSS feed from ${feedDef.url}...`);
+      const feed = await parser.parseURL(feedDef.url);
+      console.log(`Found ${feed.items.length} items in ${feedDef.label}`);
+      
+      for (const item of feed.items) {
       try {
         const title = item.title!;
         const url = item.link!;
@@ -120,7 +132,7 @@ export async function fetchAndParseRSS(): Promise<void> {
           publishedAt,
           description: cleanedDescription,
           content,
-          author: 'CITYBUILDER',
+          author: feedDef.label || 'CITYBUILDER',
           featured: false,
           tags,
         };
@@ -131,6 +143,7 @@ export async function fetchAndParseRSS(): Promise<void> {
       } catch (itemError) {
         console.error('Error processing item:', itemError);
         continue;
+      }
       }
     }
     

@@ -84,19 +84,27 @@ function extractTags(title, description) {
 
 async function importRSSFeed() {
   try {
-    console.log('🚀 Resolving RSS feed URL from Sanity settings...');
-    const feedUrl = await client.fetch(`*[_type == "siteSettings"][0].news.rssFeedUrl`);
-    const resolvedFeedUrl = feedUrl || 'https://citybuildernc.org/feed';
-    console.log(`🚀 Starting RSS feed import from ${resolvedFeedUrl}...`);
-    
-    const feed = await parser.parseURL(resolvedFeedUrl);
-    
-    console.log(`📰 Found ${feed.items.length} articles in RSS feed`);
-    
+    console.log('🚀 Resolving RSS feeds from Sanity settings...');
+    const settings = await client.fetch(`*[_type == "siteSettings"][0]{ news }`);
+    const primaryUrl = settings?.news?.rssFeedUrl || 'https://citybuildernc.org/feed';
+    const primaryLabel = settings?.news?.sourceLabel || 'CITYBUILDER';
+    const extraFeeds = settings?.news?.feeds || [];
+
+    const feeds = [];
+    if (primaryUrl) feeds.push({ url: primaryUrl, label: primaryLabel });
+    for (const f of extraFeeds) {
+      if (f?.url && (f.enabled ?? true)) feeds.push({ url: f.url, label: f.label || new URL(f.url).hostname });
+    }
+
     let imported = 0;
     let skipped = 0;
-    
-    for (const item of feed.items) {
+
+    for (const feedDef of feeds) {
+      console.log(`📰 Fetching ${feedDef.label}: ${feedDef.url}`);
+      const feed = await parser.parseURL(feedDef.url);
+      console.log(`   Found ${feed.items.length} items`);
+      
+      for (const item of feed.items) {
       try {
         const title = item.title;
         const url = item.link;
@@ -135,7 +143,7 @@ async function importRSSFeed() {
           publishedAt,
           description: cleanedDescription,
           content,
-          author: 'CITYBUILDER',
+          author: feedDef.label || 'CITYBUILDER',
           featured: imported === 0, // Make the first new post featured
           tags,
         };
@@ -147,6 +155,7 @@ async function importRSSFeed() {
       } catch (itemError) {
         console.error('❌ Error processing item:', itemError);
         continue;
+      }
       }
     }
     

@@ -78,7 +78,7 @@ export default function ActPage() {
   return (
     <div className="min-h-screen surface-primary">
       {/* Hero Section */}
-      <section className={`section-padding text-content-inverse ${actPageData?.heroBackgroundImage ? 'relative' : 'surface-inverse'} min-h-[60vh] md:min-h-[70vh] lg:min-h-screen`}>
+      <section className={`section-padding text-content-inverse ${actPageData?.heroBackgroundImage ? 'relative' : 'surface-inverse'}`}>
         {actPageData?.heroBackgroundImage && (
           <div
             className="absolute inset-0"
