@@ -21,7 +21,7 @@ export default function CallToAction() {
           >
             READY TO MAKE A
             <br />
-            <span className="border-b-4 border-nc-gold">DIFFERENCE?</span>
+            <span className="border-b-4 border-brand-500">DIFFERENCE?</span>
           </motion.h2>
           
           <motion.p 
@@ -42,8 +42,8 @@ export default function CallToAction() {
               whileHover={{ y: -4 }}
               className="border-2 border-white p-8 text-center hover:bg-white hover:text-black transition-colors group"
             >
-              <div className="w-16 h-16 border-2 border-white group-hover:border-nc-red flex items-center justify-center mx-auto mb-6">
-                <span className="text-3xl font-black text-nc-red group-hover:text-white">@</span>
+              <div className="w-16 h-16 border-2 border-white group-hover:border-brand-500 flex items-center justify-center mx-auto mb-6">
+                <span className="text-3xl font-black text-brand-500 group-hover:text-white">@</span>
               </div>
               <h3 className="text-xl font-bold mb-4 tracking-wide">CONTACT YOUR REP</h3>
               <p className="text-sm leading-relaxed">
@@ -58,8 +58,8 @@ export default function CallToAction() {
               whileHover={{ y: -4 }}
               className="border-2 border-white p-8 text-center hover:bg-white hover:text-black transition-colors group"
             >
-              <div className="w-16 h-16 border-2 border-white group-hover:border-nc-blue flex items-center justify-center mx-auto mb-6">
-                <span className="text-3xl font-black text-nc-blue group-hover:text-white">#</span>
+              <div className="w-16 h-16 border-2 border-white group-hover:border-brand-600 flex items-center justify-center mx-auto mb-6">
+                <span className="text-3xl font-black text-brand-600 group-hover:text-white">#</span>
               </div>
               <h3 className="text-xl font-bold mb-4 tracking-wide">TRACK PROGRESS</h3>
               <p className="text-sm leading-relaxed">
@@ -74,8 +74,8 @@ export default function CallToAction() {
               whileHover={{ y: -4 }}
               className="border-2 border-white p-8 text-center hover:bg-white hover:text-black transition-colors group"
             >
-              <div className="w-16 h-16 border-2 border-white group-hover:border-nc-gold flex items-center justify-center mx-auto mb-6">
-                <span className="text-3xl font-black text-nc-gold group-hover:text-white">■</span>
+              <div className="w-16 h-16 border-2 border-white group-hover:border-brand-700 flex items-center justify-center mx-auto mb-6">
+                <span className="text-3xl font-black text-brand-700 group-hover:text-white">■</span>
               </div>
               <h3 className="text-xl font-bold mb-4 tracking-wide">SEE EXAMPLES</h3>
               <p className="text-sm leading-relaxed">

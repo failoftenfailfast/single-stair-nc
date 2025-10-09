@@ -4,7 +4,11 @@ import { motion } from 'framer-motion';
 import { useState, useEffect } from 'react';
 import { client, queries, urlFor } from '@/lib/sanity';
 import Image from 'next/image';
-import GeographicProgressMaps from '@/components/maps/GeographicProgressMaps';
+import dynamic from 'next/dynamic';
+const GeographicProgressMaps = dynamic(
+  () => import('@/components/maps/GeographicProgressMaps'),
+  { ssr: false, loading: () => null }
+);
 import RepresentativeLookup from '@/components/advocacy/RepresentativeLookup';
 import AdvocacyProgress from '@/components/advocacy/AdvocacyProgress';
 
@@ -19,31 +23,35 @@ interface ActPageData {
 }
 
 export default function ActPage() {
-  const [selectedTab, setSelectedTab] = useState('progress');
+  const [selectedTab, setSelectedTab] = useState('contact');
   const [actPageData, setActPageData] = useState<ActPageData | null>(null);
-  const [loading, setLoading] = useState(true);
+  // Remove global loading gate so hero can render immediately
   const [updatesNC, setUpdatesNC] = useState<any[]>([]);
   const [updatesNational, setUpdatesNational] = useState<any[]>([]);
 
   useEffect(() => {
-    const fetchActPageData = async () => {
-      try {
-        const [data, nc, nat] = await Promise.all([
-          client.fetch(queries.actPage),
-          client.fetch(queries.policyUpdatesNC),
-          client.fetch(queries.policyUpdatesNational),
-        ]);
-        setActPageData(data);
-        setUpdatesNC(nc || []);
-        setUpdatesNational(nat || []);
-      } catch (error) {
-        console.error('Error fetching Act page data:', error);
-      } finally {
-        setLoading(false);
-      }
-    };
+    // Fetch hero/content first so image and text can appear ASAP
+    client
+      .fetch(queries.actPage)
+      .then((data) => setActPageData(data))
+      .catch((error) => console.error('Error fetching Act page:', error));
 
-    fetchActPageData();
+    // Fetch updates in parallel; do not block initial render
+    client
+      .fetch(queries.policyUpdatesNC)
+      .then((nc) => setUpdatesNC(nc || []))
+      .catch((error) => {
+        console.error('Error fetching NC updates:', error);
+        setUpdatesNC([]);
+      });
+
+    client
+      .fetch(queries.policyUpdatesNational)
+      .then((nat) => setUpdatesNational(nat || []))
+      .catch((error) => {
+        console.error('Error fetching national updates:', error);
+        setUpdatesNational([]);
+      });
   }, []);
 
   const handleScrollToMaps = () => {
@@ -65,30 +73,33 @@ export default function ActPage() {
     { id: 'my-impact', label: 'MY IMPACT' },
   ];
 
-  if (loading) {
-    return (
-      <div className="min-h-screen surface-primary flex items-center justify-center">
-        <div className="text-xl">Loading...</div>
-      </div>
-    );
-  }
+  // No global loading UI; render immediately and progressively hydrate data
 
   return (
     <div className="min-h-screen surface-primary">
       {/* Hero Section */}
-      <section className={`section-padding text-content-inverse ${actPageData?.heroBackgroundImage ? 'relative' : 'surface-inverse'}`}>
+      <section className={`section-padding text-content-inverse ${actPageData?.heroBackgroundImage ? 'relative' : 'surface-inverse'} min-h-[60vh] md:min-h-[70vh] lg:min-h-screen`}>
         {actPageData?.heroBackgroundImage && (
-          <>
+          <div
+            className="absolute inset-0"
+            aria-hidden="true"
+            style={{
+              backgroundImage: `url(${urlFor(actPageData.heroBackgroundImage).width(1920).height(1080).url()})`,
+              backgroundSize: 'cover',
+              backgroundPosition: 'center',
+            }}
+          >
             <Image
               src={urlFor(actPageData.heroBackgroundImage).width(1920).height(1080).url()}
               alt="Hero background"
               fill
               sizes="100vw"
-              className="object-cover z-0"
+              className="object-cover"
               priority
+              unoptimized
             />
-            <div className="absolute inset-0 z-0 bg-black/50"></div>
-          </>
+            <div className="absolute inset-0 bg-black/50"></div>
+          </div>
         )}
         <div className="container-custom">
           <motion.div

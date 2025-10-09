@@ -84,9 +84,12 @@ function extractTags(title, description) {
 
 async function importRSSFeed() {
   try {
-    console.log('🚀 Starting RSS feed import from CITYBUILDER...');
+    console.log('🚀 Resolving RSS feed URL from Sanity settings...');
+    const feedUrl = await client.fetch(`*[_type == "siteSettings"][0].news.rssFeedUrl`);
+    const resolvedFeedUrl = feedUrl || 'https://citybuildernc.org/feed';
+    console.log(`🚀 Starting RSS feed import from ${resolvedFeedUrl}...`);
     
-    const feed = await parser.parseURL('https://citybuildernc.org/feed');
+    const feed = await parser.parseURL(resolvedFeedUrl);
     
     console.log(`📰 Found ${feed.items.length} articles in RSS feed`);
     

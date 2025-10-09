@@ -14,11 +14,11 @@
     --color-gray-100: #f3f4f6;
     --color-gray-300: #d1d5db;
 
-    /* Brand (North Carolina inspired) */
-    --color-brand-500: #ef4444;  /* NC flag red */
-    --color-brand-600: #dc2626;
-    --color-brand-700: #b91c1c;
-    --color-brand-800: #991b1b;
+    /* Brand (North Carolina inspired - Blue dominant) */
+    --color-brand-500: #3C3B6E;  /* NC flag blue */
+    --color-brand-600: #323166;
+    --color-brand-700: #28285e;
+    --color-brand-800: #1e1e56;
 
     /* North Carolina state colors */
     --color-nc-red: #B22234;
@@ -65,10 +65,10 @@
     --color-gray-100: #111827;
     --color-gray-300: #374151;
 
-    --color-brand-500: #f87171;  /* Light red for dark theme */
-    --color-brand-600: #ef4444;
-    --color-brand-700: #dc2626;
-    --color-brand-800: #b91c1c;
+    --color-brand-500: #8395f9;  /* Light blue for dark theme */
+    --color-brand-600: #3C3B6E;
+    --color-brand-700: #323166;
+    --color-brand-800: #28285e;
 
     --color-surface-primary: #0b1220;
     --color-surface-secondary: #0f172a;
@@ -150,7 +150,7 @@
   
   /* Button Components */
   .btn-primary {
-    @apply inline-flex items-center justify-center bg-nc-red text-white border border-nc-red hover:bg-red-700 hover:border-red-800 focus:outline-none disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200;
+    @apply inline-flex items-center justify-center bg-brand-500 text-white border border-brand-600 hover:bg-brand-600 hover:border-brand-700 focus:outline-none disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200;
     @apply px-6 py-3 text-body font-medium shadow-soft hover:shadow-md;
   }
 

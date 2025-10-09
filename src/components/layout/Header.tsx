@@ -56,7 +56,17 @@ export default function Header() {
           {/* Logo */}
           <Link href="/" className="flex items-center space-x-tight group">
             <div className="w-8 h-8 lg:w-10 lg:h-10 bg-brand-500 flex items-center justify-center group-hover:bg-brand-600 transition-colors">
-              <span className="text-white font-bold text-body-sm lg:text-body">NC</span>
+              <svg
+                className="text-white w-5 h-5 lg:w-6 lg:h-6"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+                aria-hidden="true"
+                focusable="false"
+              >
+                <rect x="4" y="14" width="6" height="2" rx="0.5" />
+                <rect x="10" y="10" width="6" height="2" rx="0.5" />
+                <rect x="16" y="6" width="4" height="2" rx="0.5" />
+              </svg>
             </div>
             <div className="hidden sm:block">
               <div className="text-content-primary font-bold text-body-sm lg:text-body leading-tight">

@@ -71,9 +71,14 @@ function extractTags(title: string, description: string): string[] {
 
 export async function fetchAndParseRSS(): Promise<void> {
   try {
-    console.log('Fetching RSS feed from CITYBUILDER...');
+    console.log('Fetching RSS feed URL from Sanity settings...');
+    const feedUrl: string | null = await client.fetch(
+      `*[_type == "siteSettings"][0].news.rssFeedUrl`
+    );
+    const resolvedFeedUrl = feedUrl || 'https://citybuildernc.org/feed';
+    console.log(`Fetching RSS feed from ${resolvedFeedUrl}...`);
     
-    const feed = await parser.parseURL('https://citybuildernc.org/feed');
+    const feed = await parser.parseURL(resolvedFeedUrl);
     
     console.log(`Found ${feed.items.length} items in RSS feed`);
     

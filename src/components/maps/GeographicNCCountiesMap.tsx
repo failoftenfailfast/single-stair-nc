@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import dynamic from 'next/dynamic';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ncCountiesProgress, getStatusColor, getStatusLabel, PolicyProgress } from '@/data/policyProgress';
+import { fetchPolicyNCCounties } from '@/lib/policyData';
 
 // Dynamically import MapContainer to avoid SSR issues
 const MapContainer = dynamic(
@@ -27,9 +28,10 @@ export default function GeographicNCCountiesMap({ className = '' }: GeographicNC
   const [selectedCounty, setSelectedCounty] = useState<PolicyProgress | null>(null);
   const [geoData, setGeoData] = useState<any>(null);
   const [isClient, setIsClient] = useState(false);
+  const [countiesProgress, setCountiesProgress] = useState<PolicyProgress[]>(ncCountiesProgress);
 
   // Create a lookup for county data
-  const countyData = ncCountiesProgress.reduce((acc, county) => {
+  const countyData = countiesProgress.reduce((acc, county) => {
     acc[county.id] = county;
     acc[county.name] = county;
     return acc;
@@ -55,6 +57,11 @@ export default function GeographicNCCountiesMap({ className = '' }: GeographicNC
       .catch(error => {
         console.error('Error loading NC counties GeoJSON data:', error);
       });
+
+    // Load policy data from CMS with fallback
+    fetchPolicyNCCounties()
+      .then((data) => setCountiesProgress(data))
+      .catch(() => setCountiesProgress(ncCountiesProgress));
   }, []);
 
   const getCountyByName = (countyName: string): PolicyProgress | null => {
@@ -204,22 +211,55 @@ export default function GeographicNCCountiesMap({ className = '' }: GeographicNC
         </div>
 
         {/* Legend */}
-        <div className="mt-6 grid grid-cols-2 md:grid-cols-4 gap-2 text-xs">
-          <div className="flex items-center space-x-2">
-            <div className="w-4 h-4 border border-border-primary" style={{ backgroundColor: getStatusColor('signed') }}></div>
-            <span className="font-medium">Signed</span>
+        <div className="mt-6">
+          <div className="text-xs text-content-secondary mb-3 text-center">
+            Hover over each status to learn more
           </div>
-          <div className="flex items-center space-x-2">
-            <div className="w-4 h-4 border border-border-primary" style={{ backgroundColor: getStatusColor('committee') }}></div>
-            <span className="font-medium">In Committee</span>
-          </div>
-          <div className="flex items-center space-x-2">
-            <div className="w-4 h-4 border border-border-primary" style={{ backgroundColor: getStatusColor('studying') }}></div>
-            <span className="font-medium">Under Study</span>
-          </div>
-          <div className="flex items-center space-x-2">
-            <div className="w-4 h-4 border border-border-primary" style={{ backgroundColor: getStatusColor('no_activity') }}></div>
-            <span className="font-medium">No Activity</span>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-2 text-xs">
+            <div 
+              className="flex items-center space-x-2 group relative cursor-help p-2 rounded hover:bg-earth-sand-50 transition-colors"
+              title="Local ordinance or policy has been signed into law"
+            >
+              <div className="w-4 h-4 border border-border-primary" style={{ backgroundColor: getStatusColor('signed') }}></div>
+              <span className="font-medium">Signed</span>
+              <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 hidden group-hover:block bg-black text-white text-xs p-3 rounded shadow-lg w-64 z-10">
+                <div className="font-bold mb-1">Signed into Law</div>
+                <div className="text-xs leading-relaxed">Local ordinance or policy has been signed into law and is now enforceable. Implementation may still be in progress.</div>
+              </div>
+            </div>
+            <div 
+              className="flex items-center space-x-2 group relative cursor-help p-2 rounded hover:bg-earth-sand-50 transition-colors"
+              title="Legislation is being reviewed by a committee"
+            >
+              <div className="w-4 h-4 border border-border-primary" style={{ backgroundColor: getStatusColor('committee') }}></div>
+              <span className="font-medium">In Committee</span>
+              <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 hidden group-hover:block bg-black text-white text-xs p-3 rounded shadow-lg w-64 z-10">
+                <div className="font-bold mb-1">In Committee</div>
+                <div className="text-xs leading-relaxed">Legislation is being reviewed by a committee. Public hearings and amendments may occur before a vote.</div>
+              </div>
+            </div>
+            <div 
+              className="flex items-center space-x-2 group relative cursor-help p-2 rounded hover:bg-earth-sand-50 transition-colors"
+              title="Preliminary research or feasibility study underway"
+            >
+              <div className="w-4 h-4 border border-border-primary" style={{ backgroundColor: getStatusColor('studying') }}></div>
+              <span className="font-medium">Under Study</span>
+              <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 hidden group-hover:block bg-black text-white text-xs p-3 rounded shadow-lg w-64 z-10">
+                <div className="font-bold mb-1">Under Study</div>
+                <div className="text-xs leading-relaxed">Preliminary research or feasibility study underway. No legislation has been drafted yet.</div>
+              </div>
+            </div>
+            <div 
+              className="flex items-center space-x-2 group relative cursor-help p-2 rounded hover:bg-earth-sand-50 transition-colors"
+              title="No known single-stair legislation or study"
+            >
+              <div className="w-4 h-4 border border-border-primary" style={{ backgroundColor: getStatusColor('no_activity') }}></div>
+              <span className="font-medium">No Activity</span>
+              <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 hidden group-hover:block bg-black text-white text-xs p-3 rounded shadow-lg w-64 z-10">
+                <div className="font-bold mb-1">No Activity</div>
+                <div className="text-xs leading-relaxed">No known single-stair legislation or study in this county. Contact your local representatives to get started!</div>
+              </div>
+            </div>
           </div>
         </div>
       </div>

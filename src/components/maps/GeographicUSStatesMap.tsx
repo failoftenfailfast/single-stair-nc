@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import dynamic from 'next/dynamic';
 import { motion, AnimatePresence } from 'framer-motion';
 import { usStatesProgress, getStatusColor, getStatusLabel, PolicyProgress } from '@/data/policyProgress';
+import { fetchPolicyStates } from '@/lib/policyData';
 
 // Dynamically import MapContainer to avoid SSR issues
 const MapContainer = dynamic(
@@ -27,9 +28,10 @@ export default function GeographicUSStatesMap({ className = '' }: GeographicUSSt
   const [selectedState, setSelectedState] = useState<PolicyProgress | null>(null);
   const [geoData, setGeoData] = useState<any>(null);
   const [isClient, setIsClient] = useState(false);
+  const [statesProgress, setStatesProgress] = useState<PolicyProgress[]>(usStatesProgress);
 
   // Create a lookup for state data
-  const stateData = usStatesProgress.reduce((acc, state) => {
+  const stateData = statesProgress.reduce((acc, state) => {
     acc[state.id] = state;
     acc[state.name] = state;
     return acc;
@@ -47,6 +49,11 @@ export default function GeographicUSStatesMap({ className = '' }: GeographicUSSt
       .catch(error => {
         console.error('Error loading GeoJSON data:', error);
       });
+
+    // Load policy data from CMS with fallback
+    fetchPolicyStates()
+      .then((data) => setStatesProgress(data))
+      .catch(() => setStatesProgress(usStatesProgress));
   }, []);
 
   const getStateByName = (stateName: string): PolicyProgress | null => {
@@ -124,10 +131,10 @@ export default function GeographicUSStatesMap({ className = '' }: GeographicUSSt
 
   // Summary statistics
   const stats = {
-    signed: usStatesProgress.filter(s => s.status === 'signed').length,
-    inProgress: usStatesProgress.filter(s => ['committee', 'introduced', 'passed_chamber', 'passed_both'].includes(s.status)).length,
-    studying: usStatesProgress.filter(s => s.status === 'studying').length,
-    noActivity: usStatesProgress.filter(s => s.status === 'no_activity').length
+    signed: statesProgress.filter(s => s.status === 'signed').length,
+    inProgress: statesProgress.filter(s => ['committee', 'introduced', 'passed_chamber', 'passed_both'].includes(s.status)).length,
+    studying: statesProgress.filter(s => s.status === 'studying').length,
+    noActivity: statesProgress.filter(s => s.status === 'no_activity').length
   };
 
   if (!isClient) {
@@ -207,30 +214,77 @@ export default function GeographicUSStatesMap({ className = '' }: GeographicUSSt
         </div>
 
         {/* Legend */}
-        <div className="mt-6 grid grid-cols-2 md:grid-cols-3 gap-2 text-xs">
-          <div className="flex items-center space-x-2">
-            <div className="w-4 h-4 border border-border-primary" style={{ backgroundColor: getStatusColor('signed') }}></div>
-            <span className="font-medium">Signed into Law</span>
+        <div className="mt-6">
+          <div className="text-xs text-content-secondary mb-3 text-center">
+            Hover over each status to learn more
           </div>
-          <div className="flex items-center space-x-2">
-            <div className="w-4 h-4 border border-border-primary" style={{ backgroundColor: getStatusColor('passed_both') }}></div>
-            <span className="font-medium">Passed Legislature</span>
-          </div>
-          <div className="flex items-center space-x-2">
-            <div className="w-4 h-4 border border-border-primary" style={{ backgroundColor: getStatusColor('committee') }}></div>
-            <span className="font-medium">In Committee</span>
-          </div>
-          <div className="flex items-center space-x-2">
-            <div className="w-4 h-4 border border-border-primary" style={{ backgroundColor: getStatusColor('introduced') }}></div>
-            <span className="font-medium">Bill Introduced</span>
-          </div>
-          <div className="flex items-center space-x-2">
-            <div className="w-4 h-4 border border-border-primary" style={{ backgroundColor: getStatusColor('studying') }}></div>
-            <span className="font-medium">Under Study</span>
-          </div>
-          <div className="flex items-center space-x-2">
-            <div className="w-4 h-4 border border-border-primary" style={{ backgroundColor: getStatusColor('no_activity') }}></div>
-            <span className="font-medium">No Activity</span>
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-2 text-xs">
+            <div 
+              className="flex items-center space-x-2 group relative cursor-help p-2 rounded hover:bg-earth-sand-50 transition-colors"
+              title="Bill has been signed into law and is now enforceable"
+            >
+              <div className="w-4 h-4 border border-border-primary" style={{ backgroundColor: getStatusColor('signed') }}></div>
+              <span className="font-medium">Signed into Law</span>
+              <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 hidden group-hover:block bg-black text-white text-xs p-3 rounded shadow-lg w-64 z-10">
+                <div className="font-bold mb-1">Signed into Law</div>
+                <div className="text-xs leading-relaxed">Bill has been signed into law and is now enforceable. Implementation guidelines may still be in development.</div>
+              </div>
+            </div>
+            <div 
+              className="flex items-center space-x-2 group relative cursor-help p-2 rounded hover:bg-earth-sand-50 transition-colors"
+              title="Bill has passed both legislative chambers"
+            >
+              <div className="w-4 h-4 border border-border-primary" style={{ backgroundColor: getStatusColor('passed_both') }}></div>
+              <span className="font-medium">Passed Legislature</span>
+              <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 hidden group-hover:block bg-black text-white text-xs p-3 rounded shadow-lg w-64 z-10">
+                <div className="font-bold mb-1">Passed Legislature</div>
+                <div className="text-xs leading-relaxed">Bill has passed both legislative chambers and is awaiting governor or executive signature.</div>
+              </div>
+            </div>
+            <div 
+              className="flex items-center space-x-2 group relative cursor-help p-2 rounded hover:bg-earth-sand-50 transition-colors"
+              title="Bill is being reviewed by a legislative committee"
+            >
+              <div className="w-4 h-4 border border-border-primary" style={{ backgroundColor: getStatusColor('committee') }}></div>
+              <span className="font-medium">In Committee</span>
+              <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 hidden group-hover:block bg-black text-white text-xs p-3 rounded shadow-lg w-64 z-10">
+                <div className="font-bold mb-1">In Committee</div>
+                <div className="text-xs leading-relaxed">Bill is being reviewed by a legislative committee. Public hearings and amendments may occur before a committee vote.</div>
+              </div>
+            </div>
+            <div 
+              className="flex items-center space-x-2 group relative cursor-help p-2 rounded hover:bg-earth-sand-50 transition-colors"
+              title="Legislation has been formally introduced"
+            >
+              <div className="w-4 h-4 border border-border-primary" style={{ backgroundColor: getStatusColor('introduced') }}></div>
+              <span className="font-medium">Bill Introduced</span>
+              <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 hidden group-hover:block bg-black text-white text-xs p-3 rounded shadow-lg w-64 z-10">
+                <div className="font-bold mb-1">Bill Introduced</div>
+                <div className="text-xs leading-relaxed">Legislation has been formally introduced and assigned a bill number. Next step is typically committee referral.</div>
+              </div>
+            </div>
+            <div 
+              className="flex items-center space-x-2 group relative cursor-help p-2 rounded hover:bg-earth-sand-50 transition-colors"
+              title="Preliminary research or feasibility study underway"
+            >
+              <div className="w-4 h-4 border border-border-primary" style={{ backgroundColor: getStatusColor('studying') }}></div>
+              <span className="font-medium">Under Study</span>
+              <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 hidden group-hover:block bg-black text-white text-xs p-3 rounded shadow-lg w-64 z-10">
+                <div className="font-bold mb-1">Under Study</div>
+                <div className="text-xs leading-relaxed">Preliminary research or feasibility study underway. No legislation has been drafted yet.</div>
+              </div>
+            </div>
+            <div 
+              className="flex items-center space-x-2 group relative cursor-help p-2 rounded hover:bg-earth-sand-50 transition-colors"
+              title="No known single-stair legislation or study"
+            >
+              <div className="w-4 h-4 border border-border-primary" style={{ backgroundColor: getStatusColor('no_activity') }}></div>
+              <span className="font-medium">No Activity</span>
+              <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 hidden group-hover:block bg-black text-white text-xs p-3 rounded shadow-lg w-64 z-10">
+                <div className="font-bold mb-1">No Activity</div>
+                <div className="text-xs leading-relaxed">No known single-stair legislation or study in this jurisdiction. Contact your representatives to get started!</div>
+              </div>
+            </div>
           </div>
         </div>
       </div>

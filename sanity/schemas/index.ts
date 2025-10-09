@@ -20,6 +20,7 @@ import mediaAsset from './mediaAsset';
 
 // Policy tracking
 import policyTracker from './policyTracker';
+import policyUpdate from './policyUpdate';
 import legislator from './legislator';
 import district from './district';
 
@@ -56,6 +57,7 @@ export const schemas = [
   
   // Policy tracking
   policyTracker,
+  policyUpdate,
   legislator,
   district,
   

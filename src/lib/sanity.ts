@@ -46,6 +46,55 @@ export const queries = {
     summary,
     nextSteps
   }`,
+
+  // Policy tracker - states
+  policyStates: `*[_type == "policyTracker" && level == "state"] | order(name asc){
+    _id,
+    id,
+    name,
+    status,
+    lastUpdated,
+    billNumber,
+    description,
+    nextStep,
+    sponsor
+  }`,
+
+  // Policy tracker - NC counties
+  policyCountiesNC: `*[_type == "policyTracker" && level == "county" && stateId == "nc"] | order(name asc){
+    _id,
+    id,
+    name,
+    status,
+    lastUpdated,
+    billNumber,
+    description,
+    nextStep,
+    sponsor,
+    stateId
+  }`,
+
+  // Policy updates (recent)
+  policyUpdatesNC: `*[_type == "policyUpdate" && scope == "nc"] | order(date desc)[0...10]{
+    _id,
+    date,
+    locationName,
+    title,
+    description,
+    statusKind,
+    billNumber,
+    link
+  }`,
+  policyUpdatesNational: `*[_type == "policyUpdate" && scope == "national"] | order(date desc)[0...10]{
+    _id,
+    date,
+    locationName,
+    title,
+    description,
+    statusKind,
+    billNumber,
+    link
+  }`,
   
   // Legislators by district
   legislatorsByDistrict: (district: string) => `*[_type == "legislator" && district == "${district}"]{
@@ -91,12 +140,15 @@ export const queries = {
     letterTemplates
   }`,
 
-  // Act page content
-  actPage: `*[_type == "actPage"][0]{
+  // Act page content (prefer most recently updated doc to avoid picking older duplicates)
+  actPage: `*[_type == "actPage"] | order(_updatedAt desc)[0]{
     title,
     heroTitle,
     heroDescription,
-    heroBackgroundImage,
+    heroBackgroundImage{
+      ...,
+      asset->
+    },
     primaryButtonText,
     secondaryButtonText,
     seo
@@ -157,6 +209,7 @@ export const queries = {
     newsletterButtonText,
     socialLinks,
     footerBottomLinks,
+    theme,
     copyrightText,
     seo
   }`

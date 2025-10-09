@@ -5,19 +5,19 @@ A comprehensive design system for consistent styling and easy refactoring across
 ## 🎨 Color System
 
 ### North Carolina State Flag Colors
-The design system incorporates colors from the North Carolina state flag:
+The design system incorporates colors from the North Carolina state flag with a **blue-dominant** approach:
 
 ```css
-/* NC Flag Colors */
-bg-nc-red         /* #B22234 - NC flag red */
-bg-nc-blue        /* #3C3B6E - NC flag blue */
-bg-nc-gold        /* #FFD700 - NC flag gold */
+/* NC Flag Colors (Blue Dominant) */
+bg-nc-red         /* #B22234 - NC flag red (accent) */
+bg-nc-blue        /* #3C3B6E - NC flag blue (primary) */
+bg-nc-gold        /* #FFD700 - NC flag gold (highlight) */
 bg-nc-white       /* #FFFFFF - NC flag white */
-text-nc-red       /* NC flag red text */
-text-nc-blue      /* NC flag blue text */
-text-nc-gold      /* NC flag gold text */
-border-nc-red     /* NC flag red borders */
-border-nc-blue    /* NC flag blue borders */
+text-nc-red       /* NC flag red text (accent) */
+text-nc-blue      /* NC flag blue text (primary) */
+text-nc-gold      /* NC flag gold text (highlight) */
+border-nc-red     /* NC flag red borders (accent) */
+border-nc-blue    /* NC flag blue borders (primary) */
 ```
 
 ### Semantic Colors
@@ -42,8 +42,8 @@ border-border-primary   /* Main borders (#334155) - slate */
 border-border-secondary /* Subtle borders (#e7dfcf) - earth sand */
 border-border-focus     /* Focus rings (#3C3B6E) - NC blue */
 
-/* Interactive Elements */
-text-link-primary       /* Primary links (#B22234) - NC red */
+/* Interactive Elements (Blue Dominant) */
+text-link-primary       /* Primary links (#3C3B6E) - NC blue */
 text-link-inverse       /* Inverse links (#FFD700) - NC gold */
 
 /* Feedback (using NC colors where appropriate) */
@@ -134,11 +134,11 @@ py-section-lg      /* padding-top/bottom: 6rem */
 
 ## 🧩 Component System
 
-### Buttons
+### Buttons (Blue Dominant)
 ```css
-.btn-primary       /* NC red background, white text */
+.btn-primary       /* NC blue background, white text */
 .btn-secondary     /* Light background, dark text with NC blue hover */
-.btn-ghost         /* Transparent background with NC red text */
+.btn-ghost         /* Transparent background with NC blue text */
 
 /* Size modifiers */
 .btn-large         /* Larger padding and text */
@@ -159,9 +159,9 @@ py-section-lg      /* padding-top/bottom: 6rem */
 .surface-inverse   /* Dark background with light text */
 ```
 
-### Links
+### Links (Blue Dominant)
 ```css
-.link-primary      /* NC red link with darker red hover */
+.link-primary      /* NC blue link with darker blue hover */
 .link-inverse      /* NC gold link with lighter gold hover */
 ```
 
@@ -209,7 +209,7 @@ py-section-lg      /* padding-top/bottom: 6rem */
 .loading             /* Loading state with pulse */
 ```
 
-### Focus
+### Focus (Blue Dominant)
 ```css
 .focus-standard      /* NC blue focus ring */
 ```
@@ -313,6 +313,8 @@ className="surface-primary border-standard p-content text-heading-lg"
 4. Update documentation
 
 This design system ensures consistent styling across the platform and makes refactoring much easier by providing semantic, reusable design tokens and components.
+
+
 
 
 

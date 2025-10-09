@@ -13,6 +13,48 @@ export default defineType({
       validation: (Rule) => Rule.required(),
     }),
     defineField({
+      name: 'news',
+      title: 'News & RSS',
+      type: 'object',
+      fields: [
+        {
+          name: 'rssFeedUrl',
+          title: 'RSS Feed URL',
+          type: 'url',
+          description: 'Primary RSS/Atom feed for news articles',
+          initialValue: 'https://citybuildernc.org/feed',
+          validation: (Rule) => Rule.uri({ allowRelative: false }).required(),
+        },
+        {
+          name: 'sourceLabel',
+          title: 'Source Label',
+          type: 'string',
+          description: 'Display name for the news source',
+          initialValue: 'CITYBUILDER',
+        }
+      ]
+    }),
+    defineField({
+      name: 'theme',
+      title: 'Theme',
+      type: 'object',
+      fields: [
+        { name: 'brand500', title: 'Brand 500', type: 'string', description: 'Hex color, e.g., #3C3B6E' },
+        { name: 'brand600', title: 'Brand 600', type: 'string' },
+        { name: 'brand700', title: 'Brand 700', type: 'string' },
+        { name: 'brand800', title: 'Brand 800', type: 'string' },
+        { name: 'surfacePrimary', title: 'Surface Primary', type: 'string' },
+        { name: 'surfaceSecondary', title: 'Surface Secondary', type: 'string' },
+        { name: 'surfaceInverse', title: 'Surface Inverse', type: 'string' },
+        { name: 'contentPrimary', title: 'Content Primary', type: 'string' },
+        { name: 'contentSecondary', title: 'Content Secondary', type: 'string' },
+        { name: 'contentInverse', title: 'Content Inverse', type: 'string' },
+        { name: 'borderPrimary', title: 'Border Primary', type: 'string' },
+        { name: 'borderSecondary', title: 'Border Secondary', type: 'string' },
+        { name: 'borderFocus', title: 'Border Focus', type: 'string' },
+      ]
+    }),
+    defineField({
       name: 'tagline',
       title: 'Site Tagline',
       type: 'string',

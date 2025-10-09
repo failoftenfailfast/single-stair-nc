@@ -1,8 +1,9 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ncCountiesProgress, usStatesProgress, getStatusColor, getStatusLabel, PolicyProgress } from '@/data/policyProgress';
+import { ncCountiesProgress as localNcCounties, usStatesProgress as localUsStates, getStatusColor, getStatusLabel, PolicyProgress } from '@/data/policyProgress';
+import { fetchPolicyNCCounties, fetchPolicyStates } from '@/lib/policyData';
 
 interface SimpleProgressMapsProps {
   className?: string;
@@ -11,28 +12,40 @@ interface SimpleProgressMapsProps {
 export default function SimpleProgressMaps({ className = '' }: SimpleProgressMapsProps) {
   const [selectedItem, setSelectedItem] = useState<PolicyProgress | null>(null);
   const [activeMap, setActiveMap] = useState<'us' | 'nc'>('us');
+  const [statesProgress, setStatesProgress] = useState<PolicyProgress[]>(localUsStates);
+  const [countiesProgress, setCountiesProgress] = useState<PolicyProgress[]>(localNcCounties);
+
+  useEffect(() => {
+    fetchPolicyStates()
+      .then((data) => setStatesProgress(data))
+      .catch(() => setStatesProgress(localUsStates));
+
+    fetchPolicyNCCounties()
+      .then((data) => setCountiesProgress(data))
+      .catch(() => setCountiesProgress(localNcCounties));
+  }, []);
 
   // Summary statistics
   const stats = {
-    signed: usStatesProgress.filter(s => s.status === 'signed').length,
-    inProgress: usStatesProgress.filter(s => ['committee', 'introduced', 'passed_chamber', 'passed_both'].includes(s.status)).length,
-    studying: usStatesProgress.filter(s => s.status === 'studying').length,
-    totalStates: usStatesProgress.length
+    signed: statesProgress.filter(s => s.status === 'signed').length,
+    inProgress: statesProgress.filter(s => ['committee', 'introduced', 'passed_chamber', 'passed_both'].includes(s.status)).length,
+    studying: statesProgress.filter(s => s.status === 'studying').length,
+    totalStates: statesProgress.length
   };
 
   const ncStats = {
-    active: ncCountiesProgress.filter(c => c.status !== 'no_activity').length,
-    total: ncCountiesProgress.length
+    active: countiesProgress.filter(c => c.status !== 'no_activity').length,
+    total: countiesProgress.length
   };
 
   // Group data by status
-  const statesByStatus = usStatesProgress.reduce((acc, state) => {
+  const statesByStatus = statesProgress.reduce((acc, state) => {
     if (!acc[state.status]) acc[state.status] = [];
     acc[state.status].push(state);
     return acc;
   }, {} as Record<string, PolicyProgress[]>);
 
-  const countiesByStatus = ncCountiesProgress.reduce((acc, county) => {
+  const countiesByStatus = countiesProgress.reduce((acc, county) => {
     if (!acc[county.status]) acc[county.status] = [];
     acc[county.status].push(county);
     return acc;
@@ -270,7 +283,7 @@ export default function SimpleProgressMaps({ className = '' }: SimpleProgressMap
                 📍 ALL COUNTIES
               </h4>
               <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3">
-                {ncCountiesProgress.map((county) => (
+                {countiesProgress.map((county) => (
                   <div
                     key={county.id}
                     onClick={() => setSelectedItem(county)}
@@ -390,31 +403,76 @@ export default function SimpleProgressMaps({ className = '' }: SimpleProgressMap
 
       {/* Legend */}
       <div className="bg-gray-50 border border-gray-300 p-4">
-        <h4 className="font-bold text-sm mb-3">LEGEND</h4>
+        <h4 className="font-bold text-sm mb-2">LEGEND</h4>
+        <div className="text-xs text-gray-600 mb-3 text-center">
+          Hover over each status to learn more
+        </div>
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3 text-xs">
-          <div className="flex items-center space-x-2">
+          <div 
+            className="flex items-center space-x-2 group relative cursor-help p-2 rounded hover:bg-white transition-colors"
+            title="Bill has been signed into law and is now enforceable"
+          >
             <div className="w-4 h-4 border border-black" style={{ backgroundColor: getStatusColor('signed') }}></div>
             <span className="font-medium">Signed</span>
+            <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 hidden group-hover:block bg-black text-white text-xs p-3 rounded shadow-lg w-64 z-10">
+              <div className="font-bold mb-1">Signed into Law</div>
+              <div className="text-xs leading-relaxed">Bill has been signed into law and is now enforceable. Implementation guidelines may still be in development.</div>
+            </div>
           </div>
-          <div className="flex items-center space-x-2">
+          <div 
+            className="flex items-center space-x-2 group relative cursor-help p-2 rounded hover:bg-white transition-colors"
+            title="Bill has passed both legislative chambers"
+          >
             <div className="w-4 h-4 border border-black" style={{ backgroundColor: getStatusColor('passed_both') }}></div>
             <span className="font-medium">Passed</span>
+            <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 hidden group-hover:block bg-black text-white text-xs p-3 rounded shadow-lg w-64 z-10">
+              <div className="font-bold mb-1">Passed Legislature</div>
+              <div className="text-xs leading-relaxed">Bill has passed both legislative chambers and is awaiting governor or executive signature.</div>
+            </div>
           </div>
-          <div className="flex items-center space-x-2">
+          <div 
+            className="flex items-center space-x-2 group relative cursor-help p-2 rounded hover:bg-white transition-colors"
+            title="Bill is being reviewed by a legislative committee"
+          >
             <div className="w-4 h-4 border border-black" style={{ backgroundColor: getStatusColor('committee') }}></div>
             <span className="font-medium">Committee</span>
+            <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 hidden group-hover:block bg-black text-white text-xs p-3 rounded shadow-lg w-64 z-10">
+              <div className="font-bold mb-1">In Committee</div>
+              <div className="text-xs leading-relaxed">Bill is being reviewed by a legislative committee. Public hearings and amendments may occur before a committee vote.</div>
+            </div>
           </div>
-          <div className="flex items-center space-x-2">
+          <div 
+            className="flex items-center space-x-2 group relative cursor-help p-2 rounded hover:bg-white transition-colors"
+            title="Legislation has been formally introduced"
+          >
             <div className="w-4 h-4 border border-black" style={{ backgroundColor: getStatusColor('introduced') }}></div>
             <span className="font-medium">Introduced</span>
+            <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 hidden group-hover:block bg-black text-white text-xs p-3 rounded shadow-lg w-64 z-10">
+              <div className="font-bold mb-1">Bill Introduced</div>
+              <div className="text-xs leading-relaxed">Legislation has been formally introduced and assigned a bill number. Next step is typically committee referral.</div>
+            </div>
           </div>
-          <div className="flex items-center space-x-2">
+          <div 
+            className="flex items-center space-x-2 group relative cursor-help p-2 rounded hover:bg-white transition-colors"
+            title="Preliminary research or feasibility study underway"
+          >
             <div className="w-4 h-4 border border-black" style={{ backgroundColor: getStatusColor('studying') }}></div>
             <span className="font-medium">Studying</span>
+            <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 hidden group-hover:block bg-black text-white text-xs p-3 rounded shadow-lg w-64 z-10">
+              <div className="font-bold mb-1">Under Study</div>
+              <div className="text-xs leading-relaxed">Preliminary research or feasibility study underway. No legislation has been drafted yet.</div>
+            </div>
           </div>
-          <div className="flex items-center space-x-2">
+          <div 
+            className="flex items-center space-x-2 group relative cursor-help p-2 rounded hover:bg-white transition-colors"
+            title="No known single-stair legislation or study"
+          >
             <div className="w-4 h-4 border border-black" style={{ backgroundColor: getStatusColor('no_activity') }}></div>
             <span className="font-medium">No Activity</span>
+            <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 hidden group-hover:block bg-black text-white text-xs p-3 rounded shadow-lg w-64 z-10">
+              <div className="font-bold mb-1">No Activity</div>
+              <div className="text-xs leading-relaxed">No known single-stair legislation or study in this jurisdiction. Contact your representatives to get started!</div>
+            </div>
           </div>
         </div>
       </div>
@@ -434,6 +492,8 @@ export default function SimpleProgressMaps({ className = '' }: SimpleProgressMap
     </div>
   );
 }
+
+
 
 
 

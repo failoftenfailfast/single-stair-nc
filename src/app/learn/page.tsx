@@ -35,6 +35,12 @@ export default function LearnPage() {
       href: '/learn/articles',
       icon: '▼',
     },
+    {
+      title: 'NEWS',
+      description: 'Fresh updates from CITYBUILDER via RSS',
+      href: '/learn/articles',
+      icon: '✦',
+    },
   ];
 
   return (
