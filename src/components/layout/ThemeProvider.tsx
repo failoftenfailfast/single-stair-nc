@@ -51,7 +51,8 @@ function applyTheme(theme?: Theme) {
 
 export default function ThemeProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
-    client.fetch(queries.siteSettings)
+    fetch('/api/site-settings')
+      .then((res) => res.ok ? res.json() : null)
       .then((data) => applyTheme(data?.theme))
       .catch(() => {});
   }, []);

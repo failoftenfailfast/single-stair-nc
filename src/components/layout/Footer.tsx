@@ -35,8 +35,11 @@ export default function Footer() {
   useEffect(() => {
     const fetchSiteSettings = async () => {
       try {
-        const data = await client.fetch(queries.siteSettings);
-        setSiteSettings(data);
+        const res = await fetch('/api/site-settings');
+        if (res.ok) {
+          const data = await res.json();
+          setSiteSettings(data);
+        }
       } catch (error) {
         console.error('Error fetching site settings:', error);
       }

@@ -39,17 +39,17 @@ export default function ActPage() {
       .catch((error) => console.error('Error fetching Act page:', error));
 
     // Fetch updates in parallel; do not block initial render
-    client
-      .fetch(queries.policyUpdatesNC)
-      .then((nc) => setUpdatesNC(nc || []))
+    fetch('/api/policy-updates?scope=nc')
+      .then((res) => res.ok ? res.json() : null)
+      .then((nc) => setUpdatesNC(nc?.updates || []))
       .catch((error) => {
         console.error('Error fetching NC updates:', error);
         setUpdatesNC([]);
       });
 
-    client
-      .fetch(queries.policyUpdatesNational)
-      .then((nat) => setUpdatesNational(nat || []))
+    fetch('/api/policy-updates?scope=national')
+      .then((res) => res.ok ? res.json() : null)
+      .then((nat) => setUpdatesNational(nat?.updates || []))
       .catch((error) => {
         console.error('Error fetching national updates:', error);
         setUpdatesNational([]);

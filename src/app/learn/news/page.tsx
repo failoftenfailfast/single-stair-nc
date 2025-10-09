@@ -36,46 +36,13 @@ export default function NewsPage() {
   useEffect(() => {
     async function fetchPosts() {
       try {
-        const rssQuery = `
-          *[_type == "substackPost"] | order(publishedAt desc) {
-            _id,
-            title,
-            description,
-            url,
-            publishedAt,
-            author,
-            featured,
-            tags
-          }
-        `;
-        const manualQuery = `
-          *[_type == "manualNewsLink"] | order(publishedAt desc) {
-            _id,
-            title,
-            description,
-            url,
-            publishedAt,
-            source,
-            featured,
-            tags
-          }
-        `;
-        const [rssPosts, manualPosts] = await Promise.all([
-          client.fetch(rssQuery),
-          client.fetch(manualQuery),
-        ]);
-
-        const normalizedRss = (rssPosts as NewsPost[]).map((p) => ({ ...p }));
-        const normalizedManual = (manualPosts as ManualNewsLink[]).map((p) => ({ ...p }));
-
-        const combined = [...normalizedRss, ...normalizedManual].sort(
-          (a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime()
-        );
-
+        const res = await fetch('/api/news');
+        if (!res.ok) throw new Error('Failed to load news');
+        const data = await res.json();
+        const combined = (data.posts as Array<NewsPost | ManualNewsLink>) || [];
         const featured = (combined as any[]).find((p) => (p as any).featured);
         const regularPosts = (featured ? combined.filter((p) => !(p as any)._id || (p as any)._id !== featured._id) : combined).slice(0);
-
-        setFeaturedPost(featured || (normalizedRss[0] as any) || null);
+        setFeaturedPost((featured as any) || null);
         setPosts(regularPosts);
       } catch (error) {
         console.error('Error fetching news:', error);
