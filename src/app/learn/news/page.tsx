@@ -3,7 +3,7 @@
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
-import { client } from '../../../lib/sanity';
+import { client, urlFor } from '../../../lib/sanity';
 
 interface NewsPost {
   _id: string;
@@ -17,19 +17,29 @@ interface NewsPost {
   tags?: string[];
 }
 
+interface ManualNewsLink {
+  _id: string;
+  title: string;
+  url: string;
+  description?: string;
+  source?: string;
+  publishedAt: string;
+  featured?: boolean;
+  tags?: string[];
+}
+
 export default function NewsPage() {
-  const [posts, setPosts] = useState<NewsPost[]>([]);
+  const [posts, setPosts] = useState<Array<NewsPost | ManualNewsLink>>([]);
   const [featuredPost, setFeaturedPost] = useState<NewsPost | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     async function fetchPosts() {
       try {
-        const query = `
+        const rssQuery = `
           *[_type == "substackPost"] | order(publishedAt desc) {
             _id,
             title,
-            slug,
             description,
             url,
             publishedAt,
@@ -38,10 +48,34 @@ export default function NewsPage() {
             tags
           }
         `;
-        const allPosts = await client.fetch(query);
-        const featured = allPosts.find((post: NewsPost) => post.featured);
-        const regularPosts = allPosts.filter((post: NewsPost) => !post.featured);
-        setFeaturedPost(featured || allPosts[0] || null);
+        const manualQuery = `
+          *[_type == "manualNewsLink"] | order(publishedAt desc) {
+            _id,
+            title,
+            description,
+            url,
+            publishedAt,
+            source,
+            featured,
+            tags
+          }
+        `;
+        const [rssPosts, manualPosts] = await Promise.all([
+          client.fetch(rssQuery),
+          client.fetch(manualQuery),
+        ]);
+
+        const normalizedRss = (rssPosts as NewsPost[]).map((p) => ({ ...p }));
+        const normalizedManual = (manualPosts as ManualNewsLink[]).map((p) => ({ ...p }));
+
+        const combined = [...normalizedRss, ...normalizedManual].sort(
+          (a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime()
+        );
+
+        const featured = (combined as any[]).find((p) => (p as any).featured);
+        const regularPosts = (featured ? combined.filter((p) => !(p as any)._id || (p as any)._id !== featured._id) : combined).slice(0);
+
+        setFeaturedPost(featured || (normalizedRss[0] as any) || null);
         setPosts(regularPosts);
       } catch (error) {
         console.error('Error fetching news:', error);
@@ -145,10 +179,20 @@ export default function NewsPage() {
                   whileHover={{ y: -4 }}
                   className="surface-primary border border-border-primary shadow-soft hover:shadow-lg transition-all"
                 >
+                  {('thumbnail' in post && (post as any).thumbnail) ? (
+                    <div className="aspect-[16/9] w-full bg-surface-secondary border-b border-border-primary overflow-hidden">
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img
+                        src={urlFor((post as any).thumbnail).width(800).height(450).fit('crop').url()}
+                        alt={post.title}
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+                  ) : null}
                   <div className="p-6">
                     <div className="flex items-center justify-between mb-4">
                       <span className="text-xs font-semibold text-content-tertiary tracking-wider">{formatDate(post.publishedAt)}</span>
-                      <span className="text-xs font-semibold bg-surface-secondary px-2 py-1">{post.author}</span>
+                      <span className="text-xs font-semibold bg-surface-secondary px-2 py-1">{'author' in post && post.author ? post.author : ('source' in post && post.source ? post.source : 'NEWS')}</span>
                     </div>
                     <h3 className="text-xl font-black mb-4 leading-tight line-clamp-3">{post.title}</h3>
                     {post.description && (

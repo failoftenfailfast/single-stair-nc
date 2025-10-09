@@ -30,6 +30,7 @@ import callToAction from './callToAction';
 
 // External content
 import substackPost from './substackPost';
+import manualNewsLink from './manualNewsLink';
 
 // Shared types
 import blockContent from './blockContent';
@@ -67,6 +68,7 @@ export const schemas = [
   
   // External content
   substackPost,
+  manualNewsLink,
   
   // Shared types
   blockContent,

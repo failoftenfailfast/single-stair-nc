@@ -29,7 +29,7 @@ const client = createClient({
 
 const parser = new Parser({
   customFields: {
-    item: ['content:encoded']
+    item: ['content:encoded', 'media:content', 'media:thumbnail']
   }
 });
 
@@ -57,6 +57,48 @@ function cleanDescription(description) {
     .replace(/&quot;/g, '"')
     .replace(/&#39;/g, "'")
     .trim();
+}
+
+async function getOpenGraphImage(url) {
+  try {
+    const res = await fetch(url, { method: 'GET' });
+    const html = await res.text();
+    const ogMatch = html.match(/<meta[^>]+property=["']og:image["'][^>]+content=["']([^"']+)["'][^>]*>/i);
+    if (ogMatch && ogMatch[1]) return ogMatch[1];
+    const twitterMatch = html.match(/<meta[^>]+name=["']twitter:image["'][^>]+content=["']([^"']+)["'][^>]*>/i);
+    if (twitterMatch && twitterMatch[1]) return twitterMatch[1];
+    return null;
+  } catch {
+    return null;
+  }
+}
+
+async function uploadImageToSanity(imageUrl) {
+  try {
+    const resp = await fetch(imageUrl);
+    if (!resp.ok) return null;
+    const arrayBuf = await resp.arrayBuffer();
+    const fileName = imageUrl.split('/').pop() || 'thumbnail.jpg';
+    const asset = await client.assets.upload('image', Buffer.from(arrayBuf), { filename: fileName });
+    return { assetRef: { _type: 'image', asset: { _type: 'reference', _ref: asset._id } }, originalUrl: imageUrl };
+  } catch {
+    return null;
+  }
+}
+
+async function resolveThumbnailForItem(item, fallbackPageUrl) {
+  const enclosureUrl = (item?.enclosure && (item.enclosure.url || item.enclosure.url)) || undefined;
+  const mediaContentUrl = (item && (item['media:content']?.url || item['media:content']?.$?.url)) || undefined;
+  const mediaThumbUrl = (item && (item['media:thumbnail']?.url || item['media:thumbnail']?.$?.url)) || undefined;
+  const candidate = enclosureUrl || mediaContentUrl || mediaThumbUrl;
+  let imageUrl = candidate || null;
+  if (!imageUrl) {
+    imageUrl = await getOpenGraphImage(fallbackPageUrl);
+  }
+  if (!imageUrl) return null;
+  const uploaded = await uploadImageToSanity(imageUrl);
+  if (!uploaded) return null;
+  return { image: uploaded.assetRef, originalUrl: uploaded.originalUrl };
 }
 
 function extractTags(title, description) {
@@ -131,6 +173,7 @@ async function importRSSFeed() {
         
         const tags = extractTags(title, cleanedDescription);
         
+        const thumb = await resolveThumbnailForItem(item, url);
         const substackPost = {
           _type: 'substackPost',
           title,
@@ -146,6 +189,8 @@ async function importRSSFeed() {
           author: feedDef.label || 'CITYBUILDER',
           featured: imported === 0, // Make the first new post featured
           tags,
+          ...(thumb?.image ? { thumbnail: thumb.image } : {}),
+          ...(thumb?.originalUrl ? { thumbnailOriginalUrl: thumb.originalUrl } : {}),
         };
         
         console.log(`✅ Creating post: ${title}`);

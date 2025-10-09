@@ -59,6 +59,19 @@ export default defineType({
       description: 'Parsed content as rich text blocks',
     }),
     defineField({
+      name: 'thumbnail',
+      title: 'Thumbnail Image',
+      type: 'image',
+      options: { hotspot: true },
+      description: 'Locally hosted thumbnail image for this article',
+    }),
+    defineField({
+      name: 'thumbnailOriginalUrl',
+      title: 'Thumbnail Original URL',
+      type: 'url',
+      description: 'Source URL of the thumbnail image before import',
+    }),
+    defineField({
       name: 'author',
       title: 'Author',
       type: 'string',

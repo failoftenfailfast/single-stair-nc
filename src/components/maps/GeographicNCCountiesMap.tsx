@@ -20,6 +20,15 @@ const GeoJSON = dynamic(
   { ssr: false }
 );
 
+const sponsoringCounties = [
+  'Buncombe',
+  'Henderson',
+  'Polk',
+  'Rutherford',
+  'Pitt',
+  'Mecklenburg',
+];
+
 interface GeographicNCCountiesMapProps {
   className?: string;
 }
@@ -84,11 +93,13 @@ export default function GeographicNCCountiesMap({ className = '' }: GeographicNC
   const onEachFeature = (feature: any, layer: any) => {
     const countyName = feature.properties.NAME || feature.properties.name;
     const county = getCountyByName(countyName);
+    const isSponsor = sponsoringCounties.includes(countyName);
     
     if (county) {
       layer.bindPopup(`
         <div style="font-family: Inter, sans-serif;">
           <h3 style="margin: 0 0 8px 0; font-weight: bold; font-size: 16px;">${county.name}</h3>
+          ${isSponsor ? `<div style="margin-bottom: 8px; font-size: 12px; color: var(--color-blue-600); font-weight: bold;">SPONSORING DISTRICT</div>` : ''}
           <div style="margin-bottom: 8px;">
             <span style="display: inline-block; width: 12px; height: 12px; background-color: ${getStatusColor(county.status)}; margin-right: 8px; border: 1px solid var(--color-black);"></span>
             <strong>${getStatusLabel(county.status)}</strong>
@@ -107,6 +118,7 @@ export default function GeographicNCCountiesMap({ className = '' }: GeographicNC
       layer.bindPopup(`
         <div style="font-family: Inter, sans-serif;">
           <h3 style="margin: 0 0 8px 0; font-weight: bold; font-size: 16px;">${countyName}</h3>
+          ${isSponsor ? `<div style="margin-bottom: 8px; font-size: 12px; color: var(--color-blue-600); font-weight: bold;">SPONSORING DISTRICT</div>` : ''}
           <div style="margin-bottom: 8px;">
             <span style="display: inline-block; width: 12px; height: 12px; background-color: #9ca3af; margin-right: 8px; border: 1px solid var(--color-black);"></span>
             <strong>No Activity</strong>
@@ -144,12 +156,13 @@ export default function GeographicNCCountiesMap({ className = '' }: GeographicNC
   const style = (feature: any) => {
     const countyName = feature.properties.NAME || feature.properties.name;
     const county = getCountyByName(countyName);
-    
+    const isSponsor = sponsoringCounties.includes(countyName);
+
     return {
-      fillColor: county ? getStatusColor(county.status) : 'var(--color-gray-100)',
-      weight: 1,
+      fillColor: isSponsor ? 'var(--color-blue-200)' : (county ? getStatusColor(county.status) : 'var(--color-gray-100)'),
+      weight: isSponsor ? 2 : 1,
       opacity: 1,
-      color: 'var(--color-gray-600)',
+      color: isSponsor ? 'var(--color-blue-600)' : 'var(--color-gray-600)',
       fillOpacity: 0.6
     };
   };
@@ -215,7 +228,18 @@ export default function GeographicNCCountiesMap({ className = '' }: GeographicNC
           <div className="text-xs text-content-secondary mb-3 text-center">
             Hover over each status to learn more
           </div>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-2 text-xs">
+          <div className="grid grid-cols-2 md:grid-cols-5 gap-2 text-xs">
+            <div
+              className="flex items-center space-x-2 group relative cursor-help p-2 rounded hover:bg-earth-sand-50 transition-colors"
+              title="A local legislator is a sponsor of SB 492"
+            >
+              <div className="w-4 h-4 border border-blue-600" style={{ backgroundColor: 'var(--color-blue-200)' }}></div>
+              <span className="font-medium">Sponsor</span>
+              <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 hidden group-hover:block bg-black text-white text-xs p-3 rounded shadow-lg w-64 z-10">
+                <div className="font-bold mb-1">Sponsoring District</div>
+                <div className="text-xs leading-relaxed">A legislator from this county is a sponsor of SB 492, the Single Stair Building Code Reform bill.</div>
+              </div>
+            </div>
             <div 
               className="flex items-center space-x-2 group relative cursor-help p-2 rounded hover:bg-earth-sand-50 transition-colors"
               title="Local ordinance or policy has been signed into law"
