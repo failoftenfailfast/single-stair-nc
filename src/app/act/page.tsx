@@ -22,12 +22,20 @@ export default function ActPage() {
   const [selectedTab, setSelectedTab] = useState('progress');
   const [actPageData, setActPageData] = useState<ActPageData | null>(null);
   const [loading, setLoading] = useState(true);
+  const [updatesNC, setUpdatesNC] = useState<any[]>([]);
+  const [updatesNational, setUpdatesNational] = useState<any[]>([]);
 
   useEffect(() => {
     const fetchActPageData = async () => {
       try {
-        const data = await client.fetch(queries.actPage);
+        const [data, nc, nat] = await Promise.all([
+          client.fetch(queries.actPage),
+          client.fetch(queries.policyUpdatesNC),
+          client.fetch(queries.policyUpdatesNational),
+        ]);
         setActPageData(data);
+        setUpdatesNC(nc || []);
+        setUpdatesNational(nat || []);
       } catch (error) {
         console.error('Error fetching Act page data:', error);
       } finally {
@@ -58,7 +66,7 @@ export default function ActPage() {
       {/* Hero Section */}
       <section className={`section-padding text-content-inverse ${actPageData?.heroBackgroundImage ? 'relative' : 'surface-inverse'}`}>
         {actPageData?.heroBackgroundImage && (
-          <div className="absolute inset-0 -z-10">
+          <div className="absolute inset-0 z-0">
             <Image
               src={urlFor(actPageData.heroBackgroundImage).width(1920).height(1080).url()}
               alt="Hero background"
@@ -73,7 +81,7 @@ export default function ActPage() {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="max-w-4xl"
+            className="relative z-10 max-w-4xl"
           >
             <h1 className="text-5xl md:text-7xl lg:text-8xl font-black mb-8 leading-none">
               {actPageData?.heroTitle?.split('\n').map((line, index) => (
@@ -179,55 +187,39 @@ export default function ActPage() {
                 {/* Progress Maps */}
                 <GeographicProgressMaps />
 
-                {/* Recent Updates */}
+                {/* Recent Updates (CMS-driven) */}
                 <div className="border-2 border-black p-8 bg-white">
                   <h3 className="text-xl font-black mb-6">RECENT UPDATES</h3>
                   <div className="grid md:grid-cols-2 gap-6">
                     <div className="space-y-4">
                       <h4 className="font-bold text-lg">NORTH CAROLINA</h4>
                       <div className="space-y-3">
-                        <div className="pb-3 border-b border-gray-200">
-                          <div className="text-sm font-bold mb-1 text-amber-600">MARCH 15, 2024</div>
-                          <p className="text-sm">
-                            <span className="font-medium">HB 123</span> - Single Stair Housing Act passed committee vote 8-3, moves to full House floor.
-                          </p>
-                        </div>
-                        <div className="pb-3 border-b border-gray-200">
-                          <div className="text-sm font-bold mb-1 text-amber-600">MARCH 10, 2024</div>
-                          <p className="text-sm">
-                            <span className="font-medium">Wake County</span> - Local Bill 2024-15 scheduled for county commission vote.
-                          </p>
-                        </div>
-                        <div className="pb-3 border-b border-gray-200">
-                          <div className="text-sm font-bold mb-1 text-purple-600">MARCH 5, 2024</div>
-                          <p className="text-sm">
-                            <span className="font-medium">Guilford County</span> - Greensboro planning department begins feasibility study.
-                          </p>
-                        </div>
+                        {updatesNC.map((u) => (
+                          <div key={u._id} className="pb-3 border-b border-gray-200">
+                            <div className={`text-sm font-bold mb-1 ${u.statusKind === 'committee' ? 'text-amber-600' : u.statusKind === 'passed_both' ? 'text-blue-600' : u.statusKind === 'signed' ? 'text-green-600' : u.statusKind === 'introduced' ? 'text-yellow-600' : u.statusKind === 'studying' ? 'text-purple-600' : 'text-gray-700'}`}>
+                              {new Date(u.date).toLocaleDateString()}
+                            </div>
+                            <p className="text-sm">
+                              {u.billNumber && <span className="font-medium">{u.billNumber}</span>} {u.title || ''}{u.description ? ` - ${u.description}` : ''}
+                            </p>
+                          </div>
+                        ))}
                       </div>
                     </div>
 
                     <div className="space-y-4">
                       <h4 className="font-bold text-lg">NATIONAL</h4>
                       <div className="space-y-3">
-                        <div className="pb-3 border-b border-gray-200">
-                          <div className="text-sm font-bold mb-1 text-blue-600">FEBRUARY 28, 2024</div>
-                          <p className="text-sm">
-                            <span className="font-medium">Washington State</span> - HB 1110 passed both chambers, awaiting governor signature.
-                          </p>
-                        </div>
-                        <div className="pb-3 border-b border-gray-200">
-                          <div className="text-sm font-bold mb-1 text-yellow-600">FEBRUARY 20, 2024</div>
-                          <p className="text-sm">
-                            <span className="font-medium">Texas</span> - HB 892 introduced for single-stair buildings in urban areas.
-                          </p>
-                        </div>
-                        <div className="pb-3 border-b border-gray-200">
-                          <div className="text-sm font-bold mb-1 text-green-600">JANUARY 15, 2024</div>
-                          <p className="text-sm">
-                            <span className="font-medium">California</span> - AB 2097 signed into law, implementation guidelines in development.
-                          </p>
-                        </div>
+                        {updatesNational.map((u) => (
+                          <div key={u._id} className="pb-3 border-b border-gray-200">
+                            <div className={`text-sm font-bold mb-1 ${u.statusKind === 'passed_both' ? 'text-blue-600' : u.statusKind === 'signed' ? 'text-green-600' : u.statusKind === 'introduced' ? 'text-yellow-600' : u.statusKind === 'studying' ? 'text-purple-600' : u.statusKind === 'committee' ? 'text-amber-600' : 'text-gray-700'}`}>
+                              {new Date(u.date).toLocaleDateString()}
+                            </div>
+                            <p className="text-sm">
+                              {u.locationName ? <span className="font-medium">{u.locationName}</span> : null} {u.title || ''}{u.description ? ` - ${u.description}` : ''}
+                            </p>
+                          </div>
+                        ))}
                       </div>
                     </div>
                   </div>
