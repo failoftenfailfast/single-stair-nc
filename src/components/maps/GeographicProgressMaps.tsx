@@ -57,8 +57,8 @@ export default function GeographicProgressMaps({ className = '' }: GeographicPro
             </div>
             
             <div className="space-y-8">
-              <GeographicUSStatesMap />
               <GeographicNCCountiesMap />
+              <GeographicUSStatesMap />
             </div>
           </div>
 

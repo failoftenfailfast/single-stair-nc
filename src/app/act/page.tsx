@@ -46,6 +46,18 @@ export default function ActPage() {
     fetchActPageData();
   }, []);
 
+  const handleScrollToMaps = () => {
+    setSelectedTab('progress');
+    if (typeof window !== 'undefined') {
+      window.requestAnimationFrame(() => {
+        const el = document.getElementById('progress-maps');
+        if (el) {
+          el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    }
+  };
+
   const tabs = [
     { id: 'contact', label: 'CONTACT REPS' },
     { id: 'progress', label: 'TRACK PROGRESS' },
@@ -66,16 +78,17 @@ export default function ActPage() {
       {/* Hero Section */}
       <section className={`section-padding text-content-inverse ${actPageData?.heroBackgroundImage ? 'relative' : 'surface-inverse'}`}>
         {actPageData?.heroBackgroundImage && (
-          <div className="absolute inset-0 z-0">
+          <>
             <Image
               src={urlFor(actPageData.heroBackgroundImage).width(1920).height(1080).url()}
               alt="Hero background"
               fill
-              className="object-cover"
+              sizes="100vw"
+              className="object-cover z-0"
               priority
             />
-            <div className="absolute inset-0 bg-black bg-opacity-50"></div>
-          </div>
+            <div className="absolute inset-0 z-0 bg-black/50"></div>
+          </>
         )}
         <div className="container-custom">
           <motion.div
@@ -100,7 +113,7 @@ export default function ActPage() {
               <button className="bg-surface-primary text-content-primary hover:bg-brand-500 hover:text-white border border-border-primary px-8 py-4 font-medium transition-colors shadow-soft">
                 {actPageData?.primaryButtonText || 'FIND YOUR REPRESENTATIVE'}
               </button>
-              <button className="border border-border-primary bg-surface-inverse text-content-inverse hover:bg-surface-primary hover:text-content-primary px-8 py-4 font-medium transition-colors shadow-soft">
+              <button onClick={handleScrollToMaps} className="border border-border-primary bg-surface-inverse text-content-inverse hover:bg-surface-primary hover:text-content-primary px-8 py-4 font-medium transition-colors shadow-soft">
                 {actPageData?.secondaryButtonText || 'VIEW PROGRESS MAP'}
               </button>
             </div>
@@ -175,6 +188,7 @@ export default function ActPage() {
 
           {selectedTab === 'progress' && (
             <motion.div
+              id="progress-maps"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               className="max-w-7xl mx-auto"
