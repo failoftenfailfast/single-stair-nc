@@ -30,10 +30,12 @@ export default function ActPage() {
   const [updatesNational, setUpdatesNational] = useState<any[]>([]);
 
   useEffect(() => {
-    // Fetch hero/content first so image and text can appear ASAP
-    client
-      .fetch(queries.actPage)
-      .then((data) => setActPageData(data))
+    // Fetch hero/content via server API to avoid client-side CORS/site config issues
+    fetch('/api/act')
+      .then((res) => res.ok ? res.json() : null)
+      .then((data) => {
+        if (data) setActPageData(data);
+      })
       .catch((error) => console.error('Error fetching Act page:', error));
 
     // Fetch updates in parallel; do not block initial render
