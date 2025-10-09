@@ -140,8 +140,8 @@ export const queries = {
     letterTemplates
   }`,
 
-  // Act page content (prefer most recently updated doc to avoid picking older duplicates)
-  actPage: `*[_type == "actPage"] | order(_updatedAt desc)[0]{
+  // Act page content (singleton by fixed documentId)
+  actPage: `*[_id == "actPage"][0]{
     title,
     heroTitle,
     heroDescription,
