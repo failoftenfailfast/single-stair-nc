@@ -1,22 +1,23 @@
 # Deployment Guide
 
-## GitHub Repository Setup
+## GitLab Repository Setup
 
-1. Create a new repository on GitHub named `single-stair-nc`
-2. Connect your local repository:
+1. Create or select your GitLab group (e.g., `tejofjord`).
+2. Create a new project in GitLab named `single-stair-nc`.
+3. Connect your local repository:
    ```bash
-   git remote add origin https://github.com/YOUR_GITHUB_USERNAME/single-stair-nc.git
+   git remote add origin https://gitlab.com/tejofjord/single-stair-nc.git
    git branch -M main
    git push -u origin main
    ```
 
-## Vercel Deployment
+## Vercel Deployment (Team: tejofjord)
 
 ### Automatic Deployment (Recommended)
 
 1. **Sign up/Login to Vercel**: Go to [vercel.com](https://vercel.com)
-2. **Import from GitHub**: Click "New Project" → "Import Git Repository"
-3. **Select Repository**: Choose `single-stair-nc` from your GitHub repositories
+2. **Import from GitLab**: Click "New Project" → "Import Git Repository"
+3. **Select Repository**: Choose `single-stair-nc` from your GitLab projects (or connect via the GitLab app)
 4. **Configure Project**:
    - **Framework Preset**: Next.js (auto-detected)
    - **Root Directory**: `./` (default)
@@ -24,7 +25,7 @@
    - **Output Directory**: `.next` (default)
    - **Install Command**: `npm install` (default)
 
-5. **Environment Variables**: Add these in Vercel dashboard:
+5. **Environment Variables**: Add these in Vercel dashboard (Project → Settings → Environment Variables) under the `tejofjord` team project:
    ```
    SANITY_PROJECT_ID=your_sanity_project_id
    SANITY_DATASET=production
@@ -36,13 +37,13 @@
 
 6. **Deploy**: Click "Deploy" - Vercel will automatically build and deploy your site
 
-### Manual Deployment via CLI
+### Manual Deployment via CLI (used by GitLab CI)
 
 ```bash
 # Install Vercel CLI
 npm i -g vercel
 
-# Login to Vercel
+# Login to Vercel (optional locally; CI uses token)
 vercel login
 
 # Deploy
@@ -99,13 +100,19 @@ The site is optimized for production with:
 - Monitor build times and deployment success
 - Set up alerts for downtime or errors
 
-## Continuous Deployment
+## Continuous Deployment via GitLab CI
 
-Once connected to GitHub:
-- ✅ **Automatic deployments** on push to main branch
-- ✅ **Preview deployments** for pull requests
-- ✅ **Rollback capability** to previous deployments
-- ✅ **Branch deployments** for testing
+This repository includes a `.gitlab-ci.yml` that validates, builds, and deploys using the Vercel CLI.
+
+1. In GitLab → Settings → CI/CD → Variables, add (masked, protected where appropriate):
+   - `VERCEL_TOKEN` – Vercel token with access to team `tejofjord`
+   - `VERCEL_ORG_ID` – Vercel org ID for team `tejofjord`
+   - `VERCEL_PROJECT_ID` – Vercel project ID
+   - `PRODUCTION_URL` – Your primary domain (e.g., `singlestair-nc.org`)
+2. Pipelines:
+   - Pushes to non-main branches run `deploy_staging` with preview deployments
+   - Pushes to `main` run `deploy_production`
+3. Artifacts: `.next/` is stored for one week
 
 ## Troubleshooting
 

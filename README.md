@@ -218,12 +218,12 @@ export async function GET() {
 
 ## 🚀 Deployment
 
-### Vercel (Recommended)
+### Vercel (Team: tejofjord)
 
-1. **Connect repository** to Vercel
-2. **Configure environment variables**
-3. **Deploy** - Automatic deployments on push
-4. **Custom domain** - Configure DNS
+1. **Connect GitLab repository** to Vercel under team `tejofjord`
+2. **Configure environment variables** (Project → Settings → Environment Variables)
+3. **Deploy** - Automatic deployments on push via GitLab CI
+4. **Custom domain** - Configure DNS in Vercel
 
 ### Environment Variables (Production)
 ```bash

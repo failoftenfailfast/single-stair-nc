@@ -1,0 +1,101 @@
+image: node:20-bullseye
+
+variables:
+  NODE_ENV: production
+  NEXT_TELEMETRY_DISABLED: '1'
+  # Ensure consistent install path for caching
+  NPM_CONFIG_CACHE: "$CI_PROJECT_DIR/.npm"
+
+cache:
+  key: ${CI_COMMIT_REF_SLUG}
+  paths:
+    - node_modules/
+    - .next/cache/
+    - .npm/
+
+stages:
+  - validate
+  - build
+  - deploy
+
+.setup:
+  before_script:
+    - node -v
+    - npm -v
+    - npm ci
+
+lint:
+  stage: validate
+  extends: .setup
+  script:
+    - npm run lint
+
+typecheck:
+  stage: validate
+  extends: .setup
+  script:
+    - npm run type-check
+
+build:
+  stage: build
+  extends: .setup
+  script:
+    - npm run build
+  artifacts:
+    expire_in: 1 week
+    paths:
+      - .next/
+
+# Optional: Deploy via Vercel CLI. Requires variables in GitLab:
+# - VERCEL_TOKEN: personal/team token with deploy rights
+# - VERCEL_ORG_ID: Vercel org ID for team "tejofjord"
+# - VERCEL_PROJECT_ID: Vercel project ID
+# Scope these per environment (staging/production) as needed.
+
+.vercel_env:
+  variables:
+    VERCEL_TOKEN: $VERCEL_TOKEN
+    VERCEL_ORG_ID: $VERCEL_ORG_ID
+    VERCEL_PROJECT_ID: $VERCEL_PROJECT_ID
+
+deploy_staging:
+  stage: deploy
+  image: node:20-bullseye
+  needs: [build]
+  rules:
+    - if: '$CI_COMMIT_BRANCH && $CI_COMMIT_BRANCH != "main"'
+  environment:
+    name: staging
+    url: https://$VERCEL_PROJECT_SLUG-git-$CI_COMMIT_REF_SLUG.vercel.app
+  before_script:
+    - npm ci
+    - npm i -g vercel@latest
+  script:
+    - vercel pull --yes --environment=preview --token $VERCEL_TOKEN
+    - vercel build --token $VERCEL_TOKEN
+    - vercel deploy --prebuilt --token $VERCEL_TOKEN
+  dependencies:
+    - build
+  extends: .vercel_env
+
+deploy_production:
+  stage: deploy
+  image: node:20-bullseye
+  needs: [build]
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "main"'
+  environment:
+    name: production
+    url: https://$PRODUCTION_URL
+  before_script:
+    - npm ci
+    - npm i -g vercel@latest
+  script:
+    - vercel pull --yes --environment=production --token $VERCEL_TOKEN
+    - vercel build --prod --token $VERCEL_TOKEN
+    - vercel deploy --prebuilt --prod --token $VERCEL_TOKEN
+  dependencies:
+    - build
+  extends: .vercel_env
+
+
